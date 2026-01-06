@@ -1,0 +1,45 @@
+/* base background and text */
+body {
+  background-color: #f8f9fa;    /* light grey page background */
+  color: #20232a;               /* dark text */
+}
+
+/* navigation bar background + text */
+.wt-nav, .wt-nav a {
+  background-color: #1a1f36 !important; /* dark blue/navy */
+  color: #ffffff !important;
+}
+
+/* sidebar background */
+.wt-sidebar {
+  background-color: #ffffff;   /* white */
+  border-right: 2px solid #e1e4e8;
+}
+
+/* links within main content */
+a {
+  color: #0066cc; /* custom link colour */
+}
+
+/* link hover state */
+a:hover {
+  color: #004999;
+}
+
+/* headings */
+h1, h2, h3, h4, h5, h6 {
+  color: #0e1a35; /* dark shade */
+}
+
+/* code block background */
+.highlight, code, .highlight pre {
+  background: #f0f0f0;
+  color: #d6336c;
+}
+
+:root {
+  --color-brand: #005fa3;     /* brand highlight colour */
+  --color-links: #0077dd;
+  --color-bg-base: #fffffff0;
+  --color-text-base: #2b2b2b;
+}
