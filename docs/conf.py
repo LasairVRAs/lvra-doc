@@ -24,7 +24,6 @@ templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 
-
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
@@ -39,6 +38,8 @@ extensions = ['sphinx_wagtail_theme',
 html_theme = 'sphinx_wagtail_theme'
 #html_theme = 'sphinx_book_theme'  # or 'sphinx_rtd_theme' if installed
 html_static_path = ['_static']
+# include your custom CSS after the theme’s defaults
+html_css_files = ["custom.css"]
 
 # This is used by Sphinx in many places, such as page title tags.
 project = "LVRA"
