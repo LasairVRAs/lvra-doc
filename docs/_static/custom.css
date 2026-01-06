@@ -1,0 +1,332 @@
+/* ==========================================================================
+   custom.css — cleaned (no visual changes)
+   ========================================================================== */
+
+/* -----------------------------
+   1) Color variables (edit these)
+   - Light mode defaults under `html { ... }`.
+   - Dark mode overrides under `html.theme-dark, body.theme-dark { ... }`.
+   ----------------------------- */
+html {
+  /* page / canvas */
+  --site-bg: #fffff0;         /* main page background (center + body) */
+  --page-surface: #fffff0;    /* surfaces: article background (wt-main) */
+  --muted-surface: #fbf9f3;   /* panels/alert backgrounds (light) */
+
+  /* navigation & sidebar */
+  --nav-bg: #141313;          /* top header background (logo bar) */
+  --sidebar-bg: #F0A202;      /* left sidebar background */
+
+  /* text & links */
+  --text: #262626;            /* main body text */
+  --muted-text: #666666;      /* secondary text */
+  --link: #e61d53;            /* link color */
+  --link-hover: #14eee0;      /* link hover */
+
+  /* accents / panels */
+  --accent: #e61d53;          /* used for admonition header / accents */
+  --panel-border: #e9bfcf;    /* panel / card border */
+  --footer-bg: #00BABB;       /* footer background */
+
+  /* code (final light-mode values preserved from original) */
+  --code-bg: #1e1e26;         /* block code background */
+  --code-border: #1e1e26;
+  --code-inline-bg: #f8be6e;  /* inline code background */
+  --code-inline-text: #830303;
+  --code-text: #e5e7eb;
+
+  /* admonitions (light defaults) */
+  --adm-red-bg: #fdecec;
+  --adm-red-border: #fdecec;
+  --adm-red-header: #CE4257;
+
+  --adm-yellow-bg: #fff6e5;
+  --adm-yellow-border: #fff6e5;
+  --adm-yellow-header: #F0A202;
+
+  --adm-blue-bg: #d9eded;
+  --adm-blue-border: #d9eded;
+  --adm-blue-header: #00BABB;
+
+  --adm-grey-bg: #f6f6f6;
+  --adm-grey-border: #f6f6f6;
+  --adm-grey-header: #6b7280;
+}
+
+/* utility helper kept from original */
+.bg-primary {
+  background-color: #141313 !important;
+}
+
+/* Dark mode overrides.
+   Theme may add a class on <html> or <body> so target both.
+*/
+html.theme-dark,
+body.theme-dark {
+  --site-bg: #262626;
+  --page-surface: #262626f3;
+  --muted-surface: #1e0a15;
+
+  --nav-bg: #141313;
+  --sidebar-bg: #262626;
+
+  --text: #e6e6ee;
+  --muted-text: #d6c4cd;
+  --link: #14eee0;
+  --link-hover: #e61d53;
+
+  --accent: #CE4257;
+  --panel-border: #3b2b4e;
+  --footer-bg: #00BABB;
+
+  /* admonition dark overrides */
+  --adm-red-bg: #3e1d27;
+  --adm-red-border: #3e1d27;
+  --adm-red-header: #CE4257;
+
+  --adm-yellow-bg: #432308;
+  --adm-yellow-border: #432308;
+  --adm-yellow-header: #F0A202;
+
+  --adm-blue-bg: #003939;
+  --adm-blue-border: #003939;
+  --adm-blue-header: #00BABB;
+
+  --adm-grey-bg: #2a2a2a;
+  --adm-grey-border: #2a2a2a;
+  --adm-grey-header: #9ca3af;
+
+  /* code (dark-mode values preserved) */
+  --code-bg: #1e1e26;
+  --code-border: #1e1e26;
+  --code-inline-bg: #0d3446;
+  --code-inline-text: #ff3ba7;
+  --code-text: #e5e7eb;
+}
+
+/* -----------------------------
+   2) Apply variables to layout
+   ----------------------------- */
+
+/* body / overall canvas */
+body {
+  background-color: var(--site-bg) !important;
+  color: var(--text) !important;
+}
+
+/* Top navigation / header bar */
+.wt-nav,
+header.wt-nav,
+.header,
+.navbar {
+  background-color: var(--nav-bg) !important;
+  color: var(--text) !important;
+}
+
+/* Left sidebar (table of contents/search) */
+.wt-sidebar,
+.sidebar {
+  background-color: var(--sidebar-bg) !important;
+  color: var(--text) !important;
+  border-right: 1px solid var(--panel-border) !important;
+}
+
+/* Main content surface */
+.wt-main,
+.main-content,
+.document {
+  background-color: var(--page-surface) !important;
+  color: var(--text) !important;
+}
+
+/* Panels, cards, and admonitions */
+.wt-panel,
+.admonition,
+.rst-content .admonition,
+div.admonition {
+  background-color: var(--muted-surface) !important;
+  border: 1px solid var(--panel-border) !important;
+  color: var(--text) !important;
+}
+
+/* Links */
+a,
+.wt-main a,
+.rst-content a {
+  color: var(--link) !important;
+}
+a:hover,
+.wt-main a:hover {
+  color: var(--link-hover) !important;
+}
+
+/* Breadcrumbs / small utility links */
+.wt-breadcrumbs,
+.wt-toolbar,
+.actions {
+  color: var(--muted-text) !important;
+}
+
+/* Footer */
+.wt-footer,
+.footer,
+.site-footer {
+  background-color: var(--footer-bg) !important;
+  color: var(--muted-text) !important;
+}
+
+/* Buttons / small badges */
+button,
+.btn,
+.wt-btn,
+a.button {
+  background-color: var(--muted-surface) !important;
+  border: 1px solid var(--panel-border) !important;
+  color: var(--text) !important;
+}
+
+/* Small UI tweaks: search box, input backgrounds */
+input,
+textarea,
+.searchbox,
+.wt-search input {
+  background-color: var(--page-surface) !important;
+  color: var(--text) !important;
+}
+
+/* Search icon background (light & dark) */
+.input-group-prepend .input-group-text {
+  background-color: var(--page-surface) !important;
+  color: var(--muted-text) !important;
+  border: 1px solid var(--panel-border) !important;
+}
+html.theme-dark .input-group-prepend .input-group-text,
+body.theme-dark .input-group-prepend .input-group-text {
+  background-color: var(--page-surface) !important;
+  color: var(--text) !important;
+  border-color: var(--panel-border) !important;
+}
+
+/* -----------------------------
+   Admonition colour scheme
+   ----------------------------- */
+
+/* Base admonition styling */
+.admonition {
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 1.25em 0;
+}
+.admonition .admonition-title {
+  padding: 0.45em 0.9em;
+  font-weight: 600;
+  color: #fff;
+}
+.admonition > :not(.admonition-title) {
+  padding: 0.9em 1.1em;
+  border: 1px solid;
+}
+
+/* RED: error, important */
+.admonition.error,
+.admonition.important {
+  background-color: var(--adm-red-bg) !important;
+}
+.admonition.error > :not(.admonition-title),
+.admonition.important > :not(.admonition-title) {
+  background-color: var(--adm-red-bg) !important;
+  border-color: var(--adm-red-border) !important;
+}
+.admonition.error .admonition-title,
+.admonition.important .admonition-title {
+  background-color: var(--adm-red-header) !important;
+}
+
+/* YELLOW: caution, warning */
+.admonition.caution,
+.admonition.warning {
+  background-color: var(--adm-yellow-bg) !important;
+}
+.admonition.caution > :not(.admonition-title),
+.admonition.warning > :not(.admonition-title) {
+  background-color: var(--adm-yellow-bg) !important;
+  border-color: var(--adm-yellow-border) !important;
+}
+.admonition.caution .admonition-title,
+.admonition.warning .admonition-title {
+  background-color: var(--adm-yellow-header) !important;
+}
+
+/* BLUE: information, tip */
+.admonition.information,
+.admonition.tip {
+  background-color: var(--adm-blue-bg) !important;
+}
+.admonition.information > :not(.admonition-title),
+.admonition.tip > :not(.admonition-title) {
+  background-color: var(--adm-blue-bg) !important;
+  border-color: var(--adm-blue-border) !important;
+}
+.admonition.information .admonition-title,
+.admonition.tip .admonition-title {
+  background-color: var(--adm-blue-header) !important;
+}
+
+/* GENERIC fallback (any other admonition) */
+.admonition:not(.error):not(.important):not(.caution):not(.warning):not(.information):not(.tip) {
+  background-color: var(--adm-grey-bg) !important;
+}
+.admonition:not(.error):not(.important):not(.caution):not(.warning):not(.information):not(.tip)
+  > :not(.admonition-title) {
+  background-color: var(--adm-grey-bg) !important;
+  border-color: var(--adm-grey-border) !important;
+}
+.admonition:not(.error):not(.important):not(.caution):not(.warning):not(.information):not(.tip)
+  .admonition-title {
+  background-color: var(--adm-grey-header) !important;
+}
+
+/* -----------------------------
+   Code block styling
+   ----------------------------- */
+
+/* Block code */
+.highlight,
+.highlight pre,
+pre {
+  background-color: var(--code-bg) !important;
+  color: var(--code-text) !important;
+  border: 1px solid var(--code-border) !important;
+  border-radius: 6px;
+  padding: 0.75em 1em;
+  overflow-x: auto;
+}
+
+/* Inline code */
+code {
+  background-color: var(--code-inline-bg) !important;
+  color: var(--code-inline-text) !important;
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+/* Avoid double-styling code inside blocks */
+pre code {
+  background: none !important;
+  padding: 0;
+  font-size: inherit;
+}
+
+/* -----------------------------
+   Debug notes (keep for troubleshooting)
+   -----------------------------
+   - Edit variables at the top to change colours site-wide.
+   - If a particular element still shows the theme colour, inspect it in
+     DevTools and note the selector and whether it uses CSS variables.
+   - After editing: rebuild Sphinx and refresh browser (clear cache).
+   ----------------------------- */
+
+/* Example test helpers (commented)
+html { outline: 2px dashed rgba(0,0,0,0.05); }
+.wt-nav { outline: 2px solid rgba(255,0,0,0.05); }
+*/
