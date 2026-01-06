@@ -19,6 +19,7 @@ html {
 
   /* text & links */
   --text: #262626;            /* main body text */
+  --text-nav-bar: #ffffff;     /* nav bar text */
   --muted-text: #666666;      /* secondary text */
   --link: #e61d53;            /* link color */
   --link-hover: #14eee0;      /* link hover */
@@ -31,8 +32,8 @@ html {
   /* code (final light-mode values preserved from original) */
   --code-bg: #1e1e26;         /* block code background */
   --code-border: #1e1e26;
-  --code-inline-bg: #f8be6e;  /* inline code background */
-  --code-inline-text: #830303;
+  --code-inline-bg: #f5b356;  /* inline code background */
+  --code-inline-text: #38130d;
   --code-text: #e5e7eb;
 
   /* admonitions (light defaults) */
@@ -63,21 +64,21 @@ html {
 */
 html.theme-dark,
 body.theme-dark {
-  --site-bg: #262626;
-  --page-surface: #262626f3;
-  --muted-surface: #1e0a15;
+  --site-bg: #272727;
+  --page-surface: #272727;
+  --muted-surface: #262626;
 
   --nav-bg: #141313;
   --sidebar-bg: #262626;
 
   --text: #e6e6ee;
-  --muted-text: #d6c4cd;
   --link: #14eee0;
   --link-hover: #e61d53;
 
   --accent: #CE4257;
-  --panel-border: #3b2b4e;
+  --panel-border: #013d3d;
   --footer-bg: #00BABB;
+
 
   /* admonition dark overrides */
   --adm-red-bg: #3e1d27;
@@ -97,10 +98,10 @@ body.theme-dark {
   --adm-grey-header: #9ca3af;
 
   /* code (dark-mode values preserved) */
-  --code-bg: #1e1e26;
-  --code-border: #1e1e26;
-  --code-inline-bg: #0d3446;
-  --code-inline-text: #ff3ba7;
+  --code-bg: #0e0e0e;
+  --code-border: #0e0e0e;
+  --code-inline-bg: #0e0e0e;
+  --code-inline-text: #F0A202;
   --code-text: #e5e7eb;
 }
 
@@ -114,13 +115,32 @@ body {
   color: var(--text) !important;
 }
 
+
+
 /* Top navigation / header bar */
 .wt-nav,
 header.wt-nav,
 .header,
 .navbar {
   background-color: var(--nav-bg) !important;
-  color: var(--text) !important;
+  color: var(--text-nav-bar) !important;
+}
+
+
+/* Links inside the top navigation */
+.wt-nav a,
+header.wt-nav a,
+.header a,
+.navbar a {
+  color: var(--text-nav-bar) !important;       /* normal link colour */
+}
+
+/* Hover / active state */
+.wt-nav a:hover,
+header.wt-nav a:hover,
+.header a:hover,
+.navbar a:hover {
+  color: var(--link-hover) !important;
 }
 
 /* Left sidebar (table of contents/search) */
@@ -139,15 +159,6 @@ header.wt-nav,
   color: var(--text) !important;
 }
 
-/* Panels, cards, and admonitions */
-.wt-panel,
-.admonition,
-.rst-content .admonition,
-div.admonition {
-  background-color: var(--muted-surface) !important;
-  border: 1px solid var(--panel-border) !important;
-  color: var(--text) !important;
-}
 
 /* Links */
 a,
