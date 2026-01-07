@@ -2,9 +2,11 @@
 <html class="no-js" lang="en" data-content_root="./">
 <head>
     <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Search &mdash; LVRA dev documentation</title>
+        <title>Dev Notes &mdash; LVRA dev documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
@@ -12,8 +14,9 @@
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=3f91281a" />
             <link rel="index" title="Index" href="genindex.html" />
-            <link rel="search" title="Search" href="#" />
+            <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
+            <link rel="prev" title="Introduction" href="intro.html" />
     </head>
 <body>
     <script type="text/javascript" src="_static/dist/blocking.js"></script>
@@ -54,7 +57,7 @@
             <aside class="col-12 col-lg-3 sidebar-container">
                 <div id="collapseSidebar" class="collapse sticky-top d-lg-block pt-5 pr-lg-4">
 <div id="searchbox" class="searchbox mb-6 px-1" role="search">
-    <form id="search-form" action="#" autocomplete="off" method="get" role="search">
+    <form id="search-form" action="search.html" autocomplete="off" method="get" role="search">
         <div class="input-group">
             <div class="input-group-prepend">
                 <div class="input-group-text border-right-0 bg-white py-3 pl-3 pr-2"><span class="fas fa-search"></span></div>
@@ -71,8 +74,8 @@
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Dev Notes</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dev Notes</a></li>
 </ul>
 
     </nav>
@@ -93,7 +96,7 @@
                         <nav aria-label="breadcrumb">
     <ol class="breadcrumb m-0 p-0 bg-transparent">
         <li class="breadcrumb-item"><a href="index.html">Docs</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Search</li>
+        <li class="breadcrumb-item active" aria-current="page">Dev Notes</li>
     </ol>
 </nav>
                     </div>
@@ -105,6 +108,15 @@
                             <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
                             <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
                         </button>
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/LasairVRAs/lvra-doc/docs/speeddial.rst" rel="nofollow">
+        <span class="btn-icon"><span class="fab fa-github"></span></span>
+        <span class="btn-text">Edit on GitHub</span>
+    </a>
+    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/speeddial.rst.txt" rel="nofollow">
+        <span class="btn-icon"><span class="fas fa-code"></span></span>
+        <span class="btn-text">View source</span>
+    </a>
+                        
                     </div>
                 </header>
                 <div class="row" >
@@ -115,23 +127,71 @@
                 <div class="row">
                     <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
                         <main role="main" id="main">
-
-    <noscript>
-        <div id="fallback" class="admonition warning">
-            <p class="last">
-                Please activate JavaScript to enable the search
-                functionality.
-            </p>
-        </div>
-    </noscript>
-    
-    <div id="search-results">
-        
-    </div>
+    <section id="dev-notes">
+<h1>Dev Notes<a class="headerlink" href="#dev-notes" title="Link to this heading">¶</a></h1>
+<section id="training-check-list">
+<h2>Training Check-list<a class="headerlink" href="#training-check-list" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>rsync the feature csv files from the remote server to local</p></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><p>Update the training pool</p></li>
+</ol>
+</section>
+<section id="testing-my-template">
+<h2>testing my  template<a class="headerlink" href="#testing-my-template" title="Link to this heading">¶</a></h2>
+<p>some code: <code class="docutils literal notranslate"><span class="pre">code</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">lasair</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>test</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>test</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>test</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>test</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>test</p>
+</div>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>bla</p>
+</div>
+</section>
+</section>
 
 </main>
-                        
+                        <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
+    <a class="float-left" href="intro.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>Introduction
+    </a>
+</nav>
                     </div>
+                    
+                    <nav class="col-12 col-lg-3 pb-4">
+                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
+                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
+                            <ul>
+<li><a class="reference internal" href="#">Dev Notes</a><ul>
+<li><a class="reference internal" href="#training-check-list">Training Check-list</a></li>
+<li><a class="reference internal" href="#testing-my-template">testing my  template</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
                     
                 </div>
             </div>
