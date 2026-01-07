@@ -134,9 +134,17 @@
 <ol class="arabic simple">
 <li><p>rsync the feature csv files from the remote server to local</p></li>
 </ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>rsync<span class="w"> </span>-avz<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;ssh -i ~/.ssh/id_oxservers&quot;</span><span class="w"> </span>lasair@oxdb1:/home/lasair/data/vra_data/csv/<span class="w"> </span>.
+</pre></div>
+</div>
 <ol class="arabic simple" start="2">
 <li><p>Update the training pool</p></li>
 </ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>lvra
+<span class="nb">cd</span><span class="w"> </span>~/software/lvra/lvra/training
+python<span class="w"> </span>./make_pool.py
+</pre></div>
+</div>
 </section>
 <section id="testing-my-template">
 <h2>testing my  template<a class="headerlink" href="#testing-my-template" title="Link to this heading">¶</a></h2>
