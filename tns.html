@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" data-content_root="./">
+<head>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>TNS Reporting &mdash; LVRA dev documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
+      <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=3f91281a" />
+            <link rel="index" title="Index" href="genindex.html" />
+            <link rel="search" title="Search" href="search.html" />
+            <link rel="top" title="LVRA dev documentation" href="#" />
+            <link rel="prev" title="Infrastructure" href="infra.html" />
+    </head>
+<body>
+    <script type="text/javascript" src="_static/dist/blocking.js"></script>
+    <header class="container-fluid bg-primary">
+        <a class="btn btn-sm btn-light skip-to-content-link" href="#main">Skip to content</a>
+        <div class="container-fluid">
+            <div class="navbar navbar-expand-lg navbar-dark font-weight-bold">
+                    <a href="https://lasairvras.github.io/lvra-doc/index.html"
+                        title="LVRA"
+                        class="logo navbar-brand"
+                    >
+                        <img src="_static/img/lvra.png" width="75" height="79" alt="LVRA"
+                            class="logo-img"
+                        />
+                        Lasair Virtual Research Assistants
+                    </a>
+                
+                
+                    <div class="collapse navbar-collapse justify-content-end">
+                        <ul class="navbar-nav">
+                            
+                                
+                                
+                                <li class="nav-item"><a class="nav-link"  href=" https://www.hfstevance.com/">hfstevance.com </a></li>
+                            
+                        </ul>
+                    </div>
+                
+                <button class="navbar-toggler btn btn-primary d-lg-none" type="button" data-toggle="collapse" data-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="sr-only">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-12 col-lg-3 sidebar-container">
+                <div id="collapseSidebar" class="collapse sticky-top d-lg-block pt-5 pr-lg-4">
+<div id="searchbox" class="searchbox mb-6 px-1" role="search">
+    <form id="search-form" action="search.html" autocomplete="off" method="get" role="search">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text border-right-0 bg-white py-3 pl-3 pr-2"><span class="fas fa-search"></span></div>
+            </div>
+            <input class="form-control py-3 pr-3 pl-1 h-100 border-left-0" type="search" name="q" placeholder="Search documentation" aria-label="Search documentation" id="searchinput" />
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div><div class="site-toc">
+    <nav class="toc mt-3" aria-label="Main menu">
+        <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Dev Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">TNS Reporting</a></li>
+</ul>
+
+    </nav>
+    <template data-toggle-item-template>
+        <button class="btn btn-sm btn-link toctree-expand" type="button">
+            <span class="sr-only">Toggle menu contents</span>
+        </button>
+    </template>
+</div>
+                    <div class="d-lg-none border-bottom">
+                        
+                    </div>
+                </div>
+            </aside>
+            <div class="col-12 col-lg-9 pt-5">
+                <header class="row align-items-baseline">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-0 p-0 bg-transparent">
+        <li class="breadcrumb-item"><a href="index.html">Docs</a></li>
+        <li class="breadcrumb-item active" aria-current="page">TNS Reporting</li>
+    </ol>
+</nav>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto mt-3 mt-lg-3">
+                        <noscript>
+                            <p>JavaScript is required to toggle light/dark mode..</p>
+                        </noscript>
+                        <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
+                            <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
+                            <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
+                        </button>
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/LasairVRAs/lvra-doc/docs/tns.rst" rel="nofollow">
+        <span class="btn-icon"><span class="fab fa-github"></span></span>
+        <span class="btn-text">Edit on GitHub</span>
+    </a>
+    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/tns.rst.txt" rel="nofollow">
+        <span class="btn-icon"><span class="fas fa-code"></span></span>
+        <span class="btn-text">View source</span>
+    </a>
+                        
+                    </div>
+                </header>
+                <div class="row" >
+                    <div class="col-12">
+                        <hr class="w-100 my-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
+                        <main role="main" id="main">
+    <section id="tns-reporting">
+<h1>TNS Reporting<a class="headerlink" href="#tns-reporting" title="Link to this heading">¶</a></h1>
+<section id="setting-up-tns-reporting-of-lsst-alerts-through-the-tns-api">
+<h2>Setting up TNS reporting of LSST alerts through the TNS API<a class="headerlink" href="#setting-up-tns-reporting-of-lsst-alerts-through-the-tns-api" title="Link to this heading">¶</a></h2>
+<p>There is a <a class="reference external" href="https://www.wis-tns.org/sites/default/files/api/tns2_manuals/TNS2.0_bulk_reports_manual.pdf">TNS manual from January 2025</a>.
+The schema is basically on page 7 to 9 (for reporting).</p>
+<p>Here is an example of the data we send in the packet to TNS for an ATLAS report.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>I have marked the mandatory fields with a <code class="docutils literal notranslate"><span class="pre">*</span></code> below but they need removing for the actual JSON. Same for the comments as JSON is data only.</p>
+</div>
+<section id="mandatory-fields">
+<h3><strong>Mandatory fields</strong><a class="headerlink" href="#mandatory-fields" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[ra][value]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[dec][value]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reporting_group_id</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_source_groupid</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">at_type</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[non_detection][archiveid]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[photometry]</span></code>: <code class="docutils literal notranslate"><span class="pre">obsdate</span></code>, <code class="docutils literal notranslate"><span class="pre">flux</span></code>, <code class="docutils literal notranslate"><span class="pre">flux_unitid</span></code>, <code class="docutils literal notranslate"><span class="pre">filterid</span></code>, <code class="docutils literal notranslate"><span class="pre">instrumentid</span></code></p></li>
+</ul>
+</section>
+<section id="important-codes-to-know-for-lsst">
+<h3><strong>Important codes to know for LSST</strong><a class="headerlink" href="#important-codes-to-know-for-lsst" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">instrumentid</span></code>: 287</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reporting_group_id</span></code>: 111</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">filterid</span></code>:</dt><dd><ul>
+<li><p>u: 160</p></li>
+<li><p>g: 161</p></li>
+<li><p>r: 162</p></li>
+<li><p>i: 163</p></li>
+<li><p>z: 164</p></li>
+<li><p>y: 165</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flux_unitid</span></code>: 34 (nJy)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_source_groupid</span></code>: 165 (rubin)</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Not sure if the <code class="docutils literal notranslate"><span class="pre">data_source_groupid</span></code> is right. I’ve put down the one for Rubin on TNS owned by Eric Bellm.</p>
+</div>
+</section>
+<section id="at-type">
+<h3><code class="docutils literal notranslate"><span class="pre">at_type</span></code><a class="headerlink" href="#at-type" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Other - Undefined</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>PSN - Possible SN</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>PNV - Possible Nova</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>AGN - Known AGN</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>NUC - Possibly nuclear</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>FRB - Fast Radio Burst event</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="archiveid">
+<h3><code class="docutils literal notranslate"><span class="pre">archiveid</span></code><a class="headerlink" href="#archiveid" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Code</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Other - Undefined</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>SDSS</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>DSS</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="other-notes">
+<h3>Other Notes<a class="headerlink" href="#other-notes" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>The JSON report schema can be explored on the <a class="reference external" href="https://sandbox.wis-tns.org/api/get/values">sandbox</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">internal_ids</span></code>: can have up to five subfields. For LSST should contain the <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code>, the <code class="docutils literal notranslate"><span class="pre">diaSourceId</span></code> of trigger. <strong>_anything else?_</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">internal_name`:</span> <span class="pre">LSST</span> <span class="pre">``diaObjectId</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">filter_value</span></code> and <code class="docutils literal notranslate"><span class="pre">instrument_value</span></code>: Find the ones I need for LSST.</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">[non_detection][archiveid]</span></code>: in Pstarrs ken uses archive_id = 2 (we think is SDSS);  could be 0 if no specific catalogue. This is relevant for LSSST</dt><dd><p>because if we find and report the transient on the first alert there will be no forced phot. Even if we ware on the second go around,
+forced phot may not be enough to determine with confidence the last non-detection. So we may just use the place-holder.</p>
+</dd>
+</dl>
+</li>
+<li></li>
+</ul>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;at_report&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;at_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;dec&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-33.250264&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;discovery_data_source_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;18&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;discovery_datetime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-01-11.22008&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;internal_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;internal_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ATLAS26afg&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;internal_objid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1003019830331501200&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;internal_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ATLAS26afg&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;non_detection&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;exptime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;30.0&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;filter_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;71&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;flux_units&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;instrument_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;256&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;limiting_flux&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;19.17&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;obsdate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-01-10.08145&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;observer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Robot&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;photometry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;photometry_group&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;comments&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;exptime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;30.0&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;filter_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;72&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;flux&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;18.257&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;flux_error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.139&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;flux_units&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;instrument_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;160&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;limiting_flux&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;19.22&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;obsdate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-01-11.22008&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;observer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Robot&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;proprietary_period&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;proprietary_period_units&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;days&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;proprietary_period_value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;proprietary_period_groups&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;18&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;ra&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7.582516&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;reporter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;J. Tonry, L. Denneau, H. Weiland (IfA, University of Hawaii), N. Erasmus, W. Koorts (South African Astronomical Observatory), A. Jordan, V. Suc (UAI, Obstech), M. R. Alarc\u00f3n, J. Licandro, P. Nichita (IAC), S. J. Smartt, K. W. Smith (Oxford/QUB), D. R. Young, M. Nicholl, M. Fulton, M. McCollum, T. Moore, J. Weston, X. Sheng, C. R. Angus, A. Wilson, A. Aamer, D. Magill, P. J. Broda, A. J. Smith (QUB), P. Ramsden (Birmingham/QUB), L. Shingles (GSI/QUB), S. Srivastav, J. H. Gillanders, H. Stevance, A. J. Cooper, F. Stoppa, J. Tweddle, L. Eastman (Oxford), L. Rhodes (TSI/McGill), A. Rest (STScI), T.-W. Chen (NCU), C. Stubbs (Harvard), J. S. Sommer (LMU), B. P. Schmidt (ANU)&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;reporting_group_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;18&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here is example data we get back from TNS after reporting ( when doing the <code class="docutils literal notranslate"><span class="pre">getBulkReportReply</span></code> )</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;feedback&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;at_report&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">&quot;100&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Transient object was inserted.&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;message_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;objname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026ob&quot;</span>
+<span class="w">                    </span><span class="p">},</span>
+<span class="w">                    </span><span class="nt">&quot;internal_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">&quot;internal_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ATLAS26afg&quot;</span><span class="p">,</span>
+<span class="w">                        </span><span class="nt">&quot;internal_objid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1003019830331501200&quot;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;id_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;id_message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+                        <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
+    <a class="float-left" href="infra.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>Infrastructure
+    </a>
+</nav>
+                    </div>
+                    
+                    <nav class="col-12 col-lg-3 pb-4">
+                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
+                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
+                            <ul>
+<li><a class="reference internal" href="#">TNS Reporting</a><ul>
+<li><a class="reference internal" href="#setting-up-tns-reporting-of-lsst-alerts-through-the-tns-api">Setting up TNS reporting of LSST alerts through the TNS API</a><ul>
+<li><a class="reference internal" href="#mandatory-fields"><strong>Mandatory fields</strong></a></li>
+<li><a class="reference internal" href="#important-codes-to-know-for-lsst"><strong>Important codes to know for LSST</strong></a></li>
+<li><a class="reference internal" href="#at-type"><code class="docutils literal notranslate"><span class="pre">at_type</span></code></a></li>
+<li><a class="reference internal" href="#archiveid"><code class="docutils literal notranslate"><span class="pre">archiveid</span></code></a></li>
+<li><a class="reference internal" href="#other-notes">Other Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid bg-primary text-light">
+        <div class="container">
+            <div class="row">
+        <div class="col p-4">
+            
+                <nav aria-label="Footer">
+                    <ul class="nav justify-content-center mb-2">
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="mailto:hfstevance@gmail.com">hfstevance@gmail.com </a></li>
+                        
+                    </ul>
+                </nav>
+            
+            <div class="text-center">
+                    &copy; Copyright 2026, Heloise F. Stevance
+            </div>
+            <div class="text-center text-white-50 font-italic mt-3">
+                <small>Last updated: Jan 28, 2026</small>
+            </div>
+        </div>
+    </div>
+        </div>
+    </footer>
+        <script src="_static/documentation_options.js?v=3ce10a4d"></script>
+        <script src="_static/doctools.js?v=fd6eb6e6"></script>
+        <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script type="text/javascript" src="_static/dist/theme.js"></script>
+        <script type="text/javascript" src="_static/dist/vendor.js"></script>
+        <script type="text/javascript" src="_static/searchtools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() { Search.loadIndex("searchindex.js"); });
+        </script>
+        <script type="text/javascript" id="searchindexloader"></script>
+    </body>
+</html>

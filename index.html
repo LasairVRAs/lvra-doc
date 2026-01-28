@@ -76,6 +76,8 @@
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="speeddial.html">Dev Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
 </ul>
 
     </nav>
@@ -141,12 +143,17 @@ and want more information, you’re in the right place!</p>
 </section>
 <section id="redirects">
 <h2>Redirects<a class="headerlink" href="#redirects" title="Link to this heading">¶</a></h2>
-<ol class="arabic simple">
-<li><p>If you are interested in the Lasair documentation then you need to go here:
-<a class="reference external" href="https://lasair.readthedocs.io/en/main/">https://lasair.readthedocs.io/en/main/</a></p></li>
+<p>1. If you are interested in the Lasair documentation go to the <a href="#id1"><span class="problematic" id="id2">`Lasair Docs &lt;https://lasair.readthedocs.io/en/main/
+&gt;`_</span></a></p>
+<ol class="arabic simple" start="2">
 <li><p>These are <strong>static</strong> pages so if you want to raise an issue or ask a question please go
-to the Lasair VRA github discussion board: <a class="reference external" href="https://github.com/orgs/LasairVRAs/discussions">https://github.com/orgs/LasairVRAs/discussions</a></p></li>
+to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`discussion board &lt;https://github.com/orgs/LasairVRAs/discussions
+&gt;`_</span></a></p></li>
 </ol>
+</section>
+</section>
+<section id="table-of-contents">
+<h1>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
@@ -161,9 +168,28 @@ to the Lasair VRA github discussion board: <a class="reference external" href="h
 <li class="toctree-l2"><a class="reference internal" href="speeddial.html#testing-my-template">testing my  template</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="infra.html#initiallising-the-directories-and-database">Initiallising the directories and database</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="infra.html#directories">Directories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infra.html#sqlite-database">SQLite database</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="infra.html#logging-description">Logging Description</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tns.html#setting-up-tns-reporting-of-lsst-alerts-through-the-tns-api">Setting up TNS reporting of LSST alerts through the TNS API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tns.html#mandatory-fields"><strong>Mandatory fields</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tns.html#important-codes-to-know-for-lsst"><strong>Important codes to know for LSST</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tns.html#at-type"><code class="docutils literal notranslate"><span class="pre">at_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tns.html#archiveid"><code class="docutils literal notranslate"><span class="pre">archiveid</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tns.html#other-notes">Other Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
-</section>
 </section>
 
 </main>
@@ -180,9 +206,10 @@ to the Lasair VRA github discussion board: <a class="reference external" href="h
                             <ul>
 <li><a class="reference internal" href="#">Lasair VRAs Docs</a><ul>
 <li><a class="reference internal" href="#what-is-this">What is this?</a></li>
-<li><a class="reference internal" href="#redirects">Redirects</a><ul>
+<li><a class="reference internal" href="#redirects">Redirects</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#table-of-contents">Table of Contents</a><ul>
 </ul>
 </li>
 </ul>
@@ -213,7 +240,7 @@ to the Lasair VRA github discussion board: <a class="reference external" href="h
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Jan 07, 2026</small>
+                <small>Last updated: Jan 28, 2026</small>
             </div>
         </div>
     </div>
