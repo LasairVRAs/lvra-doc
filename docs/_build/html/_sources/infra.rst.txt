@@ -1,12 +1,14 @@
-Infrastructure
-=================
+Infrastructure 
+==================================
 
-Initiallising the directories and database
--------------------------------------------
+Architecture Overview
+------------------------
 
-Directories
-~~~~~~~~~~~~~
-On the lasair oxford servers the data are under the ``LVRA_DATA_ROOT`` directory 
+Data
+~~~~~~
+
+The data are under the ``LVRA_DATA_ROOT`` directory. On the Oxford Lasair prod servers
+that is ``/home/lasair/data/lvra`` (it is already defined in the ``.bashrc``). 
 
 There directory structure logic is as follows: TYPE > YEAR > DATE
 
@@ -18,6 +20,120 @@ Here the type referes to the file types:
   For example for the ``r0b`` VRA, there is a ``r0b_feature_maker.py`` script.
 * ``logs``: contain log text files.
 * ``db``: contain the SQLite database files. **NOTE**: this is a flat directory, no timestamped sub dirs here. 
+
+
+Code
+~~~~~~
+The code is under ``LVRA_CODE_ROOT``, it is the ``lvra`` python package. 
+There are two kinds of scripts used in production: the python pipelines and their bash wrappers. 
+The bash wrappers are their to set the environment so that when the code is run from cron everything 
+works as expected. They also redirect the stderr to stdout and write it to an error log file so that 
+cron jobs do not fail silently and we can track what is going on.
+
+The bash scripts are under ``LVRA_CODE_ROOT/bash`` and the python scripts are under 
+``LVRA_CODE_ROOT/lvra/pypeline`` (not a typo, a pun between python and pipeline. ha. ha.).
+
+
+A lot of the code needs config files that are stored under ``LVRA_CODE_ROOT/data``.
+Any secret information such as tokens are directly stored in environment variables on the server, 
+nothing in the files. 
+
+
+Useful Definitions
+------------------------
+
+* **Status Codes**: These are integers used in the database tables
+
++--------+--------------------------------------------+
+| Status | Description                                |
++========+============================================+
+| 0      | Initialised                                |
++--------+--------------------------------------------+
+| 1      | Successfully Processed                     |
++--------+--------------------------------------------+
+| 99     | Tried and failed (non specific error code) |
++--------+--------------------------------------------+
+
+* **Stems**: These are the core names of our files and take the format ``YYYYMMDD_HHMMSS``.
+  Each path name is constructed with the format ``TYPE/YEAR/DATE/stem.extension``.
+  The stem is also used as the primary key for the status tables (see below)
+
+
+Log files and SQLite database
+------------------------------
+Log files are written to the ``LVRA_DATA_ROOT/logs/YEAR/DAY/[logname].log`` directory.
+
+There is also a SQLite database to keep track of the status of various processes and the 
+history of the predictions of various VRAs.  It is located under ``LVRA_DATA_ROOT/db/log.db``. 
+
+There are three kinds of tables:
+
+* Status tables: primary key is the stem and the columns are named after VRAs. Each
+  cell contains a status code (see table above).
+
+* Mapping table: primary key is the LSST ``diaObjectId`` and contains the mapping
+  between the ``diaObjectId`` and the stem name. For now there is only one mapping table 
+  but I make need mapping between other ids in the future... Note that here the stem
+  is not technically a foreign key because I have not enforced that the stem exists in 
+  the status tables. 
+
+* Provenance table: to keep track of the history of our model inferences. [NOT IMPLEMENTED YET]
+
+
+Table List
+~~~~~~~~~~~~~~
+
+* ``feature_making`` [Status table]: Records which alerts files have been successfully processed.
+  New columns can be added for each LVRA
+
++-----------------+----------+
+| stem (str)      | r0b (int)|
++=================+==========+
+| 20260127_105636 | 1        |
++-----------------+----------+
+| 20260127_111728 | 0        |
++-----------------+----------+
+| ............... | ........ |
++-----------------+----------+
+
+* ``annotating`` [Status table]: Records which alerts files have been successfully annotated.
+  New columns can be added for each LVRA
+
++-----------------+----------+
+| stem (str)      | r0b (int)|
++=================+==========+
+| 20260127_105636 | 0        |
++-----------------+----------+
+| 20260127_111728 | 0        |
++-----------------+----------+
+| ............... | ........ |
++-----------------+----------+
+
+* ``diaobjid_stems`` [Mapping table]: Records the mapping between LSST ``diaObjectId`` and the alert stem name.
+
++--------------------+-----------------+
+| diaObjectId (int)  | stem (str)      |
++====================+=================+
+| 169755827469549632 | 20260128_154837 |
++--------------------+-----------------+
+| 169843765851193449 | 20260128_154837 |
++--------------------+-----------------+
+| 169843765880029260 | 20260128_154837 |
++--------------------+-----------------+
+
+
+
+Log files
+~~~~~~~~~~~~~~~~~
+
+[list log fiels and explain]
+
+
+Infra Set-up Instructions
+-------------------------------
+
+Directories
+~~~~~~~~~~~~~~
 
 Here is a bash script that can be run in the ``LVRA_DATA_ROOT`` of choice to create the full directory
 sub-stucture. 
@@ -109,6 +225,3 @@ Then run:
     add a ``.sqliterc`` file in your home directory with the following content: ``.headers on`` and 
     ``.mode column`` (on two separate lines).
 
-
-Logging Description
-------------------------
