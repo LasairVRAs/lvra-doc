@@ -1,6 +1,12 @@
 TNS Reporting
 ===========================
 
+The Lasari Virtual Research Assistants can report to TNS using the Lasair (group) LVRA (bot). 
+It has a specific API key that is stored in my envrionment variables and I need to add 
+to my TNS report:
+
+``tns_marker{"tns_id":197854,"type": "bot", "name":"LVRA"}``
+
 Setting up TNS reporting of LSST alerts through the TNS API
 -------------------------------------------------------------------
 There is a `TNS manual from January 2025 <https://www.wis-tns.org/sites/default/files/api/tns2_manuals/TNS2.0_bulk_reports_manual.pdf>`_.
