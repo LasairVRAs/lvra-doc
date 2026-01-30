@@ -237,26 +237,30 @@ conda
 ~~~~~~~~~~~~~~~~~
 
 For the python environment I exported a `yaml` file of the remote conda environement:
-```bash
-conda env export --no-builds > lvra_env.yml
-```
+
+.. code-block:: bash
+
+    conda env export --no-builds > lvra_env.yml
+
 Then I copied it in my local package:
 
-```bash
-scp lasair@oxdb1:code/lvra_env.yml ./software/lvra 
-```
+.. code-block:: bash
+
+   scp lasair@oxdb1:code/lvra_env.yml ./software/lvra 
 
 Then I created the environment with:
-```bash
-conda env create -f software/lvra/lvra_env.yml  -n lvra
-```
+
+.. code-block:: bash
+
+    conda env create -f software/lvra/lvra_env.yml  -n lvra
 
 env variables
 ~~~~~~~~~~~~~~~~~
 
-```bash
-export LVRA_SETTINGS='/home/stevance/software/lvra/data/public_settings_local.yaml'
-export LVRA_TRAINING_ROOTDIR='/home/stevance/Science/lvra-training/'
-export LASAIR_LSST_TOKEN = [see my .bashrc]
-export LVRA_TNS_API_KEY = [see my .bashrc]
-```
+.. code-block:: bash
+
+   export LVRA_SETTINGS='/home/stevance/software/lvra/data/public_settings_local.yaml'
+   export LVRA_TRAINING_ROOTDIR='/home/stevance/Science/lvra-training/'
+   export LASAIR_LSST_TOKEN = [see my .bashrc]
+   export LVRA_TNS_API_KEY = [see my .bashrc]
+
