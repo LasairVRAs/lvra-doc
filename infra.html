@@ -363,6 +363,35 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
 </div>
 </section>
 </section>
+<section id="local-dev-env">
+<h2>Local dev env<a class="headerlink" href="#local-dev-env" title="Link to this heading">¶</a></h2>
+<p>I have not set up a docker (and will not for now) but I have local directories that mimick what is on remote.</p>
+<p>Most importantly I have environments that need to be the same.</p>
+<section id="conda">
+<h3>conda<a class="headerlink" href="#conda" title="Link to this heading">¶</a></h3>
+<p>For the python environment I exported a <cite>yaml</cite> file of the remote conda environement:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">conda</span> <span class="pre">env</span> <span class="pre">export</span> <span class="pre">--no-builds</span> <span class="pre">&gt;</span> <span class="pre">lvra_env.yml</span>
+<span class="pre">`</span></code>
+Then I copied it in my local package:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">scp</span> <span class="pre">lasair&#64;oxdb1:code/lvra_env.yml</span> <span class="pre">./software/lvra</span>
+<span class="pre">`</span></code></p>
+<p>Then I created the environment with:
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">conda</span> <span class="pre">env</span> <span class="pre">create</span> <span class="pre">-f</span> <span class="pre">software/lvra/lvra_env.yml</span>&#160; <span class="pre">-n</span> <span class="pre">lvra</span>
+<span class="pre">`</span></code></p>
+</section>
+<section id="env-variables">
+<h3>env variables<a class="headerlink" href="#env-variables" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">export</span> <span class="pre">LVRA_SETTINGS='/home/stevance/software/lvra/data/public_settings_local.yaml'</span>
+<span class="pre">export</span> <span class="pre">LVRA_TRAINING_ROOTDIR='/home/stevance/Science/lvra-training/'</span>
+<span class="pre">export</span> <span class="pre">LASAIR_LSST_TOKEN</span> <span class="pre">=</span> <span class="pre">[see</span> <span class="pre">my</span> <span class="pre">.bashrc]</span>
+<span class="pre">export</span> <span class="pre">LVRA_TNS_API_KEY</span> <span class="pre">=</span> <span class="pre">[see</span> <span class="pre">my</span> <span class="pre">.bashrc]</span>
+<span class="pre">`</span></code></p>
+</section>
+</section>
 </section>
 
 </main>
@@ -397,6 +426,11 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
 <li><a class="reference internal" href="#sqlite-database">SQLite database</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#local-dev-env">Local dev env</a><ul>
+<li><a class="reference internal" href="#conda">conda</a></li>
+<li><a class="reference internal" href="#env-variables">env variables</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -427,7 +461,7 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Jan 29, 2026</small>
+                <small>Last updated: Jan 30, 2026</small>
             </div>
         </div>
     </div>

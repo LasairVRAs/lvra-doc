@@ -225,3 +225,38 @@ Then run:
     add a ``.sqliterc`` file in your home directory with the following content: ``.headers on`` and 
     ``.mode column`` (on two separate lines).
 
+
+Local dev env
+----------------
+
+I have not set up a docker (and will not for now) but I have local directories that mimick what is on remote. 
+
+Most importantly I have environments that need to be the same. 
+
+conda
+~~~~~~~~~~~~~~~~~
+
+For the python environment I exported a `yaml` file of the remote conda environement:
+```bash
+conda env export --no-builds > lvra_env.yml
+```
+Then I copied it in my local package:
+
+```bash
+scp lasair@oxdb1:code/lvra_env.yml ./software/lvra 
+```
+
+Then I created the environment with:
+```bash
+conda env create -f software/lvra/lvra_env.yml  -n lvra
+```
+
+env variables
+~~~~~~~~~~~~~~~~~
+
+```bash
+export LVRA_SETTINGS='/home/stevance/software/lvra/data/public_settings_local.yaml'
+export LVRA_TRAINING_ROOTDIR='/home/stevance/Science/lvra-training/'
+export LASAIR_LSST_TOKEN = [see my .bashrc]
+export LVRA_TNS_API_KEY = [see my .bashrc]
+```
