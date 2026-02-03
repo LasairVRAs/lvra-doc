@@ -51,8 +51,18 @@ Useful Definitions
 +--------+--------------------------------------------+
 | 1      | Successfully Processed                     |
 +--------+--------------------------------------------+
-| 99     | Tried and failed (non specific error code) |
+| 21     | File Not Found (INPUT)                     |
 +--------+--------------------------------------------+
+| 22     | File Not Found (OUTPUT)                    |
++--------+--------------------------------------------+
+| 30     | Key Error                                 |
++--------+--------------------------------------------+
+| 99     | Generic Error                              |
++--------+--------------------------------------------+
+
+Code `30` likely means the files you are trying to use don't have the structure you expect. 
+This is most likely due to a change in the alert or clean data format. Causes may vary:
+changes in LSST data, changes in Lasair, changes in your code. 
 
 * **Stems**: These are the core names of our files and take the format ``YYYYMMDD_HHMMSS``.
   Each path name is constructed with the format ``TYPE/YEAR/DATE/stem.extension``.
