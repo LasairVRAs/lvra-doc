@@ -209,17 +209,31 @@ Then copy paste this code in a new file called ``log_schema.sql``.
 
     CREATE TABLE IF NOT EXISTS feature_making (
         stem TEXT PRIMARY KEY,
+        timestamp TEXT NOT NULL DEFAULT current_timestamp,
         r0b INTEGER
     );
 
     CREATE TABLE IF NOT EXISTS annotating (
         stem TEXT PRIMARY KEY,
+        timestamp TEXT NOT NULL DEFAULT current_timestamp,
         r0b INTEGER
     );
 
     CREATE TABLE IF NOT EXISTS diaobjid_stems (
         diaObjectId INTEGER PRIMARY KEY,
-        stem TEXT NOT NULL
+        stem TEXT NOT NULL,
+        timestamp TEXT NOT NULL DEFAULT current_timestamp
+    );
+
+    CREATE TABLE IF NOT EXISTS provenance (
+        ID INTEGER PRIMARY KEY, 
+        diaObjectId INTEGER,
+        diaSourceId INTEGER, 
+        stem TEXT,
+        score REAL,
+        model_name TEXT,
+        model_version TEXT,
+        timestamp TEXT NOT NULL DEFAULT current_timestamp
     );
 
 
