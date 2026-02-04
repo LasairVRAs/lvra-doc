@@ -44,25 +44,39 @@ Useful Definitions
 
 * **Status Codes**: These are integers used in the database tables
 
-+--------+--------------------------------------------+
-| Status | Description                                |
-+========+============================================+
-| 0      | Initialised                                |
-+--------+--------------------------------------------+
-| 1      | Successfully Processed                     |
-+--------+--------------------------------------------+
-| 21     | File Not Found (INPUT)                     |
-+--------+--------------------------------------------+
-| 22     | File Not Found (OUTPUT)                    |
-+--------+--------------------------------------------+
-| 30     | Key Error                                 |
-+--------+--------------------------------------------+
-| 99     | Generic Error                              |
-+--------+--------------------------------------------+
++--------+---------------------------------+
+| Status | Description                     |
++========+=================================+
+| 0      | Initialised                     |
++--------+---------------------------------+
+| 1      | Successfully Processed          |
++--------+---------------------------------+
+| 21     | File Not Found (INPUT)          |
++--------+---------------------------------+
+| 22     | File Not Found (OUTPUT)         |
++--------+---------------------------------+
+| 23     | Not Expected Input Data Type    |
++--------+---------------------------------+
+| 30     | Key Error (missing in data)     |
++--------+---------------------------------+
+| 31     | Missing Columns (INPUT)         |
++--------+---------------------------------+
+| 40     | Lasair Annotation Issue         |
++--------+---------------------------------+
+| 41     | Failure to create Lasair client |
++--------+---------------------------------+
+| 99     | Generic Error                   |
++--------+---------------------------------+
+
+The `2X` errors refer a problem with the input or outputs such that they can't be loaded.
+
+The `3X` errors correspond to issues with the data structure or content. So it _was_ loaded, but the contents cause problems
 
 Code `30` likely means the files you are trying to use don't have the structure you expect. 
 This is most likely due to a change in the alert or clean data format. Causes may vary:
 changes in LSST data, changes in Lasair, changes in your code. 
+
+The `4X` errors are specific to Lasair 
 
 * **Stems**: These are the core names of our files and take the format ``YYYYMMDD_HHMMSS``.
   Each path name is constructed with the format ``TYPE/YEAR/DATE/stem.extension``.
