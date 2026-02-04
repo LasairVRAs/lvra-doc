@@ -33,6 +33,7 @@ Table of Contents
    :caption: For Users
 
    intro
+   r0b
 
 .. toctree::
    :maxdepth: 3
@@ -41,6 +42,7 @@ Table of Contents
    speeddial
    infra
    tns
+   local_testing
 
 
 
