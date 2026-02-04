@@ -6,7 +6,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Introduction &mdash; LVRA dev documentation</title>
+        <title>Local Testing Procedure &mdash; LVRA dev documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
@@ -16,8 +16,7 @@
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
-            <link rel="next" title="r0b: Real Or Bogus" href="r0b.html" />
-            <link rel="prev" title="Lasair VRAs Docs" href="index.html" />
+            <link rel="prev" title="TNS Reporting" href="tns.html" />
     </head>
 <body>
     <script type="text/javascript" src="_static/dist/blocking.js"></script>
@@ -71,16 +70,16 @@
 </div><div class="site-toc">
     <nav class="toc mt-3" aria-label="Main menu">
         <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Local Testing Procedure</a></li>
 </ul>
 
     </nav>
@@ -101,7 +100,7 @@
                         <nav aria-label="breadcrumb">
     <ol class="breadcrumb m-0 p-0 bg-transparent">
         <li class="breadcrumb-item"><a href="index.html">Docs</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Introduction</li>
+        <li class="breadcrumb-item active" aria-current="page">Local Testing Procedure</li>
     </ol>
 </nav>
                     </div>
@@ -113,11 +112,11 @@
                             <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
                             <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
                         </button>
-    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/LasairVRAs/lvra-doc/docs/intro.rst" rel="nofollow">
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/LasairVRAs/lvra-doc/docs/local_testing.rst" rel="nofollow">
         <span class="btn-icon"><span class="fab fa-github"></span></span>
         <span class="btn-text">Edit on GitHub</span>
     </a>
-    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/intro.rst.txt" rel="nofollow">
+    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/local_testing.rst.txt" rel="nofollow">
         <span class="btn-icon"><span class="fas fa-code"></span></span>
         <span class="btn-text">View source</span>
     </a>
@@ -132,21 +131,35 @@
                 <div class="row">
                     <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
                         <main role="main" id="main">
-    <section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h1>
-<p>TBD</p>
+    <section id="local-testing-procedure">
+<h1>Local Testing Procedure<a class="headerlink" href="#local-testing-procedure" title="Link to this heading">¶</a></h1>
+<section id="feature-making">
+<h2>Feature making<a class="headerlink" href="#feature-making" title="Link to this heading">¶</a></h2>
+<p>Make sure the sqlite database contains the right tables (see infrastructure set up), and
+make sure that our test stem is in there and its <cite>r0b</cite> column is set to 0:</p>
+</section>
 </section>
 
 </main>
                         <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
-    <a class="float-left" href="index.html" title="Previous">
-        <span aria-hidden="true">←&nbsp;</span>Lasair VRAs Docs
-    </a>
-    <a class="float-right" href="r0b.html" title="Next">
-        r0b: Real Or Bogus <span aria-hidden="true">&nbsp;→</span>
+    <a class="float-left" href="tns.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>TNS Reporting
     </a>
 </nav>
                     </div>
+                    
+                    <nav class="col-12 col-lg-3 pb-4">
+                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
+                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
+                            <ul>
+<li><a class="reference internal" href="#">Local Testing Procedure</a><ul>
+<li><a class="reference internal" href="#feature-making">Feature making</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
                     
                 </div>
             </div>
