@@ -10,10 +10,10 @@ By using the reliability score alongside other features in the alert packet we c
 This work is based on the `ATLAS Virtual Research Assistant (Stevance et al. 2025) <https://arxiv.org/abs/2506.09778>`_, and adds
 methods of Active Learning so I can train directly on the stream.
 
-.. important::
-    Because I am training **directly on the live Rubin stream** it will take a few weeks to train and verify an algorithm. The details of this will be 
-    added to this documentation and make the object of a proper paper later in the year. If you have questions in the mean-time email me or start a topic
-    on the `Lasair Community Forum<https://community.lsst.org/c/support/support-lasair/55>`_. 
+
+Because I am training **directly on the live Rubin stream** it will take a few weeks to train and verify an algorithm. The details of this will be 
+added to this documentation and make the object of a proper paper later in the year. If you have questions in the mean-time email me or start a topic
+on the `Lasair Community Forum <https://community.lsst.org/c/support/support-lasair/55>`_. 
 
 
 
