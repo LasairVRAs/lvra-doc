@@ -143,12 +143,9 @@ to create a clean enough stream.
 By using the reliability score alongside other features in the alert packet we can make better decisions.
 This work is based on the <a class="reference external" href="https://arxiv.org/abs/2506.09778">ATLAS Virtual Research Assistant (Stevance et al. 2025)</a>, and adds
 methods of Active Learning so I can train directly on the stream.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
 <p>Because I am training <strong>directly on the live Rubin stream</strong> it will take a few weeks to train and verify an algorithm. The details of this will be
 added to this documentation and make the object of a proper paper later in the year. If you have questions in the mean-time email me or start a topic
-on the <a href="#id1"><span class="problematic" id="id2">`Lasair Community Forum&lt;https://community.lsst.org/c/support/support-lasair/55&gt;`_</span></a>.</p>
-</div>
+on the <a class="reference external" href="https://community.lsst.org/c/support/support-lasair/55">Lasair Community Forum</a>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">r0b</span></code> LVRA is a binary classifier <strong>downstream</strong> of a filter that makes preliminary cuts:
 *  <code class="docutils literal notranslate"><span class="pre">reliability</span></code> &gt;0.5
 *  <code class="docutils literal notranslate"><span class="pre">SHERLOCK</span></code> label either <code class="docutils literal notranslate"><span class="pre">SN</span></code>, <code class="docutils literal notranslate"><span class="pre">NT</span></code>, <code class="docutils literal notranslate"><span class="pre">ORPHAN</span></code> or <code class="docutils literal notranslate"><span class="pre">UNCLEAR</span></code>.
