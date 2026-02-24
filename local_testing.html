@@ -133,10 +133,116 @@
                         <main role="main" id="main">
     <section id="local-testing-procedure">
 <h1>Local Testing Procedure<a class="headerlink" href="#local-testing-procedure" title="Link to this heading">¶</a></h1>
-<section id="feature-making">
-<h2>Feature making<a class="headerlink" href="#feature-making" title="Link to this heading">¶</a></h2>
-<p>Make sure the sqlite database contains the right tables (see infrastructure set up), and
-make sure that our test stem is in there and its <cite>r0b</cite> column is set to 0:</p>
+<section id="making-a-fresh-dirctory">
+<h2>Making a fresh dirctory<a class="headerlink" href="#making-a-fresh-dirctory" title="Link to this heading">¶</a></h2>
+<p>Made the file <code class="docutils literal notranslate"><span class="pre">make_local_test_env.sh</span></code> in <code class="docutils literal notranslate"><span class="pre">ox_lvra</span></code> so I don’t touch the <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">code</span></code> directories that
+I know are working like on the server.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+
+<span class="nv">years_arr</span><span class="o">=(</span><span class="m">2026</span>
+<span class="w">    </span><span class="m">2027</span>
+<span class="w">    </span><span class="m">2028</span>
+<span class="w">    </span><span class="m">2029</span>
+<span class="w">    </span><span class="m">2030</span>
+<span class="w">    </span><span class="m">2031</span>
+<span class="w">    </span><span class="m">2032</span>
+<span class="w">    </span><span class="m">2033</span>
+<span class="w">    </span><span class="m">2034</span>
+<span class="w">    </span><span class="m">2035</span>
+<span class="o">)</span>
+
+<span class="nv">today</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s2">&quot;%Y%m%d&quot;</span><span class="k">)</span>
+<span class="nv">today_year</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s2">&quot;%Y&quot;</span><span class="k">)</span>
+
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;test_</span><span class="nv">$today</span><span class="s2">&quot;</span>
+
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;test_</span><span class="nv">$today</span><span class="s2">&quot;</span>
+
+mkdir<span class="w"> </span>-p<span class="w"> </span>data/lvra
+mkdir<span class="w"> </span>-p<span class="w"> </span>code
+
+<span class="nb">cd</span><span class="w"> </span>data/lvra
+
+<span class="nv">work_dir</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
+
+mkdir<span class="w"> </span>-p<span class="w"> </span>JSON
+mkdir<span class="w"> </span>-p<span class="w"> </span>csv
+mkdir<span class="w"> </span>-p<span class="w"> </span>logs
+mkdir<span class="w"> </span>-p<span class="w"> </span>db
+
+
+<span class="k">for</span><span class="w"> </span>dir<span class="w"> </span><span class="k">in</span><span class="w"> </span>JSON<span class="w"> </span>csv<span class="w"> </span>logs<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span>year<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">years_arr</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">        </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work_dir</span><span class="s2">/</span><span class="nv">$dir</span><span class="s2">/</span><span class="nv">$year</span><span class="s2">&quot;</span>
+<span class="w">        </span><span class="k">done</span>
+
+<span class="w">    </span>mkdir<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work_dir</span><span class="s2">/</span><span class="nv">$dir</span><span class="s2">/</span><span class="nv">$today_year</span><span class="s2">/</span><span class="nv">$today</span><span class="s2">&quot;</span>
+
+
+<span class="k">done</span>
+
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work_dir</span><span class="s2">/db&quot;</span>
+
+cat<span class="w"> </span>&gt;<span class="w"> </span>log_schema.sql<span class="w"> </span><span class="s">&lt;&lt;&#39;SQL&#39;</span>
+<span class="s">CREATE TABLE IF NOT EXISTS feature_making (</span>
+<span class="s">    stem TEXT PRIMARY KEY,</span>
+<span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp,</span>
+<span class="s">    r0b INTEGER</span>
+<span class="s">);</span>
+
+<span class="s">CREATE TABLE IF NOT EXISTS annotating (</span>
+<span class="s">    stem TEXT PRIMARY KEY,</span>
+<span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp,</span>
+<span class="s">    r0b INTEGER</span>
+<span class="s">);</span>
+
+<span class="s">CREATE TABLE IF NOT EXISTS diaobjid_stems (</span>
+<span class="s">    diaObjectId INTEGER PRIMARY KEY,</span>
+<span class="s">    stem TEXT NOT NULL,</span>
+<span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp</span>
+<span class="s">);</span>
+
+<span class="s">CREATE TABLE IF NOT EXISTS provenance (</span>
+<span class="s">    ID INTEGER PRIMARY KEY,</span>
+<span class="s">    diaObjectId INTEGER,</span>
+<span class="s">    diaSourceId INTEGER,</span>
+<span class="s">    stem TEXT,</span>
+<span class="s">    score REAL,</span>
+<span class="s">    model_name TEXT,</span>
+<span class="s">    model_version TEXT,</span>
+<span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp</span>
+<span class="s">);</span>
+<span class="s">SQL</span>
+
+sqlite3<span class="w"> </span>log.db<span class="w"> </span>&lt;<span class="w"> </span>log_schema.sql
+
+<span class="c1">## DATA</span>
+<span class="nv">TEST_JSON_NAME</span><span class="o">=</span>/home/stevance/oxlvra_dev/data/lvra/JSON/2026/20260202/20260202_102448.json
+<span class="nv">JSON_LAST_DIR_AND_NAME</span><span class="o">=</span><span class="si">${</span><span class="nv">TEST_JSON_NAME</span><span class="p">: -34</span><span class="si">}</span>
+
+<span class="c1"># Putting some data in the JSON directory</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work_dir</span><span class="s2">/JSON/</span><span class="si">${</span><span class="nv">JSON_LAST_DIR_AND_NAME</span><span class="p">:: 14</span><span class="si">}</span><span class="s2">&quot;</span>
+cp<span class="w"> </span>-p<span class="w"> </span><span class="nv">$TEST_JSON_NAME</span><span class="w"> </span><span class="nv">$work_dir</span>/JSON/<span class="nv">$JSON_LAST_DIR_AND_NAME</span>
+
+<span class="c1">## CODE</span>
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;/home/stevance/oxlvra_dev/test_</span><span class="nv">$today</span><span class="s2">&quot;</span>
+<span class="nb">cd</span><span class="w"> </span>code
+mkdir<span class="w"> </span>-p<span class="w"> </span>lvra/bash
+<span class="nb">cd</span><span class="w"> </span>lvra/bash
+cp<span class="w"> </span>-p<span class="w"> </span>/home/stevance/oxlvra_dev/code/lvra/bash/r0b_feature_maker.sh<span class="w"> </span>.
+cp<span class="w"> </span>-p<span class="w"> </span>/home/stevance/oxlvra_dev/code/lvra/bash/r0b_predict.sh<span class="w"> </span>.
+cp<span class="w"> </span>-p<span class="w"> </span>/home/stevance/oxlvra_dev/code/lvra/bash/r0b_annotator.sh<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="add-data-to-sqlite-database">
+<h2>Add data to sqlite database<a class="headerlink" href="#add-data-to-sqlite-database" title="Link to this heading">¶</a></h2>
+<p>This would have been done by the kafka consumer but we’re not runnign it here so we have to simulate
+those entries</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">feature_making</span><span class="w"> </span><span class="p">(</span><span class="n">stem</span><span class="p">,</span><span class="w"> </span><span class="n">r0b</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;20260202_102448&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">conflict</span><span class="w"> </span><span class="p">(</span><span class="n">stem</span><span class="p">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">r0b</span><span class="o">=</span><span class="n">excluded</span><span class="p">.</span><span class="n">r0b</span><span class="p">;</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">annotating</span><span class="w"> </span><span class="p">(</span><span class="n">stem</span><span class="p">,</span><span class="w"> </span><span class="n">r0b</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;20260202_102448&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">conflict</span><span class="w"> </span><span class="p">(</span><span class="n">stem</span><span class="p">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">r0b</span><span class="o">=</span><span class="n">excluded</span><span class="p">.</span><span class="n">r0b</span><span class="p">;</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -153,7 +259,8 @@ make sure that our test stem is in there and its <cite>r0b</cite> column is set 
                             <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
                             <ul>
 <li><a class="reference internal" href="#">Local Testing Procedure</a><ul>
-<li><a class="reference internal" href="#feature-making">Feature making</a></li>
+<li><a class="reference internal" href="#making-a-fresh-dirctory">Making a fresh dirctory</a></li>
+<li><a class="reference internal" href="#add-data-to-sqlite-database">Add data to sqlite database</a></li>
 </ul>
 </li>
 </ul>
@@ -184,7 +291,7 @@ make sure that our test stem is in there and its <cite>r0b</cite> column is set 
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Feb 04, 2026</small>
+                <small>Last updated: Feb 24, 2026</small>
             </div>
         </div>
     </div>
