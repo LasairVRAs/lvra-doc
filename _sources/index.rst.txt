@@ -39,12 +39,20 @@ Table of Contents
    :maxdepth: 3
    :caption: For Devs
 
-   speeddial
+
    pipeline
    infra
    tns
+   lasair_dev
    local_testing
    backup
+
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Heloise's Notes
+
+   speeddial
 
 
 
