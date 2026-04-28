@@ -40,9 +40,11 @@ Table of Contents
    :caption: For Devs
 
    speeddial
+   pipeline
    infra
    tns
    local_testing
+   backup
 
 
 

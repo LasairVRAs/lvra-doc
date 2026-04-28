@@ -6,7 +6,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Testing Procedure &mdash; LVRA dev documentation</title>
+        <title>Local Testing Procedure &mdash; LVRA dev documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
@@ -16,6 +16,7 @@
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
+            <link rel="next" title="Backup of the LVRA data on the Oxford database" href="backup.html" />
             <link rel="prev" title="TNS Reporting" href="tns.html" />
     </head>
 <body>
@@ -77,9 +78,11 @@
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing Procedure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Local Testing Procedure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
 </ul>
 
     </nav>
@@ -100,7 +103,7 @@
                         <nav aria-label="breadcrumb">
     <ol class="breadcrumb m-0 p-0 bg-transparent">
         <li class="breadcrumb-item"><a href="index.html">Docs</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Testing Procedure</li>
+        <li class="breadcrumb-item active" aria-current="page">Local Testing Procedure</li>
     </ol>
 </nav>
                     </div>
@@ -131,13 +134,18 @@
                 <div class="row">
                     <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
                         <main role="main" id="main">
-    <section id="testing-procedure">
-<h1>Testing Procedure<a class="headerlink" href="#testing-procedure" title="Link to this heading">¶</a></h1>
+    <section id="local-testing-procedure">
+<h1>Local Testing Procedure<a class="headerlink" href="#local-testing-procedure" title="Link to this heading">¶</a></h1>
 <section id="making-a-fresh-dirctory">
 <h2>Making a fresh dirctory<a class="headerlink" href="#making-a-fresh-dirctory" title="Link to this heading">¶</a></h2>
-<p><strong>Remote Oxford Server</strong>: Made new directory under <cite>./data/lvra_dev</cite> (actually a symlink placed in storage).</p>
-<p><strong>My Local Machine</strong>: Made the file <code class="docutils literal notranslate"><span class="pre">make_local_test_env.sh</span></code> in <code class="docutils literal notranslate"><span class="pre">ox_lvra</span></code> so I don’t touch the <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">code</span></code> directories that
-I know are working like on the server.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<blockquote>
+<div><p>SQL is out of date!</p>
+</div></blockquote>
+<p>Made the file <code class="docutils literal notranslate"><span class="pre">make_local_test_env.sh</span></code> in <code class="docutils literal notranslate"><span class="pre">ox_lvra</span></code> so I don’t touch the <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">code</span></code> directories that</p>
+</div>
+<p>I know are working like on the server.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 
 <span class="nv">years_arr</span><span class="o">=(</span><span class="m">2026</span>
@@ -276,6 +284,9 @@ those entries</p>
     <a class="float-left" href="tns.html" title="Previous">
         <span aria-hidden="true">←&nbsp;</span>TNS Reporting
     </a>
+    <a class="float-right" href="backup.html" title="Next">
+        Backup of the LVRA data on the Oxford database <span aria-hidden="true">&nbsp;→</span>
+    </a>
 </nav>
                     </div>
                     
@@ -283,7 +294,7 @@ those entries</p>
                         <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
                             <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
                             <ul>
-<li><a class="reference internal" href="#">Testing Procedure</a><ul>
+<li><a class="reference internal" href="#">Local Testing Procedure</a><ul>
 <li><a class="reference internal" href="#making-a-fresh-dirctory">Making a fresh dirctory</a></li>
 <li><a class="reference internal" href="#add-data-to-sqlite-database">Add data to sqlite database</a></li>
 </ul>

@@ -1,60 +1,59 @@
-Local Testing Procedure
+Dev environement
 =============================
 
 Making a fresh dirctory 
 ------------------------
 
-.. warning:: 
-    SQL is out of date!
-
- Made the file ``make_local_test_env.sh`` in ``ox_lvra`` so I don't touch the ``data`` and ``code`` directories that 
-I know are working like on the server.
+**Remote Oxford Server**: Made new directory under ``./data/lvra_dev`` (actually a symlink placed in storage). 
+Made a file to create the directory structure and the database tables. It is different from the 
+local testing file because I'm not recreating the full LasairOxford severver directory base 
+``code`` and ``data`` or copying the bash scripts under that code base. It already exists here as is.
 
 .. code-block:: bash
 
     #!/usr/bin/env bash
 
-    years_arr=(2026 
-        2027 
-        2028 
-        2029 
-        2030 
-        2031 
-        2032 
-        2033 
-        2034 
+    years_arr=(2026
+        2027
+        2028
+        2029
+        2030
+        2031
+        2032
+        2033
+        2034
         2035
     )
 
     today=$(date +"%Y%m%d")
     today_year=$(date +"%Y")
 
-    mkdir -p "test_$today"
+    #mkdir -p "test_$today"
 
-    cd "test_$today"
+    #cd "test_$today"
 
-    mkdir -p data/lvra
-    mkdir -p code 
+    #mkdir -p data/lvra
+    #mkdir -p code
 
-    cd data/lvra
+    cd $LVRA_DATA_ROOT_DEV
 
     work_dir=$(pwd)
 
     mkdir -p JSON
     mkdir -p csv
     mkdir -p logs
-    mkdir -p db 
+    mkdir -p db
 
 
     for dir in JSON csv logs; do
-        for year in "${years_arr[@]}"; do	
+        for year in "${years_arr[@]}"; do
             mkdir -p "$work_dir/$dir/$year"
             done
-            
-        mkdir mkdir -p "$work_dir/$dir/$today_year/$today"
-        
 
-    done       
+        mkdir mkdir -p "$work_dir/$dir/$today_year/$today"
+
+
+    done
 
     cd "$work_dir/db"
 
@@ -75,9 +74,9 @@ I know are working like on the server.
         timestamp TEXT NOT NULL DEFAULT current_timestamp
     );
     CREATE TABLE provenance (
-        ID INTEGER PRIMARY KEY, 
+        ID INTEGER PRIMARY KEY,
         diaObjectId INTEGER,
-        diaSourceId INTEGER, 
+        diaSourceId INTEGER,
         stem TEXT,
         score REAL,
         model_name TEXT,
@@ -115,33 +114,14 @@ I know are working like on the server.
 
     sqlite3 log.db < log_schema.sql
 
-    ## DATA 
-    TEST_JSON_NAME=/home/stevance/oxlvra_dev/data/lvra/JSON/2026/20260202/20260202_102448.json
-    JSON_LAST_DIR_AND_NAME=${TEST_JSON_NAME: -34}
 
-    # Putting some data in the JSON directory
-    mkdir -p "$work_dir/JSON/${JSON_LAST_DIR_AND_NAME:: 14}"
-    cp -p $TEST_JSON_NAME $work_dir/JSON/$JSON_LAST_DIR_AND_NAME
+Check-list 
+-------------
 
-    ## CODE
-    cd "/home/stevance/oxlvra_dev/test_$today"
-    cd code
-    mkdir -p lvra/bash
-    cd lvra/bash
-    cp -p /home/stevance/oxlvra_dev/code/lvra/bash/r0b_feature_maker.sh .
-    cp -p /home/stevance/oxlvra_dev/code/lvra/bash/r0b_predict.sh .
-    cp -p /home/stevance/oxlvra_dev/code/lvra/bash/r0b_annotator.sh .
-
-
-
-Add data to sqlite database
-------------------------------
-
-This would have been done by the kafka consumer but we're not runnign it here so we have to simulate
-those entries
-
-.. code-block:: sql
-
-    insert into feature_making (stem, r0b) values ('20260202_102448', 0) on conflict (stem) do update set r0b=excluded.r0b;
-    insert into annotating (stem, r0b) values ('20260202_102448', 0) on conflict (stem) do update set r0b=excluded.r0b;
-
+1. Comment out the cron job
+2. Make fresh dev branch from ``main``
+3. Change ``public_settings.yml`` to point to the lasair dev server 
+4. Change ``r0b_config.yml`` so topic out points to dev annotator (and ammend any other relevant settings)
+5. MAKE SURE YOUR ``lasair83_lvra_feed_full`` is the same as the one on prod so we are ingesting same alerts in same format
+6. Do what you need to do
+7. **CHECKOUT MAIN AND TURN OUT THE CRON JOB AGAIN**

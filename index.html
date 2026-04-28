@@ -77,9 +77,11 @@
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Testing Procedure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
 </ul>
 
     </nav>
@@ -177,6 +179,25 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 <li class="toctree-l2"><a class="reference internal" href="speeddial.html#testing-my-template">testing my  template</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#what-is-a-stem">What is a stem?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#step-1-kafka">Step 1: kafka</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#exit-code-vs-status-code-is-0-good-or-bad-then">Exit code Vs Status code: is 0 good or bad then?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#step-2-feature-making">Step 2: Feature making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#step-3-predict">Step 3: Predict</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#why-a-provenance-table">Why a provenance table?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#step-4-annotator">Step 4: Annotator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#bigbashboy-sh-the-orchestrator-script"><code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> - the orchestrator script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#appendices">Appendices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#sql-for-the-filter">SQL for the filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="infra.html#architecture-overview">Architecture Overview</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="infra.html#data">Data</a></li>
@@ -189,6 +210,7 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 <li class="toctree-l3"><a class="reference internal" href="infra.html#log-files">Log files</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="infra.html#environment-variables-on-prod-server">Environment Variables on prod server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="infra.html#infra-set-up-instructions">Infra Set-up Instructions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="infra.html#directories">Directories</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infra.html#sqlite-database">SQLite database</a></li>
@@ -196,7 +218,6 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 </li>
 <li class="toctree-l2"><a class="reference internal" href="infra.html#local-dev-env">Local dev env</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="infra.html#conda">conda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="infra.html#env-variables">env variables</a></li>
 </ul>
 </li>
 </ul>
@@ -212,11 +233,12 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Testing Procedure</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="local_testing.html#making-a-fresh-dirctory">Making a fresh dirctory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="local_testing.html#add-data-to-sqlite-database">Add data to sqlite database</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
 </ul>
 </div>
 </section>

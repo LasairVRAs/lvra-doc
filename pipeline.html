@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" data-content_root="./">
+<head>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Pipeline Overview &mdash; LVRA dev documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
+      <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=3f91281a" />
+            <link rel="index" title="Index" href="genindex.html" />
+            <link rel="search" title="Search" href="search.html" />
+            <link rel="top" title="LVRA dev documentation" href="#" />
+            <link rel="next" title="Infrastructure" href="infra.html" />
+            <link rel="prev" title="Speed Dial" href="speeddial.html" />
+    </head>
+<body>
+    <script type="text/javascript" src="_static/dist/blocking.js"></script>
+    <header class="container-fluid bg-primary">
+        <a class="btn btn-sm btn-light skip-to-content-link" href="#main">Skip to content</a>
+        <div class="container-fluid">
+            <div class="navbar navbar-expand-lg navbar-dark font-weight-bold">
+                    <a href="https://lasairvras.github.io/lvra-doc/index.html"
+                        title="LVRA"
+                        class="logo navbar-brand"
+                    >
+                        <img src="_static/img/lvra.png" width="75" height="79" alt="LVRA"
+                            class="logo-img"
+                        />
+                        Lasair Virtual Research Assistants
+                    </a>
+                
+                
+                    <div class="collapse navbar-collapse justify-content-end">
+                        <ul class="navbar-nav">
+                            
+                                
+                                
+                                <li class="nav-item"><a class="nav-link"  href=" https://www.hfstevance.com/">hfstevance.com </a></li>
+                            
+                        </ul>
+                    </div>
+                
+                <button class="navbar-toggler btn btn-primary d-lg-none" type="button" data-toggle="collapse" data-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="sr-only">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-12 col-lg-3 sidebar-container">
+                <div id="collapseSidebar" class="collapse sticky-top d-lg-block pt-5 pr-lg-4">
+<div id="searchbox" class="searchbox mb-6 px-1" role="search">
+    <form id="search-form" action="search.html" autocomplete="off" method="get" role="search">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text border-right-0 bg-white py-3 pl-3 pr-2"><span class="fas fa-search"></span></div>
+            </div>
+            <input class="form-control py-3 pr-3 pl-1 h-100 border-left-0" type="search" name="q" placeholder="Search documentation" aria-label="Search documentation" id="searchinput" />
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div><div class="site-toc">
+    <nav class="toc mt-3" aria-label="Main menu">
+        <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pipeline Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+</ul>
+
+    </nav>
+    <template data-toggle-item-template>
+        <button class="btn btn-sm btn-link toctree-expand" type="button">
+            <span class="sr-only">Toggle menu contents</span>
+        </button>
+    </template>
+</div>
+                    <div class="d-lg-none border-bottom">
+                        
+                    </div>
+                </div>
+            </aside>
+            <div class="col-12 col-lg-9 pt-5">
+                <header class="row align-items-baseline">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-0 p-0 bg-transparent">
+        <li class="breadcrumb-item"><a href="index.html">Docs</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Pipeline Overview</li>
+    </ol>
+</nav>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto mt-3 mt-lg-3">
+                        <noscript>
+                            <p>JavaScript is required to toggle light/dark mode..</p>
+                        </noscript>
+                        <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
+                            <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
+                            <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
+                        </button>
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/LasairVRAs/lvra-doc/docs/pipeline.rst" rel="nofollow">
+        <span class="btn-icon"><span class="fab fa-github"></span></span>
+        <span class="btn-text">Edit on GitHub</span>
+    </a>
+    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/pipeline.rst.txt" rel="nofollow">
+        <span class="btn-icon"><span class="fas fa-code"></span></span>
+        <span class="btn-text">View source</span>
+    </a>
+                        
+                    </div>
+                </header>
+                <div class="row" >
+                    <div class="col-12">
+                        <hr class="w-100 my-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
+                        <main role="main" id="main">
+    <section id="pipeline-overview">
+<h1>Pipeline Overview<a class="headerlink" href="#pipeline-overview" title="Link to this heading">¶</a></h1>
+<p>This page provides an overview of the LVRA production pipeline (<strong>does not include training procedure</strong>) that is currently on the Oxford Lasair server.</p>
+<section id="what-is-a-stem">
+<h2>What is a stem?<a class="headerlink" href="#what-is-a-stem" title="Link to this heading">¶</a></h2>
+<p>A word of jargon that will come up over and over again is <strong>“stem”</strong>, which is the name of the JSON and CSV files created as the pipeline runs.
+The stem is constructed as <code class="docutils literal notranslate"><span class="pre">YYYYMMDD_HHMMSS</span></code> (UTC) and is the same for the JSON and CSV files that are realted to each other, so that they are easy to associate.</p>
+<p>The pipeline is triggered by a cron job every 5 minutes, and for each run there is a unique stem. Each file contains data for many alerts, all processed in the same run,
+and they can be identified (files and database) by that stem.</p>
+</section>
+<section id="step-1-kafka">
+<h2>Step 1: kafka<a class="headerlink" href="#step-1-kafka" title="Link to this heading">¶</a></h2>
+<p>The first step is to consume our kafka queue from Lasair. In the production server the filter we listen to is <code class="docutils literal notranslate"><span class="pre">lvra-fodder</span></code> (topic name: <code class="docutils literal notranslate"><span class="pre">lasair_18lvra-fodder</span></code>).
+The SQL query for this filter can be found at the bottom of this page.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">kafka_consumer.py</span></code> script:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Inputs:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">public_settings.yaml</span></code>: contains the kafka server, group ID, topic name, base directory for outputs (data, logs, lockfiles)</p></li>
+<li><p>Lasair Kafka stream, which the stream connects to using the settings from the YAML file.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Outputs:</dt><dd><ul>
+<li><p><strong>One JSON file containing all alerts in this batch</strong>. The JSON file is created with format <code class="docutils literal notranslate"><span class="pre">[stem].json</span></code>. For exact directory structure see the “Infrastrucutre” page of the manual.</p></li>
+<li><p>A new row in the tables <code class="docutils literal notranslate"><span class="pre">feature_making</span></code>, <code class="docutils literal notranslate"><span class="pre">predict</span></code> and <code class="docutils literal notranslate"><span class="pre">annotating</span></code> in the SQLite database, with the stem and a status flag of 0 for each LVRA column (currently there is only one LVRA: r0b).</p></li>
+<li><p>Exit code (0 if successful, otherwise the status code returned by whatever error occured)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The JSON files are created atomically, meaning that during the kafka consumption process the data is written to a temp file. This way if the process fails in the middle
+we do not have a JSON file with corrupted data entering the rest of the pipeline. Only once the writting is complete is the file renamed and the rows added to the status tables
+in the database.</p>
+<p>The python script <code class="docutils literal notranslate"><span class="pre">kafka_consumer.py</span></code> is paired with a bash script called <code class="docutils literal notranslate"><span class="pre">kafka.sh</span></code> which sets the environment and the python path, checks whether the log file exists
+(and creates one is necessary), then runs the python script. It is the <code class="docutils literal notranslate"><span class="pre">kafka.sh</span></code> script that is called in the <code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> script (see below) that is run by the cron job.</p>
+<section id="exit-code-vs-status-code-is-0-good-or-bad-then">
+<h3>Exit code Vs Status code: is 0 good or bad then?<a class="headerlink" href="#exit-code-vs-status-code-is-0-good-or-bad-then" title="Link to this heading">¶</a></h3>
+<p>The exit codes of the files are _mostly_ the same as the status codes (see Infrastructure page), <strong>except</strong> for the success case. 0 is used as an initialisation status code and 1 is a success.
+(1 == good is very “pyhton”), however when dealing with <strong>exit codes, these end up as outputs in my bash wrapper scripts. In bash 0 = success, anything else is a failure of some kind.</strong>
+So the python scripts do perform some gymnastics to turn the status codes into exit codes that makes sense when the python is executed as part of a larger pipeline in a bash
+orchestrator script.</p>
+</section>
+</section>
+<section id="step-2-feature-making">
+<h2>Step 2: Feature making<a class="headerlink" href="#step-2-feature-making" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">r0b_feature_maker.py</span></code> script transforms the raw alerts into features that can be used to do inference (predictions).</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Inputs:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">public_settings.yaml</span></code> because it contains the base directory</p></li>
+<li><p>The JSON file created by the kafka consumer. To know which JSON files to process it reads the <code class="docutils literal notranslate"><span class="pre">feature_making</span></code> table and selects the stems for all rows where the status flag is not 1 or -1 (success or partial success).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Outputs:</dt><dd><ul>
+<li><p>A csv file with name <code class="docutils literal notranslate"><span class="pre">[stem].csv</span></code></p></li>
+<li><p>Updates the <code class="docutils literal notranslate"><span class="pre">feature_making</span></code> table in the database with a status flag (see table in the “Infrastructure” page of the manual for the error codes).</p></li>
+<li><p>Updates other relevant tables, such as the <code class="docutils literal notranslate"><span class="pre">threshold_flags_provenance</span></code> table in the case of r0b.</p></li>
+<li><p>Exit code (0 if successful, otherwise the status code returned by whatever error occured)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The creation of the feature dataframes which are then written out to csv is not entierly trivial.
+Indeed the kafka stream from lasair contains some Lasair features that are indexed on the <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code> and the full Rubin packet that is indexed on the <code class="docutils literal notranslate"><span class="pre">diaSourceId</span></code>.
+Exactly how and which features are created will be dependent on the specific LVRA; consult the relevant pages to get these details.</p>
+<p>The python script <code class="docutils literal notranslate"><span class="pre">r0b_feature_maker.py</span></code> is paired with a bash script called <code class="docutils literal notranslate"><span class="pre">r0b_feature_maker.sh</span></code> which sets the environment and the python path, checks whether the log file exists
+(and creates one is necessary), then runs the python script. It is the <code class="docutils literal notranslate"><span class="pre">r0b_feature_maker.sh</span></code> script that is called in the <code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> script (see below) that is run by the cron job.</p>
+</section>
+<section id="step-3-predict">
+<h2>Step 3: Predict<a class="headerlink" href="#step-3-predict" title="Link to this heading">¶</a></h2>
+<p>The inference step is done by the <code class="docutils literal notranslate"><span class="pre">r0b_predict.py</span></code> script.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Inputs:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">public_settings.yaml</span></code> because it contains the base directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">r0b_config.yaml</span></code>: Contains the path to the <code class="docutils literal notranslate"><span class="pre">.joblib</span></code> file, the model name and the model version (and other settings only relevant for the next step)</p></li>
+<li><p>The csv files containing the features. To know which csv files still need to be processed the <code class="docutils literal notranslate"><span class="pre">predict</span></code> table is consulted to find the stems with status not 1 or -1.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Outputs:</dt><dd><ul>
+<li><p>Adds a row to the <code class="docutils literal notranslate"><span class="pre">provenance</span></code> table for each alert in the csv file.</p></li>
+<li><p>Updates the <code class="docutils literal notranslate"><span class="pre">predict</span></code> table in the database with a status flag (see table in the “Infrastructure” page of the manual for the error codes).</p></li>
+<li><p>Exit code (0 if successful, otherwise the status code returned by whatever error occured)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The python script <code class="docutils literal notranslate"><span class="pre">r0b_predict.py</span></code> is paired with a bash script called <code class="docutils literal notranslate"><span class="pre">r0b_predict.sh</span></code> which sets the environment and the python path, checks whether the log file exists
+(and creates one is necessary), then runs the python script. It is the <code class="docutils literal notranslate"><span class="pre">r0b_predict.sh</span></code> script that is called in the <code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> script (see below) that is run by the cron job.</p>
+<section id="why-a-provenance-table">
+<h3>Why a provenance table?<a class="headerlink" href="#why-a-provenance-table" title="Link to this heading">¶</a></h3>
+<p>The provenance table in the database records the score given to <strong>each alert</strong>. In Lasair the annotations are indexed by <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code>, that is the astrophysical event, not the lightcurve
+data point. This means that when a new lightcurve point arrives in the alerts, the pipeline makes a new prediction and the new annotation in Lasair <strong>overwrites</strong> the previous one.</p>
+<p>Lasair therefore provides no history on the scores. This is a problem for testing and validation, but also because we may want to use the score history to make decisions in the future,
+or add them to the additional data that we can report in the annotation through the <code class="docutils literal notranslate"><span class="pre">class_dict</span></code> (a free from dictionary) field.</p>
+</section>
+</section>
+<section id="step-4-annotator">
+<h2>Step 4: Annotator<a class="headerlink" href="#step-4-annotator" title="Link to this heading">¶</a></h2>
+<p>Finally we can report the scores and other quantities to Lasair via annotations. This is done by the <code class="docutils literal notranslate"><span class="pre">r0b_annotator.py</span></code> script.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Inputs:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">public_settings.yaml</span></code> because it contains the base directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">r0b_config.yaml</span></code>: Contains the model name, model version, the topic of the annotator, the explanation and URL settings we’ll pass on to the lasair annotator.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">annotatin</span></code> table which tells us which stems have already had their alerts annotated.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">provenance</span></code> table which contains the scores for each alert (and a stem column so we only grab the relevant alerts).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Outputs:</dt><dd><ul>
+<li><p>Sends alerts to the Lasair annotator.</p></li>
+<li><p>Updates the <code class="docutils literal notranslate"><span class="pre">annotating</span></code> table in the database with a status flag (see table in the “Infrastructure” page of the manual for the error codes).</p></li>
+<li><p>Exit code (0 if successful, otherwise the status code returned by whatever error occured)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The python script <code class="docutils literal notranslate"><span class="pre">r0b_annotator.py</span></code> is paired with a bash script called <code class="docutils literal notranslate"><span class="pre">r0b_annotator.sh</span></code> which sets the environment and the python path, checks whether the log file exists
+(and creates one is necessary), then runs the python script. It is the <code class="docutils literal notranslate"><span class="pre">r0b_annotator.sh</span></code> script that is called in the <code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> script (see below) that is run by the cron job.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The annotator can take the Lasair token as a command line argument. This is useful if you want to test pushing annotations to the dev lasair server.
+The bash wrapper sets the environment variable <code class="docutils literal notranslate"><span class="pre">LASAIR_TOKEN</span></code> (which is called in the python script) to the argument pass on the CL.
+Otherwise it looks for the <code class="docutils literal notranslate"><span class="pre">LASAIR_LSST_TOKEN</span></code> environment variable, which is the token for the production server.</p>
+</div>
+</section>
+<section id="bigbashboy-sh-the-orchestrator-script">
+<h2><code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> - the orchestrator script<a class="headerlink" href="#bigbashboy-sh-the-orchestrator-script" title="Link to this heading">¶</a></h2>
+<p>Although each python script already has a bash wrapper to set the environment, the pipeline needs to be called in a crontab.
+The problem is that <strong>each process needs to finish before the next on is called</strong> (ideally), also I have issues with the logs not going where
+I wanted them to go… Anyways, the <code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> script calls each step and does a whole lot of <strong>bookkeeping</strong>.
+It checks that each file exists, <strong>creates lock files</strong> so that we don’t have multiple instances of a feature making process happening and files being over written.
+(it can happen if you run a bash script whilst a cron job has triggered).</p>
+<p>It also creates a high level log file so you can check the pipeline is running without having to open each individual log.</p>
+</section>
+<section id="appendices">
+<h2>Appendices<a class="headerlink" href="#appendices" title="Link to this heading">¶</a></h2>
+<section id="sql-for-the-filter">
+<h3>SQL for the filter<a class="headerlink" href="#sql-for-the-filter" title="Link to this heading">¶</a></h3>
+<p>When I do “Show Filter” in Lasair, this is what I see. If you want to recreate the filter, copy past the columns into the SELECT box of the filter making page,
+then copy paste the WHERE conditions into the WHERE box. The table names are automatically populated. I also ask for the full stream as the
+pypeline expects the full Rubin packet for each alert.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">COLUMNS</span><span class="p">:</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">diaObjectId</span><span class="p">,</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">lastDiaSourceMjdTai</span><span class="p">,</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">latestR</span><span class="p">,</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">nDiaSources</span><span class="p">,</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">ebv</span><span class="p">,</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">ra</span><span class="p">,</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">decl</span><span class="p">,</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">tns_name</span><span class="p">,</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">absMag</span><span class="p">,</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">absMagMJD</span><span class="p">,</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">firstDiaSourceMjdTai</span><span class="p">,</span>
+<span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">separationArcsec</span><span class="p">,</span>
+<span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">direct_distance</span><span class="p">,</span>
+<span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">distance</span><span class="p">,</span>
+<span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">z</span><span class="p">,</span>
+<span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">photoZ</span><span class="p">,</span>
+<span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">photoZErr</span><span class="p">,</span>
+<span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">physical_separation_kpc</span><span class="p">,</span>
+<span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">classification</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">sherlock_classifications</span><span class="p">,</span>
+<span class="n">objects_ext</span><span class="p">.</span><span class="n">nDiaSources</span><span class="p">,</span>
+<span class="n">objects_ext</span><span class="p">.</span><span class="n">raErr</span><span class="p">,</span>
+<span class="n">objects_ext</span><span class="p">.</span><span class="n">decErr</span><span class="p">,</span>
+<span class="n">objects_ext</span><span class="p">.</span><span class="n">ra_dec_Cov</span>
+<span class="k">FROM</span><span class="p">:</span>
+<span class="n">sherlock_classifications</span><span class="p">,</span><span class="n">objects_ext</span><span class="p">,</span><span class="n">objects</span>
+<span class="k">WHERE</span><span class="p">:</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">nDiaSources</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">classification</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;ORPHAN&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SN&#39;</span><span class="p">,</span><span class="s1">&#39;NT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;UNCLEAR&#39;</span><span class="p">)</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">objects</span><span class="p">.</span><span class="n">latestR</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">objects</span><span class="p">.</span><span class="n">lastDiaSourceMjdTai</span><span class="w"> </span><span class="k">DESC</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+                        <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
+    <a class="float-left" href="speeddial.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>Speed Dial
+    </a>
+    <a class="float-right" href="infra.html" title="Next">
+        Infrastructure <span aria-hidden="true">&nbsp;→</span>
+    </a>
+</nav>
+                    </div>
+                    
+                    <nav class="col-12 col-lg-3 pb-4">
+                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
+                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
+                            <ul>
+<li><a class="reference internal" href="#">Pipeline Overview</a><ul>
+<li><a class="reference internal" href="#what-is-a-stem">What is a stem?</a></li>
+<li><a class="reference internal" href="#step-1-kafka">Step 1: kafka</a><ul>
+<li><a class="reference internal" href="#exit-code-vs-status-code-is-0-good-or-bad-then">Exit code Vs Status code: is 0 good or bad then?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#step-2-feature-making">Step 2: Feature making</a></li>
+<li><a class="reference internal" href="#step-3-predict">Step 3: Predict</a><ul>
+<li><a class="reference internal" href="#why-a-provenance-table">Why a provenance table?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#step-4-annotator">Step 4: Annotator</a></li>
+<li><a class="reference internal" href="#bigbashboy-sh-the-orchestrator-script"><code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> - the orchestrator script</a></li>
+<li><a class="reference internal" href="#appendices">Appendices</a><ul>
+<li><a class="reference internal" href="#sql-for-the-filter">SQL for the filter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid bg-primary text-light">
+        <div class="container">
+            <div class="row">
+        <div class="col p-4">
+            
+                <nav aria-label="Footer">
+                    <ul class="nav justify-content-center mb-2">
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="mailto:hfstevance@gmail.com">hfstevance@gmail.com </a></li>
+                        
+                    </ul>
+                </nav>
+            
+            <div class="text-center">
+                    &copy; Copyright 2026, Heloise F. Stevance
+            </div>
+            <div class="text-center text-white-50 font-italic mt-3">
+                <small>Last updated: Apr 28, 2026</small>
+            </div>
+        </div>
+    </div>
+        </div>
+    </footer>
+        <script src="_static/documentation_options.js?v=3ce10a4d"></script>
+        <script src="_static/doctools.js?v=fd6eb6e6"></script>
+        <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script type="text/javascript" src="_static/dist/theme.js"></script>
+        <script type="text/javascript" src="_static/dist/vendor.js"></script>
+        <script type="text/javascript" src="_static/searchtools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() { Search.loadIndex("searchindex.js"); });
+        </script>
+        <script type="text/javascript" id="searchindexloader"></script>
+    </body>
+</html>

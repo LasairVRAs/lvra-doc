@@ -160,10 +160,40 @@ Table List
 
 * ``provenance`` [provenance]: Records the mapping between LSST ``diaObjectId`` and the alert stem name.
 
++----+--------------------+--------------------+---------------+---------------------+------------+---------------+---------------------+
+| ID | diaObjectId        | diaSourceId        | stem          | score               | model_name | model_version | timestamp           |
++====+====================+====================+===============+=====================+============+===============+=====================+
+| 1  | 170019716327800983 | 170046091000545381 | 20260223_193401 | 0.963998322011434 | r0b        | a1            | 2026-02-24 05:18:57 |
++----+--------------------+--------------------+---------------+---------------------+------------+---------------+---------------------+
+
+
 Log files
 ~~~~~~~~~~~~~~~~~
 
 [list log fiels and explain]
+
+
+Environment Variables on prod server
+----------------------------------------
+
+.. code-block:: bash
+
+   export LASAIR_LSST_TOKEN = [see my .bashrc]
+   export LVRA_TNS_API_KEY = [see my .bashrc]
+
+    # Changing the name of this env variable breaks Lasair VRA
+    export LASAIR_LSST_DEV_TOKEN=[see my .bashrc]
+    export LASAIR_LSST_TOKEN=[see my .bashrc]
+    export LVRA_DATA_ROOT="/home/lasair/data/lvra/"
+    export LVRA_DATA_ROOT_DEV="/home/lasair/data/lvra_dev/"
+    export LVRA_CODE_ROOT="/home/lasair/code/lvra/"
+    # Add to my python path
+    export PYTHONPATH=$PYTHONPATH:/home/lasair/code/lvra/
+    export LVRA_TNS_API_KEY=[see my .bashrc]
+    # add some useful aliases
+    alias cdlvradat='cd $LVRA_DATA_ROOT'
+    alias cdlvra='cd /home/lasair/code/lvra'
+    alias tnsreport='/home/lasair/code/tns/tns_report.py'
 
 
 Infra Set-up Instructions
@@ -234,25 +264,22 @@ Then copy paste this code in a new file called ``log_schema.sql``.
 
 .. code-block:: sql
 
-    CREATE TABLE IF NOT EXISTS feature_making (
+    CREATE TABLE feature_making (
         stem TEXT PRIMARY KEY,
         timestamp TEXT NOT NULL DEFAULT current_timestamp,
         r0b INTEGER
     );
-
-    CREATE TABLE IF NOT EXISTS annotating (
+    CREATE TABLE annotating (
         stem TEXT PRIMARY KEY,
         timestamp TEXT NOT NULL DEFAULT current_timestamp,
         r0b INTEGER
     );
-
-    CREATE TABLE IF NOT EXISTS diaobjid_stems (
+    CREATE TABLE diaobjid_stems (
         diaObjectId INTEGER PRIMARY KEY,
         stem TEXT NOT NULL,
         timestamp TEXT NOT NULL DEFAULT current_timestamp
     );
-
-    CREATE TABLE IF NOT EXISTS provenance (
+    CREATE TABLE provenance (
         ID INTEGER PRIMARY KEY, 
         diaObjectId INTEGER,
         diaSourceId INTEGER, 
@@ -262,11 +289,10 @@ Then copy paste this code in a new file called ``log_schema.sql``.
         model_version TEXT,
         timestamp TEXT NOT NULL DEFAULT current_timestamp
     );
-
     CREATE TABLE threshold_flags_provenance(
         ID INTEGER PRIMARY KEY,
-        diaObjectId INTEGER,                                                                                             
-        diaSourceId INTEGER,                                                                                             
+        diaObjectId INTEGER,
+        diaSourceId INTEGER,
         stem TEXT,
         n_gt22 INTEGER,
         n_gt21 INTEGER,
@@ -285,6 +311,12 @@ Then copy paste this code in a new file called ``log_schema.sql``.
         first18 INTEGER,
         timestamp TEXT NOT NULL DEFAULT current_timestamp
     );
+    CREATE TABLE predict (
+        stem TEXT PRIMARY KEY,
+        timestamp TEXT NOT NULL DEFAULT current_timestamp,
+        r0b INTEGER
+    );
+
 
 
 Then run:
@@ -328,13 +360,5 @@ Then I created the environment with:
 
     conda env create -f software/lvra/lvra_env.yml  -n lvra
 
-env variables
-~~~~~~~~~~~~~~~~~
 
-.. code-block:: bash
-
-   export LVRA_SETTINGS='/home/stevance/software/lvra/data/public_settings_local.yaml'
-   export LVRA_TRAINING_ROOTDIR='/home/stevance/Science/lvra-training/'
-   export LASAIR_LSST_TOKEN = [see my .bashrc]
-   export LVRA_TNS_API_KEY = [see my .bashrc]
 

@@ -6,7 +6,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>r0b: Real Or Bogus &mdash; LVRA dev documentation</title>
+        <title>Backup of the LVRA data on the Oxford database &mdash; LVRA dev documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
@@ -16,8 +16,7 @@
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
-            <link rel="next" title="Speed Dial" href="speeddial.html" />
-            <link rel="prev" title="Introduction" href="intro.html" />
+            <link rel="prev" title="Local Testing Procedure" href="local_testing.html" />
     </head>
 <body>
     <script type="text/javascript" src="_static/dist/blocking.js"></script>
@@ -71,18 +70,18 @@
 </div><div class="site-toc">
     <nav class="toc mt-3" aria-label="Main menu">
         <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">r0b: Real Or Bogus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Backup of the LVRA data on the Oxford database</a></li>
 </ul>
 
     </nav>
@@ -103,7 +102,7 @@
                         <nav aria-label="breadcrumb">
     <ol class="breadcrumb m-0 p-0 bg-transparent">
         <li class="breadcrumb-item"><a href="index.html">Docs</a></li>
-        <li class="breadcrumb-item active" aria-current="page">r0b: Real Or Bogus</li>
+        <li class="breadcrumb-item active" aria-current="page">Backup of the LVRA data on the Oxford database</li>
     </ol>
 </nav>
                     </div>
@@ -115,11 +114,11 @@
                             <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
                             <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
                         </button>
-    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/LasairVRAs/lvra-doc/docs/r0b.rst" rel="nofollow">
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/LasairVRAs/lvra-doc/docs/backup.rst" rel="nofollow">
         <span class="btn-icon"><span class="fab fa-github"></span></span>
         <span class="btn-text">Edit on GitHub</span>
     </a>
-    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/r0b.rst.txt" rel="nofollow">
+    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/backup.rst.txt" rel="nofollow">
         <span class="btn-icon"><span class="fas fa-code"></span></span>
         <span class="btn-text">View source</span>
     </a>
@@ -134,58 +133,34 @@
                 <div class="row">
                     <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
                         <main role="main" id="main">
-    <section id="r0b-real-or-bogus">
-<h1>r0b: Real Or Bogus<a class="headerlink" href="#r0b-real-or-bogus" title="Link to this heading">¶</a></h1>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>I am actively working on this algorithm - and significant updates will be put in production <strong>throughout March 2026 at least</strong>.</p>
+    <section id="backup-of-the-lvra-data-on-the-oxford-database">
+<h1>Backup of the LVRA data on the Oxford database<a class="headerlink" href="#backup-of-the-lvra-data-on-the-oxford-database" title="Link to this heading">¶</a></h1>
+<p>Ken has made a directory under <code class="docutils literal notranslate"><span class="pre">/storage1/backups</span></code> where his databases get backedup routinely.
+This is where we can regularly back up the LVRA data under the <code class="docutils literal notranslate"><span class="pre">/storage1/backups/lasair/lvra</span></code>
+directory. (Also backing up <code class="docutils literal notranslate"><span class="pre">lvra_dev</span></code>).</p>
+<p>The database is backed up each day with a separate Year-Month-Day timestamp in the filename
+so that we don’t overwrite the database during the back up. The data is important but it DOES
+exist in other places (Lasair, Rubin).</p>
+<p>The database contains the provenance of the LVRA, <strong>that doesn’t exist anywhere else</strong>. If I nuke it
+it’s gone forever. Also it’s a small (single) file so it takes no space to back up like this.</p>
+<p>In a cron job, doing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Daily backup of the sqlite database in situ.</span>
+<span class="m">22</span><span class="w"> </span><span class="m">10</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>/usr/bin/cp<span class="w"> </span>-rp<span class="w"> </span>/storage1/data/lasair/lvra/db/log.db<span class="w"> </span>/storage1/backups/data/lasair/lvra/db/log_<span class="k">$(</span>date<span class="w"> </span>+<span class="se">\%</span>Y<span class="se">\%</span>m<span class="se">\%</span>d<span class="k">)</span>.db
+
+<span class="c1"># Backup the whole directory structure somewhere else.</span>
+<span class="m">10</span><span class="w"> </span><span class="m">10</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>/usr/bin/cp<span class="w"> </span>-rp<span class="w"> </span>/storage1/data/lasair/lvra<span class="w"> </span>/storage1/backups/data/lasair
+<span class="m">30</span><span class="w"> </span><span class="m">10</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>/usr/bin/cp<span class="w"> </span>-rp<span class="w"> </span>/storage1/data/lasair/lvra_dev<span class="w"> </span>/storage1/backups/data/lasair
+</pre></div>
 </div>
-<p>The <a class="reference external" href="https://prompt-products.lsst.io/processing/filtering/index.html">reliability score provided by Rubin</a> is very useful for first cuts but as a transient astronomer it is not sufficient
-to create a clean enough stream.
-By using the reliability score alongside other features in the alert packet we can make better decisions.
-This work is based on the <a class="reference external" href="https://arxiv.org/abs/2506.09778">ATLAS Virtual Research Assistant (Stevance et al. 2025)</a>, and adds
-methods of Active Learning so I can train directly on the stream.</p>
-<p>Because I am training <strong>directly on the live Rubin stream</strong> it will take a few weeks to train and verify an algorithm. The details of this will be
-added to this documentation and make the object of a proper paper later in the year. If you have questions in the mean-time email me or start a topic
-on the <a class="reference external" href="https://community.lsst.org/c/support/support-lasair/55">Lasair Community Forum</a>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">r0b</span></code> LVRA is a binary classifier <strong>downstream</strong> of a filter that makes preliminary cuts:
-*  <code class="docutils literal notranslate"><span class="pre">reliability</span></code> &gt;0.5
-*  <code class="docutils literal notranslate"><span class="pre">SHERLOCK</span></code> label either <code class="docutils literal notranslate"><span class="pre">SN</span></code>, <code class="docutils literal notranslate"><span class="pre">NT</span></code>, <code class="docutils literal notranslate"><span class="pre">ORPHAN</span></code> or <code class="docutils literal notranslate"><span class="pre">UNCLEAR</span></code>.
-*  <code class="docutils literal notranslate"><span class="pre">nDiaSources`</span></code> &gt;= 2
-*</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The r0b scores are <strong>absolutely not suitable for Solar System Objects of AGNs</strong>. If they work well, it is on accident. Use at your own peril.</p>
-</div>
-<section id="how-does-it-work-what-data-was-it-trained-on-performance">
-<h2>How does it work? What data was it trained on? Performance?<a class="headerlink" href="#how-does-it-work-what-data-was-it-trained-on-performance" title="Link to this heading">¶</a></h2>
-<p><em>Come back in March/April 2026</em></p>
-</section>
 </section>
 
 </main>
                         <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
-    <a class="float-left" href="intro.html" title="Previous">
-        <span aria-hidden="true">←&nbsp;</span>Introduction
-    </a>
-    <a class="float-right" href="speeddial.html" title="Next">
-        Speed Dial <span aria-hidden="true">&nbsp;→</span>
+    <a class="float-left" href="local_testing.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>Local Testing Procedure
     </a>
 </nav>
                     </div>
-                    
-                    <nav class="col-12 col-lg-3 pb-4">
-                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
-                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
-                            <ul>
-<li><a class="reference internal" href="#">r0b: Real Or Bogus</a><ul>
-<li><a class="reference internal" href="#how-does-it-work-what-data-was-it-trained-on-performance">How does it work? What data was it trained on? Performance?</a></li>
-</ul>
-</li>
-</ul>
-
-                        </div>
-                    </nav>
                     
                 </div>
             </div>

@@ -6,7 +6,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>r0b: Real Or Bogus &mdash; LVRA dev documentation</title>
+        <title>Dev environement &mdash; LVRA dev documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
@@ -16,8 +16,6 @@
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
-            <link rel="next" title="Speed Dial" href="speeddial.html" />
-            <link rel="prev" title="Introduction" href="intro.html" />
     </head>
 <body>
     <script type="text/javascript" src="_static/dist/blocking.js"></script>
@@ -71,9 +69,9 @@
 </div><div class="site-toc">
     <nav class="toc mt-3" aria-label="Main menu">
         <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">r0b: Real Or Bogus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
 <ul>
@@ -103,7 +101,7 @@
                         <nav aria-label="breadcrumb">
     <ol class="breadcrumb m-0 p-0 bg-transparent">
         <li class="breadcrumb-item"><a href="index.html">Docs</a></li>
-        <li class="breadcrumb-item active" aria-current="page">r0b: Real Or Bogus</li>
+        <li class="breadcrumb-item active" aria-current="page">Dev environement</li>
     </ol>
 </nav>
                     </div>
@@ -115,11 +113,11 @@
                             <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
                             <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
                         </button>
-    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/LasairVRAs/lvra-doc/docs/r0b.rst" rel="nofollow">
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/LasairVRAs/lvra-doc/docs/lasair_dev.rst" rel="nofollow">
         <span class="btn-icon"><span class="fab fa-github"></span></span>
         <span class="btn-text">Edit on GitHub</span>
     </a>
-    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/r0b.rst.txt" rel="nofollow">
+    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/lasair_dev.rst.txt" rel="nofollow">
         <span class="btn-icon"><span class="fas fa-code"></span></span>
         <span class="btn-text">View source</span>
     </a>
@@ -134,52 +132,144 @@
                 <div class="row">
                     <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
                         <main role="main" id="main">
-    <section id="r0b-real-or-bogus">
-<h1>r0b: Real Or Bogus<a class="headerlink" href="#r0b-real-or-bogus" title="Link to this heading">¶</a></h1>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>I am actively working on this algorithm - and significant updates will be put in production <strong>throughout March 2026 at least</strong>.</p>
+    <section id="dev-environement">
+<h1>Dev environement<a class="headerlink" href="#dev-environement" title="Link to this heading">¶</a></h1>
+<section id="making-a-fresh-dirctory">
+<h2>Making a fresh dirctory<a class="headerlink" href="#making-a-fresh-dirctory" title="Link to this heading">¶</a></h2>
+<p><strong>Remote Oxford Server</strong>: Made new directory under <code class="docutils literal notranslate"><span class="pre">./data/lvra_dev</span></code> (actually a symlink placed in storage).
+Made a file to create the directory structure and the database tables. It is different from the
+local testing file because I’m not recreating the full LasairOxford severver directory base
+<code class="docutils literal notranslate"><span class="pre">code</span></code> and <code class="docutils literal notranslate"><span class="pre">data</span></code> or copying the bash scripts under that code base. It already exists here as is.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+
+<span class="nv">years_arr</span><span class="o">=(</span><span class="m">2026</span>
+<span class="w">    </span><span class="m">2027</span>
+<span class="w">    </span><span class="m">2028</span>
+<span class="w">    </span><span class="m">2029</span>
+<span class="w">    </span><span class="m">2030</span>
+<span class="w">    </span><span class="m">2031</span>
+<span class="w">    </span><span class="m">2032</span>
+<span class="w">    </span><span class="m">2033</span>
+<span class="w">    </span><span class="m">2034</span>
+<span class="w">    </span><span class="m">2035</span>
+<span class="o">)</span>
+
+<span class="nv">today</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s2">&quot;%Y%m%d&quot;</span><span class="k">)</span>
+<span class="nv">today_year</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s2">&quot;%Y&quot;</span><span class="k">)</span>
+
+<span class="c1">#mkdir -p &quot;test_$today&quot;</span>
+
+<span class="c1">#cd &quot;test_$today&quot;</span>
+
+<span class="c1">#mkdir -p data/lvra</span>
+<span class="c1">#mkdir -p code</span>
+
+<span class="nb">cd</span><span class="w"> </span><span class="nv">$LVRA_DATA_ROOT_DEV</span>
+
+<span class="nv">work_dir</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
+
+mkdir<span class="w"> </span>-p<span class="w"> </span>JSON
+mkdir<span class="w"> </span>-p<span class="w"> </span>csv
+mkdir<span class="w"> </span>-p<span class="w"> </span>logs
+mkdir<span class="w"> </span>-p<span class="w"> </span>db
+
+
+<span class="k">for</span><span class="w"> </span>dir<span class="w"> </span><span class="k">in</span><span class="w"> </span>JSON<span class="w"> </span>csv<span class="w"> </span>logs<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span>year<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">years_arr</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">        </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work_dir</span><span class="s2">/</span><span class="nv">$dir</span><span class="s2">/</span><span class="nv">$year</span><span class="s2">&quot;</span>
+<span class="w">        </span><span class="k">done</span>
+
+<span class="w">    </span>mkdir<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work_dir</span><span class="s2">/</span><span class="nv">$dir</span><span class="s2">/</span><span class="nv">$today_year</span><span class="s2">/</span><span class="nv">$today</span><span class="s2">&quot;</span>
+
+
+<span class="k">done</span>
+
+<span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work_dir</span><span class="s2">/db&quot;</span>
+
+cat<span class="w"> </span>&gt;<span class="w"> </span>log_schema.sql<span class="w"> </span><span class="s">&lt;&lt;&#39;SQL&#39;</span>
+<span class="s">CREATE TABLE feature_making (</span>
+<span class="s">    stem TEXT PRIMARY KEY,</span>
+<span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp,</span>
+<span class="s">    r0b INTEGER</span>
+<span class="s">);</span>
+<span class="s">CREATE TABLE annotating (</span>
+<span class="s">    stem TEXT PRIMARY KEY,</span>
+<span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp,</span>
+<span class="s">    r0b INTEGER</span>
+<span class="s">);</span>
+<span class="s">CREATE TABLE diaobjid_stems (</span>
+<span class="s">    diaObjectId INTEGER PRIMARY KEY,</span>
+<span class="s">    stem TEXT NOT NULL,</span>
+<span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp</span>
+<span class="s">);</span>
+<span class="s">CREATE TABLE provenance (</span>
+<span class="s">    ID INTEGER PRIMARY KEY,</span>
+<span class="s">    diaObjectId INTEGER,</span>
+<span class="s">    diaSourceId INTEGER,</span>
+<span class="s">    stem TEXT,</span>
+<span class="s">    score REAL,</span>
+<span class="s">    model_name TEXT,</span>
+<span class="s">    model_version TEXT,</span>
+<span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp</span>
+<span class="s">);</span>
+<span class="s">CREATE TABLE threshold_flags_provenance(</span>
+<span class="s">    ID INTEGER PRIMARY KEY,</span>
+<span class="s">    diaObjectId INTEGER,</span>
+<span class="s">    diaSourceId INTEGER,</span>
+<span class="s">    stem TEXT,</span>
+<span class="s">    n_gt22 INTEGER,</span>
+<span class="s">    n_gt21 INTEGER,</span>
+<span class="s">    n_gt20 INTEGER,</span>
+<span class="s">    n_gt19 INTEGER,</span>
+<span class="s">    n_gt18 INTEGER,</span>
+<span class="s">    brighter22 INTEGER,</span>
+<span class="s">    brighter21 INTEGER,</span>
+<span class="s">    brighter20 INTEGER,</span>
+<span class="s">    brighter19 INTEGER,</span>
+<span class="s">    brighter18 INTEGER,</span>
+<span class="s">    first22 INTEGER,</span>
+<span class="s">    first21 INTEGER,</span>
+<span class="s">    first20 INTEGER,</span>
+<span class="s">    first19 INTEGER,</span>
+<span class="s">    first18 INTEGER,</span>
+<span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp</span>
+<span class="s">);</span>
+<span class="s">CREATE TABLE predict (</span>
+<span class="s">    stem TEXT PRIMARY KEY,</span>
+<span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp,</span>
+<span class="s">    r0b INTEGER</span>
+<span class="s">);</span>
+<span class="s">SQL</span>
+
+sqlite3<span class="w"> </span>log.db<span class="w"> </span>&lt;<span class="w"> </span>log_schema.sql
+</pre></div>
 </div>
-<p>The <a class="reference external" href="https://prompt-products.lsst.io/processing/filtering/index.html">reliability score provided by Rubin</a> is very useful for first cuts but as a transient astronomer it is not sufficient
-to create a clean enough stream.
-By using the reliability score alongside other features in the alert packet we can make better decisions.
-This work is based on the <a class="reference external" href="https://arxiv.org/abs/2506.09778">ATLAS Virtual Research Assistant (Stevance et al. 2025)</a>, and adds
-methods of Active Learning so I can train directly on the stream.</p>
-<p>Because I am training <strong>directly on the live Rubin stream</strong> it will take a few weeks to train and verify an algorithm. The details of this will be
-added to this documentation and make the object of a proper paper later in the year. If you have questions in the mean-time email me or start a topic
-on the <a class="reference external" href="https://community.lsst.org/c/support/support-lasair/55">Lasair Community Forum</a>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">r0b</span></code> LVRA is a binary classifier <strong>downstream</strong> of a filter that makes preliminary cuts:
-*  <code class="docutils literal notranslate"><span class="pre">reliability</span></code> &gt;0.5
-*  <code class="docutils literal notranslate"><span class="pre">SHERLOCK</span></code> label either <code class="docutils literal notranslate"><span class="pre">SN</span></code>, <code class="docutils literal notranslate"><span class="pre">NT</span></code>, <code class="docutils literal notranslate"><span class="pre">ORPHAN</span></code> or <code class="docutils literal notranslate"><span class="pre">UNCLEAR</span></code>.
-*  <code class="docutils literal notranslate"><span class="pre">nDiaSources`</span></code> &gt;= 2
-*</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The r0b scores are <strong>absolutely not suitable for Solar System Objects of AGNs</strong>. If they work well, it is on accident. Use at your own peril.</p>
-</div>
-<section id="how-does-it-work-what-data-was-it-trained-on-performance">
-<h2>How does it work? What data was it trained on? Performance?<a class="headerlink" href="#how-does-it-work-what-data-was-it-trained-on-performance" title="Link to this heading">¶</a></h2>
-<p><em>Come back in March/April 2026</em></p>
+</section>
+<section id="check-list">
+<h2>Check-list<a class="headerlink" href="#check-list" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Comment out the cron job</p></li>
+<li><p>Make fresh dev branch from <code class="docutils literal notranslate"><span class="pre">main</span></code></p></li>
+<li><p>Change <code class="docutils literal notranslate"><span class="pre">public_settings.yml</span></code> to point to the lasair dev server</p></li>
+<li><p>Change <code class="docutils literal notranslate"><span class="pre">r0b_config.yml</span></code> so topic out points to dev annotator (and ammend any other relevant settings)</p></li>
+<li><p>MAKE SURE YOUR <code class="docutils literal notranslate"><span class="pre">lasair83_lvra_feed_full</span></code> is the same as the one on prod so we are ingesting same alerts in same format</p></li>
+<li><p>Do what you need to do</p></li>
+<li><p><strong>CHECKOUT MAIN AND TURN OUT THE CRON JOB AGAIN</strong></p></li>
+</ol>
 </section>
 </section>
 
 </main>
-                        <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
-    <a class="float-left" href="intro.html" title="Previous">
-        <span aria-hidden="true">←&nbsp;</span>Introduction
-    </a>
-    <a class="float-right" href="speeddial.html" title="Next">
-        Speed Dial <span aria-hidden="true">&nbsp;→</span>
-    </a>
-</nav>
+                        
                     </div>
                     
                     <nav class="col-12 col-lg-3 pb-4">
                         <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
                             <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
                             <ul>
-<li><a class="reference internal" href="#">r0b: Real Or Bogus</a><ul>
-<li><a class="reference internal" href="#how-does-it-work-what-data-was-it-trained-on-performance">How does it work? What data was it trained on? Performance?</a></li>
+<li><a class="reference internal" href="#">Dev environement</a><ul>
+<li><a class="reference internal" href="#making-a-fresh-dirctory">Making a fresh dirctory</a></li>
+<li><a class="reference internal" href="#check-list">Check-list</a></li>
 </ul>
 </li>
 </ul>
