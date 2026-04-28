@@ -3,46 +3,79 @@ Pipeline Overview
 
 This page provides an overview of the LVRA production pipeline (**does not include training procedure**) that is currently on the Oxford Lasair server. 
 
-What is a stem?
-------------------
 
-A word of jargon that will come up over and over again is **"stem"**, which is the name of the JSON and CSV files created as the pipeline runs. 
-The stem is constructed as ``YYYYMMDD_HHMMSS`` (UTC) and is the same for the JSON and CSV files that are realted to each other, so that they are easy to associate. 
+Quick Summary of the workflow
+--------------------------------
 
-The pipeline is triggered by a cron job every 5 minutes, and for each run there is a unique stem. Each file contains data for many alerts, all processed in the same run, 
-and they can be identified (files and database) by that stem. 
+1. **Kafka consumer**: listens to the Kafka stream from Lasair, saves the alerts to a **JSON file** and initialises rows in relevant tables in the database.
+2. **Feature making**: turns raw alerts in JSON files into features in a **csv file**; updates the status of the feature_making status table in the database.
+3. **Predict**: runs the inference step, puts the scores in the "provenance" table in the database which keeps track of the history of our scores; updates the predict status table.
+4. **Annotator**: reports the scores (and any other quantities we chose) to Lasair via the annotator functionality of the lasair client code. 
+
+These steps are run by python scripts that are wrapped in their own bash wrapper which sets the environment and does some bookkeeping like creating log files that don't exist. 
+The pipeline is run every 5 minutes from a cron job which triggers an orchastrator file called ``bigbashboy.sh``.
+
+**Now here are the details...**
 
 
-Step 1: kafka
----------------
+Step 1: Kafka
+-------------------------------
 
-The first step is to consume our kafka queue from Lasair. In the production server the filter we listen to is ``lvra-fodder`` (topic name: ``lasair_18lvra-fodder``).
-The SQL query for this filter can be found at the bottom of this page. 
 
-The ``kafka_consumer.py`` script:
+The first step is to consume our kafka queue from Lasair. 
+In production the filter we listen to is **lvra-fodder**.
+It is a private filter so only me (Heloise) has access to it to modify or view the query, so I have put the SQL query for this filter in an appendix
+at the bottom of this page. 
+
+
+The kafka_consumer.py script
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Inputs:
     - ``public_settings.yaml``: contains the kafka server, group ID, topic name, base directory for outputs (data, logs, lockfiles)
-    - Lasair Kafka stream, which the stream connects to using the settings from the YAML file.
+    - The kafka stream from our filter, which we connect to using the settings from the YAML file.
 * Outputs:
-    - **One JSON file containing all alerts in this batch**. The JSON file is created with format ``[stem].json``. For exact directory structure see the "Infrastrucutre" page of the manual. 
-    - A new row in the tables ``feature_making``, ``predict`` and ``annotating`` in the SQLite database, with the stem and a status flag of 0 for each LVRA column (currently there is only one LVRA: r0b). 
+    - **One JSON file containing all alerts consumed in this run of the script**. The JSON file is created with format ``[stem].json`` (**see definition of stem below**). For exact directory structure see the "Infrastrucutre" page of the manual. 
+    - A new row in the tables ``feature_making``, ``predict`` and ``annotating`` in the SQLite database. These tables are **essentially logs of the status of each process**, 
+      they show a **status code** (an integer, see table in Infrastrucutre for details) for **each stem** and each LVRA (currently there is only one: r0b).
     - Exit code (0 if successful, otherwise the status code returned by whatever error occured)
 
-The JSON files are created atomically, meaning that during the kafka consumption process the data is written to a temp file. This way if the process fails in the middle  
-we do not have a JSON file with corrupted data entering the rest of the pipeline. Only once the writting is complete is the file renamed and the rows added to the status tables 
-in the database. 
+.. admonition:: Status code initialised to 0 by the kafka consumer 
 
+    When the kafka consumer runs it sets the **status of each process to 0**, meaning we expect the processes (making the features, the predictions, sending annotations)
+    to be run very soon for the alerts of the given stem. The status will be changed in subsequent steps depending on success or failure. 
+
+The JSON files are created atomically, meaning that the data is written to a temp file whilst the alerts are being consumed. This way if the process fails in the middle 
+of this process we do not have a JSON file with corrupted data entering the rest of the pipeline. 
+**Only once the writting is complete and the file renamed** do we initialise the rows to the status tables 
+in the database. 
 
 The python script ``kafka_consumer.py`` is paired with a bash script called ``kafka.sh`` which sets the environment and the python path, checks whether the log file exists 
 (and creates one is necessary), then runs the python script. It is the ``kafka.sh`` script that is called in the ``bigbashboy.sh`` script (see below) that is run by the cron job.
+
+What is a stem?
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A word of jargon that will come up over and over again is **"stem"**, which is the name of the JSON and CSV files created as the pipeline runs. 
+The stem is constructed as ``YYYYMMDD_HHMMSS`` (UTC) and **is the same for the JSON and CSV files that are realted** to each other, so that they are easy to associate. 
+
+The pipeline is triggered by a cron job every 5 minutes, and for each run there is a unique stem. Each file contains data for many alerts, all processed in the same run, 
+and they can be identified (files and database) by that stem.
+
+.. tip:: 
+
+    **The main take away is the naming convention of the JSON and csv files matters enormously to the pipeline**. 
 
 
 Exit code Vs Status code: is 0 good or bad then?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The exit codes of the files are _mostly_ the same as the status codes (see Infrastructure page), **except** for the success case. 0 is used as an initialisation status code and 1 is a success. 
-(1 == good is very "pyhton"), however when dealing with **exit codes, these end up as outputs in my bash wrapper scripts. In bash 0 = success, anything else is a failure of some kind.**
+You may have noticed above that I use 0 as a status code in the status tables to show that a process is waiting to be run, but I also use it as an one of the exit code for the pythons scripts.
+
+Generally speaking the exit codes of the files are *mostly* the same as the status codes (see Infrastructure page for a table summarising the status codes), 
+**except** for the success case. For the *status codes* 0 is used as an initialisation status code and 1 is a success (1 == good is very "pyhton").
+However when dealing with **exit codes, they end up as outputs in my bash wrapper scripts. In bash 0 == success, anything else is a failure of some kind.**
+
 So the python scripts do perform some gymnastics to turn the status codes into exit codes that makes sense when the python is executed as part of a larger pipeline in a bash 
 orchestrator script.
 

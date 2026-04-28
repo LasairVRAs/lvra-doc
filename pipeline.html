@@ -12,7 +12,7 @@
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
       <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=43c5c2c6" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=496b1c32" />
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
@@ -141,47 +141,76 @@
     <section id="pipeline-overview">
 <h1>Pipeline Overview<a class="headerlink" href="#pipeline-overview" title="Link to this heading">¶</a></h1>
 <p>This page provides an overview of the LVRA production pipeline (<strong>does not include training procedure</strong>) that is currently on the Oxford Lasair server.</p>
-<section id="what-is-a-stem">
-<h2>What is a stem?<a class="headerlink" href="#what-is-a-stem" title="Link to this heading">¶</a></h2>
-<p>A word of jargon that will come up over and over again is <strong>“stem”</strong>, which is the name of the JSON and CSV files created as the pipeline runs.
-The stem is constructed as <code class="docutils literal notranslate"><span class="pre">YYYYMMDD_HHMMSS</span></code> (UTC) and is the same for the JSON and CSV files that are realted to each other, so that they are easy to associate.</p>
-<p>The pipeline is triggered by a cron job every 5 minutes, and for each run there is a unique stem. Each file contains data for many alerts, all processed in the same run,
-and they can be identified (files and database) by that stem.</p>
+<section id="quick-summary-of-the-workflow">
+<h2>Quick Summary of the workflow<a class="headerlink" href="#quick-summary-of-the-workflow" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Kafka consumer</strong>: listens to the Kafka stream from Lasair, saves the alerts to a <strong>JSON file</strong> and initialises rows in relevant tables in the database.</p></li>
+<li><p><strong>Feature making</strong>: turns raw alerts in JSON files into features in a <strong>csv file</strong>; updates the status of the feature_making status table in the database.</p></li>
+<li><p><strong>Predict</strong>: runs the inference step, puts the scores in the “provenance” table in the database which keeps track of the history of our scores; updates the predict status table.</p></li>
+<li><p><strong>Annotator</strong>: reports the scores (and any other quantities we chose) to Lasair via the annotator functionality of the lasair client code.</p></li>
+</ol>
+<p>These steps are run by python scripts that are wrapped in their own bash wrapper which sets the environment and does some bookkeeping like creating log files that don’t exist.
+The pipeline is run every 5 minutes from a cron job which triggers an orchastrator file called <code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code>.</p>
+<p><strong>Now here are the details…</strong></p>
 </section>
 <section id="step-1-kafka">
-<h2>Step 1: kafka<a class="headerlink" href="#step-1-kafka" title="Link to this heading">¶</a></h2>
-<p>The first step is to consume our kafka queue from Lasair. In the production server the filter we listen to is <code class="docutils literal notranslate"><span class="pre">lvra-fodder</span></code> (topic name: <code class="docutils literal notranslate"><span class="pre">lasair_18lvra-fodder</span></code>).
-The SQL query for this filter can be found at the bottom of this page.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">kafka_consumer.py</span></code> script:</p>
+<h2>Step 1: Kafka<a class="headerlink" href="#step-1-kafka" title="Link to this heading">¶</a></h2>
+<p>The first step is to consume our kafka queue from Lasair.
+In production the filter we listen to is <strong>lvra-fodder</strong>.
+It is a private filter so only me (Heloise) has access to it to modify or view the query, so I have put the SQL query for this filter in an appendix
+at the bottom of this page.</p>
+<section id="the-kafka-consumer-py-script">
+<h3>The kafka_consumer.py script<a class="headerlink" href="#the-kafka-consumer-py-script" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><dl class="simple">
 <dt>Inputs:</dt><dd><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">public_settings.yaml</span></code>: contains the kafka server, group ID, topic name, base directory for outputs (data, logs, lockfiles)</p></li>
-<li><p>Lasair Kafka stream, which the stream connects to using the settings from the YAML file.</p></li>
+<li><p>The kafka stream from our filter, which we connect to using the settings from the YAML file.</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
 <dt>Outputs:</dt><dd><ul>
-<li><p><strong>One JSON file containing all alerts in this batch</strong>. The JSON file is created with format <code class="docutils literal notranslate"><span class="pre">[stem].json</span></code>. For exact directory structure see the “Infrastrucutre” page of the manual.</p></li>
-<li><p>A new row in the tables <code class="docutils literal notranslate"><span class="pre">feature_making</span></code>, <code class="docutils literal notranslate"><span class="pre">predict</span></code> and <code class="docutils literal notranslate"><span class="pre">annotating</span></code> in the SQLite database, with the stem and a status flag of 0 for each LVRA column (currently there is only one LVRA: r0b).</p></li>
+<li><p><strong>One JSON file containing all alerts consumed in this run of the script</strong>. The JSON file is created with format <code class="docutils literal notranslate"><span class="pre">[stem].json</span></code> (<strong>see definition of stem below</strong>). For exact directory structure see the “Infrastrucutre” page of the manual.</p></li>
+<li><p>A new row in the tables <code class="docutils literal notranslate"><span class="pre">feature_making</span></code>, <code class="docutils literal notranslate"><span class="pre">predict</span></code> and <code class="docutils literal notranslate"><span class="pre">annotating</span></code> in the SQLite database. These tables are <strong>essentially logs of the status of each process</strong>,
+they show a <strong>status code</strong> (an integer, see table in Infrastrucutre for details) for <strong>each stem</strong> and each LVRA (currently there is only one: r0b).</p></li>
 <li><p>Exit code (0 if successful, otherwise the status code returned by whatever error occured)</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 </ul>
-<p>The JSON files are created atomically, meaning that during the kafka consumption process the data is written to a temp file. This way if the process fails in the middle
-we do not have a JSON file with corrupted data entering the rest of the pipeline. Only once the writting is complete is the file renamed and the rows added to the status tables
+<div class="admonition-status-code-initialised-to-0-by-the-kafka-consumer admonition">
+<p class="admonition-title">Status code initialised to 0 by the kafka consumer</p>
+<p>When the kafka consumer runs it sets the <strong>status of each process to 0</strong>, meaning we expect the processes (making the features, the predictions, sending annotations)
+to be run very soon for the alerts of the given stem. The status will be changed in subsequent steps depending on success or failure.</p>
+</div>
+<p>The JSON files are created atomically, meaning that the data is written to a temp file whilst the alerts are being consumed. This way if the process fails in the middle
+of this process we do not have a JSON file with corrupted data entering the rest of the pipeline.
+<strong>Only once the writting is complete and the file renamed</strong> do we initialise the rows to the status tables
 in the database.</p>
 <p>The python script <code class="docutils literal notranslate"><span class="pre">kafka_consumer.py</span></code> is paired with a bash script called <code class="docutils literal notranslate"><span class="pre">kafka.sh</span></code> which sets the environment and the python path, checks whether the log file exists
 (and creates one is necessary), then runs the python script. It is the <code class="docutils literal notranslate"><span class="pre">kafka.sh</span></code> script that is called in the <code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> script (see below) that is run by the cron job.</p>
+</section>
+<section id="what-is-a-stem">
+<h3>What is a stem?<a class="headerlink" href="#what-is-a-stem" title="Link to this heading">¶</a></h3>
+<p>A word of jargon that will come up over and over again is <strong>“stem”</strong>, which is the name of the JSON and CSV files created as the pipeline runs.
+The stem is constructed as <code class="docutils literal notranslate"><span class="pre">YYYYMMDD_HHMMSS</span></code> (UTC) and <strong>is the same for the JSON and CSV files that are realted</strong> to each other, so that they are easy to associate.</p>
+<p>The pipeline is triggered by a cron job every 5 minutes, and for each run there is a unique stem. Each file contains data for many alerts, all processed in the same run,
+and they can be identified (files and database) by that stem.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>The main take away is the naming convention of the JSON and csv files matters enormously to the pipeline</strong>.</p>
+</div>
+</section>
 <section id="exit-code-vs-status-code-is-0-good-or-bad-then">
 <h3>Exit code Vs Status code: is 0 good or bad then?<a class="headerlink" href="#exit-code-vs-status-code-is-0-good-or-bad-then" title="Link to this heading">¶</a></h3>
-<p>The exit codes of the files are _mostly_ the same as the status codes (see Infrastructure page), <strong>except</strong> for the success case. 0 is used as an initialisation status code and 1 is a success.
-(1 == good is very “pyhton”), however when dealing with <strong>exit codes, these end up as outputs in my bash wrapper scripts. In bash 0 = success, anything else is a failure of some kind.</strong>
-So the python scripts do perform some gymnastics to turn the status codes into exit codes that makes sense when the python is executed as part of a larger pipeline in a bash
+<p>You may have noticed above that I use 0 as a status code in the status tables to show that a process is waiting to be run, but I also use it as an one of the exit code for the pythons scripts.</p>
+<p>Generally speaking the exit codes of the files are <em>mostly</em> the same as the status codes (see Infrastructure page for a table summarising the status codes),
+<strong>except</strong> for the success case. For the <em>status codes</em> 0 is used as an initialisation status code and 1 is a success (1 == good is very “pyhton”).
+However when dealing with <strong>exit codes, they end up as outputs in my bash wrapper scripts. In bash 0 == success, anything else is a failure of some kind.</strong></p>
+<p>So the python scripts do perform some gymnastics to turn the status codes into exit codes that makes sense when the python is executed as part of a larger pipeline in a bash
 orchestrator script.</p>
 </section>
 </section>
@@ -349,8 +378,10 @@ pypeline expects the full Rubin packet for each alert.</p>
                             <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
                             <ul>
 <li><a class="reference internal" href="#">Pipeline Overview</a><ul>
+<li><a class="reference internal" href="#quick-summary-of-the-workflow">Quick Summary of the workflow</a></li>
+<li><a class="reference internal" href="#step-1-kafka">Step 1: Kafka</a><ul>
+<li><a class="reference internal" href="#the-kafka-consumer-py-script">The kafka_consumer.py script</a></li>
 <li><a class="reference internal" href="#what-is-a-stem">What is a stem?</a></li>
-<li><a class="reference internal" href="#step-1-kafka">Step 1: kafka</a><ul>
 <li><a class="reference internal" href="#exit-code-vs-status-code-is-0-good-or-bad-then">Exit code Vs Status code: is 0 good or bad then?</a></li>
 </ul>
 </li>
