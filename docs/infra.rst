@@ -7,7 +7,7 @@ Architecture Overview
 Data
 ~~~~~~
 
-The data are under the ``LVRA_DATA_ROOT`` directory. On the Oxford Lasair prod servers
+The data are under the ``$LVRA_DATA_ROOT`` directory. On the Oxford Lasair prod servers
 that is ``/home/lasair/data/lvra`` (it is already defined in the ``.bashrc``). 
 
 There directory structure logic is as follows: TYPE > YEAR > DATE
@@ -24,17 +24,17 @@ Here the type referes to the file types:
 
 Code
 ~~~~~~
-The code is under ``LVRA_CODE_ROOT``, it is the ``lvra`` python package. 
+The code is under ``$LVRA_CODE_ROOT``, it is the ``lvra`` python package. 
 There are two kinds of scripts used in production: the python pipelines and their bash wrappers. 
 The bash wrappers are their to set the environment so that when the code is run from cron everything 
 works as expected. They also redirect the stderr to stdout and write it to an error log file so that 
 cron jobs do not fail silently and we can track what is going on.
 
-The bash scripts are under ``LVRA_CODE_ROOT/bash`` and the python scripts are under 
-``LVRA_CODE_ROOT/lvra/pypeline`` (not a typo, a pun between python and pipeline. ha. ha.).
+The bash scripts are under ``$LVRA_CODE_ROOT/bash`` and the python scripts are under 
+``$LVRA_CODE_ROOT/lvra/pypeline`` (not a typo, a pun between python and pipeline. ha. ha.).
 
 
-A lot of the code needs config files that are stored under ``LVRA_CODE_ROOT/data``.
+A lot of the code needs config files that are stored under ``$LVRA_CODE_ROOT/data``.
 Any secret information such as tokens are directly stored in environment variables on the server, 
 nothing in the files. 
 
@@ -85,10 +85,10 @@ The `4X` errors are specific to Lasair
 
 Log files and SQLite database
 ------------------------------
-Log files are written to the ``LVRA_DATA_ROOT/logs/YEAR/DAY/[logname].log`` directory.
+Log files are written to the ``$LVRA_DATA_ROOT/logs/YEAR/DAY/[logname].log`` directory.
 
 There is also a SQLite database to keep track of the status of various processes and the 
-history of the predictions of various VRAs.  It is located under ``LVRA_DATA_ROOT/db/log.db``. 
+history of the predictions of various VRAs.  It is located under ``$LVRA_DATA_ROOT/db/log.db``. 
 
 There are three kinds of tables:
 
@@ -202,10 +202,10 @@ Infra Set-up Instructions
 Directories
 ~~~~~~~~~~~~~~
 
-Here is a bash script that can be run in the ``LVRA_DATA_ROOT`` of choice to create the full directory
+Here is a bash script that can be run in the ``$LVRA_DATA_ROOT`` of choice to create the full directory
 sub-stucture. 
 
-**STEP 1**: Save this as ``make_dirs.sh`` under the ``LVRA_DATA_ROOT`` directory.
+**STEP 1**: Save this as ``make_dirs.sh`` under the ``$LVRA_DATA_ROOT`` directory.
 
 .. code-block:: bash
 
@@ -254,7 +254,7 @@ sub-stucture.
 SQLite database
 ~~~~~~~~~~~~~~~~~
 
-Now go to the databse subdirectory. From ``LVRA_DATA_ROOT``
+Now go to the databse subdirectory. From ``$LVRA_DATA_ROOT``
 
 .. code-block:: bash
 
