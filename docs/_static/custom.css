@@ -135,7 +135,6 @@ header.wt-nav a,
 .header a,
 .navbar a {
   color: var(--text-nav-bar) !important;       /* normal link colour */
-  font-size: 18px;
 }
 
 /* Hover / active state */
@@ -161,7 +160,7 @@ header.wt-nav a:hover,
 .document {
   background-color: var(--page-surface) !important;
   color: var(--text) !important;
-  font-size: 25px;
+  font-size: 22px;
 }
 
 
@@ -317,6 +316,7 @@ pre {
   border-radius: 6px;
   padding: 0.75em 1em;
   overflow-x: auto;
+  font-size: 18px;
 }
 
 /* Inline code */
