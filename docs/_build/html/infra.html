@@ -11,12 +11,12 @@
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=3f91281a" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=26a793ad" />
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
             <link rel="next" title="TNS Reporting" href="tns.html" />
-            <link rel="prev" title="Speed Dial" href="speeddial.html" />
+            <link rel="prev" title="Pipeline Overview" href="pipeline.html" />
     </head>
 <body>
     <script type="text/javascript" src="_static/dist/blocking.js"></script>
@@ -72,12 +72,20 @@
         <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heloise's Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
 </ul>
 
     </nav>
@@ -180,11 +188,38 @@ nothing in the files.</p>
 <tr class="row-odd"><td><p>1</p></td>
 <td><p>Successfully Processed</p></td>
 </tr>
-<tr class="row-even"><td><p>99</p></td>
-<td><p>Tried and failed (non specific error code)</p></td>
+<tr class="row-even"><td><p>21</p></td>
+<td><p>File Not Found (INPUT)</p></td>
+</tr>
+<tr class="row-odd"><td><p>22</p></td>
+<td><p>File Not Found (OUTPUT)</p></td>
+</tr>
+<tr class="row-even"><td><p>23</p></td>
+<td><p>Not Expected Input Data Type</p></td>
+</tr>
+<tr class="row-odd"><td><p>30</p></td>
+<td><p>Key Error (missing in data)</p></td>
+</tr>
+<tr class="row-even"><td><p>31</p></td>
+<td><p>Missing Columns (INPUT)</p></td>
+</tr>
+<tr class="row-odd"><td><p>40</p></td>
+<td><p>Lasair Annotation Issue</p></td>
+</tr>
+<tr class="row-even"><td><p>41</p></td>
+<td><p>Failure to create Lasair client</p></td>
+</tr>
+<tr class="row-odd"><td><p>99</p></td>
+<td><p>Generic Error</p></td>
 </tr>
 </tbody>
 </table>
+<p>The <cite>2X</cite> errors refer a problem with the input or outputs such that they can’t be loaded.</p>
+<p>The <cite>3X</cite> errors correspond to issues with the data structure or content. So it _was_ loaded, but the contents cause problems</p>
+<p>Code <cite>30</cite> likely means the files you are trying to use don’t have the structure you expect.
+This is most likely due to a change in the alert or clean data format. Causes may vary:
+changes in LSST data, changes in Lasair, changes in your code.</p>
+<p>The <cite>4X</cite> errors are specific to Lasair</p>
 <ul class="simple">
 <li><p><strong>Stems</strong>: These are the core names of our files and take the format <code class="docutils literal notranslate"><span class="pre">YYYYMMDD_HHMMSS</span></code>.
 Each path name is constructed with the format <code class="docutils literal notranslate"><span class="pre">TYPE/YEAR/DATE/stem.extension</span></code>.
@@ -198,20 +233,43 @@ The stem is also used as the primary key for the status tables (see below)</p></
 history of the predictions of various VRAs.  It is located under <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT/db/log.db</span></code>.</p>
 <p>There are three kinds of tables:</p>
 <ul class="simple">
-<li><p>Status tables: primary key is the stem and the columns are named after VRAs. Each
+<li><p>Status tables: <strong>Used to keep a log of the status of each process in the pipeline</strong>. The primary key is the stem and the columns are named after VRAs. Each
 cell contains a status code (see table above).</p></li>
 <li><p>Mapping table: primary key is the LSST <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code> and contains the mapping
 between the <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code> and the stem name. For now there is only one mapping table
 but I make need mapping between other ids in the future… Note that here the stem
 is not technically a foreign key because I have not enforced that the stem exists in
 the status tables.</p></li>
-<li><p>Provenance table: to keep track of the history of our model inferences. [NOT IMPLEMENTED YET]</p></li>
+<li><p>Provenance table: Keeps track of the history of our model inferences/predictions, it is also where we get the scores to annotate.
+Each alert will have its own row and there may be odd cases where the same alert (<cite>diaSourceId</cite>) is pushed twice onto the
+kafka stream so the table is indexed with an auto increment integer even though the diaSourceId should be unique.</p></li>
 </ul>
 <section id="table-list">
 <h3>Table List<a class="headerlink" href="#table-list" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">feature_making</span></code> [Status table]: Records which alerts files have been successfully processed.
 New columns can be added for each LVRA</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>stem (str)</p></th>
+<th class="head"><p>r0b (int)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>20260127_105636</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>20260127_111728</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">predict</span></code> [Status table]: Records  the status of the prediction step for each feature file.</p></li>
 </ul>
 <table class="docutils align-default">
 <thead>
@@ -254,7 +312,7 @@ New columns can be added for each LVRA</p></li>
 </tbody>
 </table>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">diaobjid_stems</span></code> [Mapping table]: Records the mapping between LSST <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code> and the alert stem name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">diaobjid_stems</span></code> :</p></li>
 </ul>
 <table class="docutils align-default">
 <thead>
@@ -269,8 +327,31 @@ New columns can be added for each LVRA</p></li>
 <tr class="row-odd"><td><p>169843765851193449</p></td>
 <td><p>20260128_154837</p></td>
 </tr>
-<tr class="row-even"><td><p>169843765880029260</p></td>
-<td><p>20260128_154837</p></td>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">provenance</span></code> [provenance]: Records the mapping between LSST <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code> and the alert stem name.</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>diaObjectId</p></th>
+<th class="head"><p>diaSourceId</p></th>
+<th class="head"><p>stem</p></th>
+<th class="head"><p>score</p></th>
+<th class="head"><p>model_name</p></th>
+<th class="head"><p>model_version</p></th>
+<th class="head"><p>timestamp</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>170019716327800983</p></td>
+<td><p>170046091000545381</p></td>
+<td colspan="2"><p>20260223_193401 | 0.963998322011434</p></td>
+<td><p>r0b</p></td>
+<td><p>a1</p></td>
+<td><p>2026-02-24 05:18:57</p></td>
 </tr>
 </tbody>
 </table>
@@ -279,6 +360,27 @@ New columns can be added for each LVRA</p></li>
 <h3>Log files<a class="headerlink" href="#log-files" title="Link to this heading">¶</a></h3>
 <p>[list log fiels and explain]</p>
 </section>
+</section>
+<section id="environment-variables-on-prod-server">
+<h2>Environment Variables on prod server<a class="headerlink" href="#environment-variables-on-prod-server" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">LASAIR_LSST_TOKEN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>see<span class="w"> </span>my<span class="w"> </span>.bashrc<span class="o">]</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">LVRA_TNS_API_KEY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>see<span class="w"> </span>my<span class="w"> </span>.bashrc<span class="o">]</span>
+
+<span class="w"> </span><span class="c1"># Changing the name of this env variable breaks Lasair VRA</span>
+<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">LASAIR_LSST_DEV_TOKEN</span><span class="o">=[</span>see<span class="w"> </span>my<span class="w"> </span>.bashrc<span class="o">]</span>
+<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">LASAIR_LSST_TOKEN</span><span class="o">=[</span>see<span class="w"> </span>my<span class="w"> </span>.bashrc<span class="o">]</span>
+<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">LVRA_DATA_ROOT</span><span class="o">=</span><span class="s2">&quot;/home/lasair/data/lvra/&quot;</span>
+<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">LVRA_DATA_ROOT_DEV</span><span class="o">=</span><span class="s2">&quot;/home/lasair/data/lvra_dev/&quot;</span>
+<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">LVRA_CODE_ROOT</span><span class="o">=</span><span class="s2">&quot;/home/lasair/code/lvra/&quot;</span>
+<span class="w"> </span><span class="c1"># Add to my python path</span>
+<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PYTHONPATH</span>:/home/lasair/code/lvra/
+<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">LVRA_TNS_API_KEY</span><span class="o">=[</span>see<span class="w"> </span>my<span class="w"> </span>.bashrc<span class="o">]</span>
+<span class="w"> </span><span class="c1"># add some useful aliases</span>
+<span class="w"> </span><span class="nb">alias</span><span class="w"> </span><span class="nv">cdlvradat</span><span class="o">=</span><span class="s1">&#39;cd $LVRA_DATA_ROOT&#39;</span>
+<span class="w"> </span><span class="nb">alias</span><span class="w"> </span><span class="nv">cdlvra</span><span class="o">=</span><span class="s1">&#39;cd /home/lasair/code/lvra&#39;</span>
+<span class="w"> </span><span class="nb">alias</span><span class="w"> </span><span class="nv">tnsreport</span><span class="o">=</span><span class="s1">&#39;/home/lasair/code/tns/tns_report.py&#39;</span>
+</pre></div>
+</div>
 </section>
 <section id="infra-set-up-instructions">
 <h2>Infra Set-up Instructions<a class="headerlink" href="#infra-set-up-instructions" title="Link to this heading">¶</a></h2>
@@ -334,19 +436,57 @@ mkdir<span class="w"> </span>-p<span class="w"> </span>db
 </pre></div>
 </div>
 <p>Then copy paste this code in a new file called <code class="docutils literal notranslate"><span class="pre">log_schema.sql</span></code>.</p>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">feature_making</span><span class="w"> </span><span class="p">(</span>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">feature_making</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">stem</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="k">timestamp</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">current_timestamp</span><span class="p">,</span>
 <span class="w">    </span><span class="n">r0b</span><span class="w"> </span><span class="nb">INTEGER</span>
 <span class="p">);</span>
-
-<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">annotating</span><span class="w"> </span><span class="p">(</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">annotating</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">stem</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="k">timestamp</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">current_timestamp</span><span class="p">,</span>
 <span class="w">    </span><span class="n">r0b</span><span class="w"> </span><span class="nb">INTEGER</span>
 <span class="p">);</span>
-
-<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">diaobjid_stems</span><span class="w"> </span><span class="p">(</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">diaobjid_stems</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">diaObjectId</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
-<span class="w">    </span><span class="n">stem</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="w">    </span><span class="n">stem</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="k">timestamp</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">current_timestamp</span>
+<span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">provenance</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">ID</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">diaObjectId</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">diaSourceId</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">stem</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">score</span><span class="w"> </span><span class="nb">REAL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">model_name</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">model_version</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="k">timestamp</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">current_timestamp</span>
+<span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">threshold_flags_provenance</span><span class="p">(</span>
+<span class="w">    </span><span class="n">ID</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">diaObjectId</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">diaSourceId</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">stem</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">n_gt22</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">n_gt21</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">n_gt20</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">n_gt19</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">n_gt18</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">brighter22</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">brighter21</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">brighter20</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">brighter19</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">brighter18</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">first22</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">first21</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">first20</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">first19</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="n">first18</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="k">timestamp</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">current_timestamp</span>
+<span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">predict</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">stem</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="k">timestamp</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">current_timestamp</span><span class="p">,</span>
+<span class="w">    </span><span class="n">r0b</span><span class="w"> </span><span class="nb">INTEGER</span>
 <span class="p">);</span>
 </pre></div>
 </div>
@@ -362,12 +502,32 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
 </div>
 </section>
 </section>
+<section id="local-dev-env">
+<h2>Local dev env<a class="headerlink" href="#local-dev-env" title="Link to this heading">¶</a></h2>
+<p>I have not set up a docker (and will not for now) but I have local directories that mimick what is on remote.</p>
+<p>Most importantly I have environments that need to be the same.</p>
+<section id="conda">
+<h3>conda<a class="headerlink" href="#conda" title="Link to this heading">¶</a></h3>
+<p>For the python environment I exported a <cite>yaml</cite> file of the remote conda environement:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--no-builds<span class="w"> </span>&gt;<span class="w"> </span>lvra_env.yml
+</pre></div>
+</div>
+<p>Then I copied it in my local package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp<span class="w"> </span>lasair@oxdb1:code/lvra_env.yml<span class="w"> </span>./software/lvra
+</pre></div>
+</div>
+<p>Then I created the environment with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>software/lvra/lvra_env.yml<span class="w">  </span>-n<span class="w"> </span>lvra
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
 </main>
                         <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
-    <a class="float-left" href="speeddial.html" title="Previous">
-        <span aria-hidden="true">←&nbsp;</span>Speed Dial
+    <a class="float-left" href="pipeline.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>Pipeline Overview
     </a>
     <a class="float-right" href="tns.html" title="Next">
         TNS Reporting <span aria-hidden="true">&nbsp;→</span>
@@ -391,9 +551,14 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
 <li><a class="reference internal" href="#log-files">Log files</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#environment-variables-on-prod-server">Environment Variables on prod server</a></li>
 <li><a class="reference internal" href="#infra-set-up-instructions">Infra Set-up Instructions</a><ul>
 <li><a class="reference internal" href="#directories">Directories</a></li>
 <li><a class="reference internal" href="#sqlite-database">SQLite database</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#local-dev-env">Local dev env</a><ul>
+<li><a class="reference internal" href="#conda">conda</a></li>
 </ul>
 </li>
 </ul>
@@ -426,7 +591,7 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Jan 29, 2026</small>
+                <small>Last updated: Apr 28, 2026</small>
             </div>
         </div>
     </div>

@@ -33,14 +33,26 @@ Table of Contents
    :caption: For Users
 
    intro
+   r0b
 
 .. toctree::
    :maxdepth: 3
    :caption: For Devs
 
-   speeddial
+
+   pipeline
    infra
    tns
+   lasair_dev
+   local_testing
+   backup
+
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Heloise's Notes
+
+   speeddial
 
 
 

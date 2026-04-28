@@ -11,10 +11,11 @@
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=3f91281a" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=26a793ad" />
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
+            <link rel="next" title="Dev environement" href="lasair_dev.html" />
             <link rel="prev" title="Infrastructure" href="infra.html" />
     </head>
 <body>
@@ -71,12 +72,20 @@
         <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Dev Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">TNS Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heloise's Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
 </ul>
 
     </nav>
@@ -130,6 +139,10 @@
                         <main role="main" id="main">
     <section id="tns-reporting">
 <h1>TNS Reporting<a class="headerlink" href="#tns-reporting" title="Link to this heading">¶</a></h1>
+<p>The Lasari Virtual Research Assistants can report to TNS using the Lasair (group) LVRA (bot).
+It has a specific API key that is stored in my envrionment variables and I need to add
+to my TNS report:</p>
+<p><code class="docutils literal notranslate"><span class="pre">tns_marker{&quot;tns_id&quot;:197854,&quot;type&quot;:</span> <span class="pre">&quot;bot&quot;,</span> <span class="pre">&quot;name&quot;:&quot;LVRA&quot;}</span></code></p>
 <section id="setting-up-tns-reporting-of-lsst-alerts-through-the-tns-api">
 <h2>Setting up TNS reporting of LSST alerts through the TNS API<a class="headerlink" href="#setting-up-tns-reporting-of-lsst-alerts-through-the-tns-api" title="Link to this heading">¶</a></h2>
 <p>There is a <a class="reference external" href="https://www.wis-tns.org/sites/default/files/api/tns2_manuals/TNS2.0_bulk_reports_manual.pdf">TNS manual from January 2025</a>.
@@ -331,6 +344,9 @@ forced phot may not be enough to determine with confidence the last non-detectio
     <a class="float-left" href="infra.html" title="Previous">
         <span aria-hidden="true">←&nbsp;</span>Infrastructure
     </a>
+    <a class="float-right" href="lasair_dev.html" title="Next">
+        Dev environement <span aria-hidden="true">&nbsp;→</span>
+    </a>
 </nav>
                     </div>
                     
@@ -377,7 +393,7 @@ forced phot may not be enough to determine with confidence the last non-detectio
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Jan 28, 2026</small>
+                <small>Last updated: Apr 28, 2026</small>
             </div>
         </div>
     </div>

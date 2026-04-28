@@ -93,14 +93,14 @@ body.theme-dark {
   --adm-blue-border: #003939;
   --adm-blue-header: #00BABB;
 
-  --adm-grey-bg: #2a2a2a;
-  --adm-grey-border: #2a2a2a;
-  --adm-grey-header: #9ca3af;
+  --adm-grey-bg: #303030;
+  --adm-grey-border: #303030;
+  --adm-grey-header: #7c818a;
 
   /* code (dark-mode values preserved) */
   --code-bg: #0e0e0e;
   --code-border: #0e0e0e;
-  --code-inline-bg: #0e0e0e;
+  --code-inline-bg: #363434;
   --code-inline-text: #F0A202;
   --code-text: #e5e7eb;
 }
@@ -113,6 +113,7 @@ body.theme-dark {
 body {
   background-color: var(--site-bg) !important;
   color: var(--text) !important;
+  font-size: 25px;
 }
 
 
@@ -149,6 +150,7 @@ header.wt-nav a:hover,
   background-color: var(--sidebar-bg) !important;
   color: var(--text) !important;
   border-right: 1px solid var(--panel-border) !important;
+
 }
 
 /* Main content surface */
@@ -194,6 +196,7 @@ a.button {
   background-color: var(--muted-surface) !important;
   border: 1px solid var(--panel-border) !important;
   color: var(--text) !important;
+  font-size: 18px;
 }
 
 /* Small UI tweaks: search box, input backgrounds */
@@ -311,6 +314,7 @@ pre {
   border-radius: 6px;
   padding: 0.75em 1em;
   overflow-x: auto;
+  font-size: 18px;
 }
 
 /* Inline code */
@@ -326,6 +330,47 @@ pre code {
   background: none !important;
   padding: 0;
   font-size: inherit;
+}
+
+
+/* ------------------------------
+  TABLES !
+-----------------------------*/
+
+/* Strong override for dark tables */
+html body.theme-dark table.docutils:not(.field-list),
+html body.theme-dark .table-dark {
+  background-color: #050505 !important;
+  color: rgba(223, 241, 242, 0.8) !important;
+  border-color: #1b3b3c;
+}
+
+html body.theme-dark table.docutils:not(.field-list) th,
+html body.theme-dark table.docutils:not(.field-list) td {
+  background-color: #050505 !important;
+  color: rgba(223, 241, 242, 0.8) !important;
+  border-color: #1b3b3c;
+}
+
+
+/* ------------------------------
+  RIGHT HAND NAVIGATION BAR
+-----------------------------*/
+
+body.theme-dark .page-toc {
+  color: inherit;
+  font-size: 20px;
+}
+
+
+/* ------------------------------
+  LEFT HAND NAVIGATION BAR
+-----------------------------*/
+
+
+body.theme-dark .mt-3, .my-3 {
+  margin-top: 1rem !important;
+  font-size: 20px;
 }
 
 /* -----------------------------

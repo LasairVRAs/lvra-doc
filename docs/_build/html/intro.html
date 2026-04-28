@@ -11,11 +11,11 @@
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=3f91281a" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=26a793ad" />
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
-            <link rel="next" title="Dev Notes" href="speeddial.html" />
+            <link rel="next" title="r0b: Real Or Bogus" href="r0b.html" />
             <link rel="prev" title="Lasair VRAs Docs" href="index.html" />
     </head>
 <body>
@@ -72,11 +72,20 @@
         <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Dev Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tns.html">Dev Notes - Lasair VRA TNS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heloise's Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
 </ul>
 
     </nav>
@@ -130,7 +139,28 @@
                         <main role="main" id="main">
     <section id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h1>
-<p>TBD</p>
+<p>Welcome to the documentation for the Lasair Virtual Research Assistants (VRAs), machine learning algorithms that will provide further annotation
+to the LSST stream on the Lasair platform.</p>
+<p>I am an extra-galactic transient astronomer looking for supernovae and other distant explosions.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>These algorithms are trained directly on the live Rubin stream, using human-made labels provided via eyeballing. Because I am the eyeballer, my
+scientific biases can affect the performance of the tools I build. If you are an AGN, CV or Solar System Person, take what I do with a pinch of salt.
+I will always welcome your feedback as well, feel free to email me.</p>
+</div>
+<section id="what-is-a-virtual-research-assistant">
+<h2>What is a “Virtual Research Assistant”?<a class="headerlink" href="#what-is-a-virtual-research-assistant" title="Link to this heading">¶</a></h2>
+<p>They’re just my bots that I train myself on bespoke astronomical data;  <strong>they are not Agentic AI</strong>.
+If you want to see the work I did for the  <a class="reference external" href="https://arxiv.org/abs/2506.09778">ATLAS Virtual Research Assistant, see Stevance et al. 2025</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>My methods use Feature based ML, <strong>exclusively trained on real data</strong>, and as of recently focus on using Active Learning methods so I can train directly on Rubin
+as a sole eyeballer (they allow me to train algos with a few hundred examples instead of thousands or millions).</p>
+</div>
+<p>If you see something tagged <strong>VRA</strong> or <strong>LVRA</strong>, it’s probably something I made and if you need someone to blame it will likely be me.
+I give them human-like names with <code class="docutils literal notranslate"><span class="pre">l33t</span></code>-like formatting, which is another way to recognise them.</p>
+<p>The first Lasair VRA is <code class="docutils literal notranslate"><span class="pre">r0b</span></code>, my real-or-bogus classifier to help me find real extra-galactic events. More docs to in the next few weeks.</p>
+</section>
 </section>
 
 </main>
@@ -138,11 +168,24 @@
     <a class="float-left" href="index.html" title="Previous">
         <span aria-hidden="true">←&nbsp;</span>Lasair VRAs Docs
     </a>
-    <a class="float-right" href="speeddial.html" title="Next">
-        Dev Notes <span aria-hidden="true">&nbsp;→</span>
+    <a class="float-right" href="r0b.html" title="Next">
+        r0b: Real Or Bogus <span aria-hidden="true">&nbsp;→</span>
     </a>
 </nav>
                     </div>
+                    
+                    <nav class="col-12 col-lg-3 pb-4">
+                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
+                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
+                            <ul>
+<li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#what-is-a-virtual-research-assistant">What is a “Virtual Research Assistant”?</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
                     
                 </div>
             </div>
@@ -167,7 +210,7 @@
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Jan 28, 2026</small>
+                <small>Last updated: Apr 28, 2026</small>
             </div>
         </div>
     </div>

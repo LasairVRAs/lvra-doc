@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=3f91281a" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=496b1c32" />
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
@@ -71,12 +71,20 @@
         <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heloise's Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
 </ul>
 
     </nav>
@@ -156,15 +164,38 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#what-is-a-virtual-research-assistant">What is a “Virtual Research Assistant”?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="r0b.html#how-does-it-work-what-data-was-it-trained-on-performance">How does it work? What data was it trained on? Performance?</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="speeddial.html#training-check-list">Training Check-list</a></li>
-<li class="toctree-l2"><a class="reference internal" href="speeddial.html#testing-my-template">testing my  template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#quick-summary-of-the-workflow">Quick Summary of the workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#step-1-kafka">Step 1: Kafka</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#the-kafka-consumer-py-script">The kafka_consumer.py script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#what-is-a-stem">What is a stem?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#exit-code-vs-status-code-is-0-good-or-bad-then">Exit code Vs Status code: is 0 good or bad then?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#step-2-feature-making">Step 2: Feature making</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#step-3-predict">Step 3: Predict</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#why-a-provenance-table">Why a provenance table?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#step-4-annotator">Step 4: Annotator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#bigbashboy-sh-the-orchestrator-script"><code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> - the orchestrator script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html#appendices">Appendices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#sql-for-the-filter">SQL for the filter</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a><ul>
@@ -179,9 +210,14 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 <li class="toctree-l3"><a class="reference internal" href="infra.html#log-files">Log files</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="infra.html#environment-variables-on-prod-server">Environment Variables on prod server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="infra.html#infra-set-up-instructions">Infra Set-up Instructions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="infra.html#directories">Directories</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infra.html#sqlite-database">SQLite database</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="infra.html#local-dev-env">Local dev env</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="infra.html#conda">conda</a></li>
 </ul>
 </li>
 </ul>
@@ -195,6 +231,27 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 <li class="toctree-l3"><a class="reference internal" href="tns.html#other-notes">Other Notes</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lasair_dev.html#making-a-fresh-dirctory">Making a fresh dirctory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lasair_dev.html#check-list">Check-list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="local_testing.html#making-a-fresh-dirctory">Making a fresh dirctory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_testing.html#add-data-to-sqlite-database">Add data to sqlite database</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Heloise's Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="speeddial.html#training-check-list">Training Check-list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="speeddial.html#testing-my-template">testing my  template</a></li>
 </ul>
 </li>
 </ul>
@@ -249,7 +306,7 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Jan 29, 2026</small>
+                <small>Last updated: Apr 28, 2026</small>
             </div>
         </div>
     </div>

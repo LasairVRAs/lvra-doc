@@ -44,15 +44,39 @@ Useful Definitions
 
 * **Status Codes**: These are integers used in the database tables
 
-+--------+--------------------------------------------+
-| Status | Description                                |
-+========+============================================+
-| 0      | Initialised                                |
-+--------+--------------------------------------------+
-| 1      | Successfully Processed                     |
-+--------+--------------------------------------------+
-| 99     | Tried and failed (non specific error code) |
-+--------+--------------------------------------------+
++--------+---------------------------------+
+| Status | Description                     |
++========+=================================+
+| 0      | Initialised                     |
++--------+---------------------------------+
+| 1      | Successfully Processed          |
++--------+---------------------------------+
+| 21     | File Not Found (INPUT)          |
++--------+---------------------------------+
+| 22     | File Not Found (OUTPUT)         |
++--------+---------------------------------+
+| 23     | Not Expected Input Data Type    |
++--------+---------------------------------+
+| 30     | Key Error (missing in data)     |
++--------+---------------------------------+
+| 31     | Missing Columns (INPUT)         |
++--------+---------------------------------+
+| 40     | Lasair Annotation Issue         |
++--------+---------------------------------+
+| 41     | Failure to create Lasair client |
++--------+---------------------------------+
+| 99     | Generic Error                   |
++--------+---------------------------------+
+
+The `2X` errors refer a problem with the input or outputs such that they can't be loaded.
+
+The `3X` errors correspond to issues with the data structure or content. So it _was_ loaded, but the contents cause problems
+
+Code `30` likely means the files you are trying to use don't have the structure you expect. 
+This is most likely due to a change in the alert or clean data format. Causes may vary:
+changes in LSST data, changes in Lasair, changes in your code. 
+
+The `4X` errors are specific to Lasair 
 
 * **Stems**: These are the core names of our files and take the format ``YYYYMMDD_HHMMSS``.
   Each path name is constructed with the format ``TYPE/YEAR/DATE/stem.extension``.
@@ -68,7 +92,7 @@ history of the predictions of various VRAs.  It is located under ``LVRA_DATA_ROO
 
 There are three kinds of tables:
 
-* Status tables: primary key is the stem and the columns are named after VRAs. Each
+* Status tables: **Used to keep a log of the status of each process in the pipeline**. The primary key is the stem and the columns are named after VRAs. Each
   cell contains a status code (see table above).
 
 * Mapping table: primary key is the LSST ``diaObjectId`` and contains the mapping
@@ -77,7 +101,9 @@ There are three kinds of tables:
   is not technically a foreign key because I have not enforced that the stem exists in 
   the status tables. 
 
-* Provenance table: to keep track of the history of our model inferences. [NOT IMPLEMENTED YET]
+* Provenance table: Keeps track of the history of our model inferences/predictions, it is also where we get the scores to annotate.
+  Each alert will have its own row and there may be odd cases where the same alert (`diaSourceId`) is pushed twice onto the 
+  kafka stream so the table is indexed with an auto increment integer even though the diaSourceId should be unique.
 
 
 Table List
@@ -85,6 +111,18 @@ Table List
 
 * ``feature_making`` [Status table]: Records which alerts files have been successfully processed.
   New columns can be added for each LVRA
+
++-----------------+----------+
+| stem (str)      | r0b (int)|
++=================+==========+
+| 20260127_105636 | 1        |
++-----------------+----------+
+| 20260127_111728 | 0        |
++-----------------+----------+
+| ............... | ........ |
++-----------------+----------+ 
+
+* ``predict`` [Status table]: Records  the status of the prediction step for each feature file. 
 
 +-----------------+----------+
 | stem (str)      | r0b (int)|
@@ -109,7 +147,7 @@ Table List
 | ............... | ........ |
 +-----------------+----------+
 
-* ``diaobjid_stems`` [Mapping table]: Records the mapping between LSST ``diaObjectId`` and the alert stem name.
+* ``diaobjid_stems`` : 
 
 +--------------------+-----------------+
 | diaObjectId (int)  | stem (str)      |
@@ -118,15 +156,44 @@ Table List
 +--------------------+-----------------+
 | 169843765851193449 | 20260128_154837 |
 +--------------------+-----------------+
-| 169843765880029260 | 20260128_154837 |
-+--------------------+-----------------+
 
+
+* ``provenance`` [provenance]: Records the mapping between LSST ``diaObjectId`` and the alert stem name.
+
++----+--------------------+--------------------+---------------+---------------------+------------+---------------+---------------------+
+| ID | diaObjectId        | diaSourceId        | stem          | score               | model_name | model_version | timestamp           |
++====+====================+====================+===============+=====================+============+===============+=====================+
+| 1  | 170019716327800983 | 170046091000545381 | 20260223_193401 | 0.963998322011434 | r0b        | a1            | 2026-02-24 05:18:57 |
++----+--------------------+--------------------+---------------+---------------------+------------+---------------+---------------------+
 
 
 Log files
 ~~~~~~~~~~~~~~~~~
 
 [list log fiels and explain]
+
+
+Environment Variables on prod server
+----------------------------------------
+
+.. code-block:: bash
+
+   export LASAIR_LSST_TOKEN = [see my .bashrc]
+   export LVRA_TNS_API_KEY = [see my .bashrc]
+
+    # Changing the name of this env variable breaks Lasair VRA
+    export LASAIR_LSST_DEV_TOKEN=[see my .bashrc]
+    export LASAIR_LSST_TOKEN=[see my .bashrc]
+    export LVRA_DATA_ROOT="/home/lasair/data/lvra/"
+    export LVRA_DATA_ROOT_DEV="/home/lasair/data/lvra_dev/"
+    export LVRA_CODE_ROOT="/home/lasair/code/lvra/"
+    # Add to my python path
+    export PYTHONPATH=$PYTHONPATH:/home/lasair/code/lvra/
+    export LVRA_TNS_API_KEY=[see my .bashrc]
+    # add some useful aliases
+    alias cdlvradat='cd $LVRA_DATA_ROOT'
+    alias cdlvra='cd /home/lasair/code/lvra'
+    alias tnsreport='/home/lasair/code/tns/tns_report.py'
 
 
 Infra Set-up Instructions
@@ -197,20 +264,59 @@ Then copy paste this code in a new file called ``log_schema.sql``.
 
 .. code-block:: sql
 
-    CREATE TABLE IF NOT EXISTS feature_making (
+    CREATE TABLE feature_making (
         stem TEXT PRIMARY KEY,
+        timestamp TEXT NOT NULL DEFAULT current_timestamp,
         r0b INTEGER
     );
-
-    CREATE TABLE IF NOT EXISTS annotating (
+    CREATE TABLE annotating (
         stem TEXT PRIMARY KEY,
+        timestamp TEXT NOT NULL DEFAULT current_timestamp,
         r0b INTEGER
     );
-
-    CREATE TABLE IF NOT EXISTS diaobjid_stems (
+    CREATE TABLE diaobjid_stems (
         diaObjectId INTEGER PRIMARY KEY,
-        stem TEXT NOT NULL
+        stem TEXT NOT NULL,
+        timestamp TEXT NOT NULL DEFAULT current_timestamp
     );
+    CREATE TABLE provenance (
+        ID INTEGER PRIMARY KEY, 
+        diaObjectId INTEGER,
+        diaSourceId INTEGER, 
+        stem TEXT,
+        score REAL,
+        model_name TEXT,
+        model_version TEXT,
+        timestamp TEXT NOT NULL DEFAULT current_timestamp
+    );
+    CREATE TABLE threshold_flags_provenance(
+        ID INTEGER PRIMARY KEY,
+        diaObjectId INTEGER,
+        diaSourceId INTEGER,
+        stem TEXT,
+        n_gt22 INTEGER,
+        n_gt21 INTEGER,
+        n_gt20 INTEGER,
+        n_gt19 INTEGER,
+        n_gt18 INTEGER,
+        brighter22 INTEGER,
+        brighter21 INTEGER,
+        brighter20 INTEGER,
+        brighter19 INTEGER,
+        brighter18 INTEGER,
+        first22 INTEGER,
+        first21 INTEGER,
+        first20 INTEGER,
+        first19 INTEGER,
+        first18 INTEGER,
+        timestamp TEXT NOT NULL DEFAULT current_timestamp
+    );
+    CREATE TABLE predict (
+        stem TEXT PRIMARY KEY,
+        timestamp TEXT NOT NULL DEFAULT current_timestamp,
+        r0b INTEGER
+    );
+
 
 
 Then run:
@@ -224,4 +330,35 @@ Then run:
     To ensure tables are nicely formatted when you run sqlite3 from the command line you need to 
     add a ``.sqliterc`` file in your home directory with the following content: ``.headers on`` and 
     ``.mode column`` (on two separate lines).
+
+
+Local dev env
+----------------
+
+I have not set up a docker (and will not for now) but I have local directories that mimick what is on remote. 
+
+Most importantly I have environments that need to be the same. 
+
+conda
+~~~~~~~~~~~~~~~~~
+
+For the python environment I exported a `yaml` file of the remote conda environement:
+
+.. code-block:: bash
+
+    conda env export --no-builds > lvra_env.yml
+
+Then I copied it in my local package:
+
+.. code-block:: bash
+
+   scp lasair@oxdb1:code/lvra_env.yml ./software/lvra 
+
+Then I created the environment with:
+
+.. code-block:: bash
+
+    conda env create -f software/lvra/lvra_env.yml  -n lvra
+
+
 
