@@ -113,7 +113,7 @@ body.theme-dark {
 body {
   background-color: var(--site-bg) !important;
   color: var(--text) !important;
-  font-size: 16px;
+  font-size: 25px;
 }
 
 
