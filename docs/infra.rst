@@ -92,7 +92,7 @@ history of the predictions of various VRAs.  It is located under ``LVRA_DATA_ROO
 
 There are three kinds of tables:
 
-* Status tables: primary key is the stem and the columns are named after VRAs. Each
+* Status tables: **Used to keep a log of the status of each process in the pipeline**. The primary key is the stem and the columns are named after VRAs. Each
   cell contains a status code (see table above).
 
 * Mapping table: primary key is the LSST ``diaObjectId`` and contains the mapping
@@ -101,7 +101,9 @@ There are three kinds of tables:
   is not technically a foreign key because I have not enforced that the stem exists in 
   the status tables. 
 
-* Provenance table: to keep track of the history of our model inferences. [NOT IMPLEMENTED YET]
+* Provenance table: Keeps track of the history of our model inferences/predictions, it is also where we get the scores to annotate.
+  Each alert will have its own row and there may be odd cases where the same alert (`diaSourceId`) is pushed twice onto the 
+  kafka stream so the table is indexed with an auto increment integer even though the diaSourceId should be unique.
 
 
 Table List
@@ -109,6 +111,18 @@ Table List
 
 * ``feature_making`` [Status table]: Records which alerts files have been successfully processed.
   New columns can be added for each LVRA
+
++-----------------+----------+
+| stem (str)      | r0b (int)|
++=================+==========+
+| 20260127_105636 | 1        |
++-----------------+----------+
+| 20260127_111728 | 0        |
++-----------------+----------+
+| ............... | ........ |
++-----------------+----------+ 
+
+* ``predict`` [Status table]: Records  the status of the prediction step for each feature file. 
 
 +-----------------+----------+
 | stem (str)      | r0b (int)|
@@ -133,7 +147,7 @@ Table List
 | ............... | ........ |
 +-----------------+----------+
 
-* ``diaobjid_stems`` [Mapping table]: Records the mapping between LSST ``diaObjectId`` and the alert stem name.
+* ``diaobjid_stems`` : 
 
 +--------------------+-----------------+
 | diaObjectId (int)  | stem (str)      |
@@ -142,10 +156,9 @@ Table List
 +--------------------+-----------------+
 | 169843765851193449 | 20260128_154837 |
 +--------------------+-----------------+
-| 169843765880029260 | 20260128_154837 |
-+--------------------+-----------------+
 
 
+* ``provenance`` [provenance]: Records the mapping between LSST ``diaObjectId`` and the alert stem name.
 
 Log files
 ~~~~~~~~~~~~~~~~~
