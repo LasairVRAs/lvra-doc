@@ -158,6 +158,7 @@ header.wt-nav a:hover,
 .document {
   background-color: var(--page-surface) !important;
   color: var(--text) !important;
+  font-size: 25px;
 }
 
 
