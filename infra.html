@@ -80,7 +80,7 @@
 <li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Testing Procedure</a></li>
 </ul>
 
     </nav>
@@ -228,20 +228,43 @@ The stem is also used as the primary key for the status tables (see below)</p></
 history of the predictions of various VRAs.  It is located under <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT/db/log.db</span></code>.</p>
 <p>There are three kinds of tables:</p>
 <ul class="simple">
-<li><p>Status tables: primary key is the stem and the columns are named after VRAs. Each
+<li><p>Status tables: <strong>Used to keep a log of the status of each process in the pipeline</strong>. The primary key is the stem and the columns are named after VRAs. Each
 cell contains a status code (see table above).</p></li>
 <li><p>Mapping table: primary key is the LSST <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code> and contains the mapping
 between the <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code> and the stem name. For now there is only one mapping table
 but I make need mapping between other ids in the future… Note that here the stem
 is not technically a foreign key because I have not enforced that the stem exists in
 the status tables.</p></li>
-<li><p>Provenance table: to keep track of the history of our model inferences. [NOT IMPLEMENTED YET]</p></li>
+<li><p>Provenance table: Keeps track of the history of our model inferences/predictions, it is also where we get the scores to annotate.
+Each alert will have its own row and there may be odd cases where the same alert (<cite>diaSourceId</cite>) is pushed twice onto the
+kafka stream so the table is indexed with an auto increment integer even though the diaSourceId should be unique.</p></li>
 </ul>
 <section id="table-list">
 <h3>Table List<a class="headerlink" href="#table-list" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">feature_making</span></code> [Status table]: Records which alerts files have been successfully processed.
 New columns can be added for each LVRA</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>stem (str)</p></th>
+<th class="head"><p>r0b (int)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>20260127_105636</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>20260127_111728</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">predict</span></code> [Status table]: Records  the status of the prediction step for each feature file.</p></li>
 </ul>
 <table class="docutils align-default">
 <thead>
@@ -284,7 +307,7 @@ New columns can be added for each LVRA</p></li>
 </tbody>
 </table>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">diaobjid_stems</span></code> [Mapping table]: Records the mapping between LSST <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code> and the alert stem name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">diaobjid_stems</span></code> :</p></li>
 </ul>
 <table class="docutils align-default">
 <thead>
@@ -299,11 +322,11 @@ New columns can be added for each LVRA</p></li>
 <tr class="row-odd"><td><p>169843765851193449</p></td>
 <td><p>20260128_154837</p></td>
 </tr>
-<tr class="row-even"><td><p>169843765880029260</p></td>
-<td><p>20260128_154837</p></td>
-</tr>
 </tbody>
 </table>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">provenance</span></code> [provenance]: Records the mapping between LSST <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code> and the alert stem name.</p></li>
+</ul>
 </section>
 <section id="log-files">
 <h3>Log files<a class="headerlink" href="#log-files" title="Link to this heading">¶</a></h3>
@@ -527,7 +550,7 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Feb 24, 2026</small>
+                <small>Last updated: Apr 28, 2026</small>
             </div>
         </div>
     </div>

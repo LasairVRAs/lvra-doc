@@ -6,7 +6,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Local Testing Procedure &mdash; LVRA dev documentation</title>
+        <title>Testing Procedure &mdash; LVRA dev documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
@@ -79,7 +79,7 @@
 <li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Local Testing Procedure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing Procedure</a></li>
 </ul>
 
     </nav>
@@ -100,7 +100,7 @@
                         <nav aria-label="breadcrumb">
     <ol class="breadcrumb m-0 p-0 bg-transparent">
         <li class="breadcrumb-item"><a href="index.html">Docs</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Local Testing Procedure</li>
+        <li class="breadcrumb-item active" aria-current="page">Testing Procedure</li>
     </ol>
 </nav>
                     </div>
@@ -131,11 +131,12 @@
                 <div class="row">
                     <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
                         <main role="main" id="main">
-    <section id="local-testing-procedure">
-<h1>Local Testing Procedure<a class="headerlink" href="#local-testing-procedure" title="Link to this heading">¶</a></h1>
+    <section id="testing-procedure">
+<h1>Testing Procedure<a class="headerlink" href="#testing-procedure" title="Link to this heading">¶</a></h1>
 <section id="making-a-fresh-dirctory">
 <h2>Making a fresh dirctory<a class="headerlink" href="#making-a-fresh-dirctory" title="Link to this heading">¶</a></h2>
-<p>Made the file <code class="docutils literal notranslate"><span class="pre">make_local_test_env.sh</span></code> in <code class="docutils literal notranslate"><span class="pre">ox_lvra</span></code> so I don’t touch the <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">code</span></code> directories that
+<p><strong>Remote Oxford Server</strong>: Made new directory under <cite>./data/lvra_dev</cite> (actually a symlink placed in storage).</p>
+<p><strong>My Local Machine</strong>: Made the file <code class="docutils literal notranslate"><span class="pre">make_local_test_env.sh</span></code> in <code class="docutils literal notranslate"><span class="pre">ox_lvra</span></code> so I don’t touch the <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">code</span></code> directories that
 I know are working like on the server.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 
@@ -184,25 +185,22 @@ mkdir<span class="w"> </span>-p<span class="w"> </span>db
 <span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$work_dir</span><span class="s2">/db&quot;</span>
 
 cat<span class="w"> </span>&gt;<span class="w"> </span>log_schema.sql<span class="w"> </span><span class="s">&lt;&lt;&#39;SQL&#39;</span>
-<span class="s">CREATE TABLE IF NOT EXISTS feature_making (</span>
+<span class="s">CREATE TABLE feature_making (</span>
 <span class="s">    stem TEXT PRIMARY KEY,</span>
 <span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp,</span>
 <span class="s">    r0b INTEGER</span>
 <span class="s">);</span>
-
-<span class="s">CREATE TABLE IF NOT EXISTS annotating (</span>
+<span class="s">CREATE TABLE annotating (</span>
 <span class="s">    stem TEXT PRIMARY KEY,</span>
 <span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp,</span>
 <span class="s">    r0b INTEGER</span>
 <span class="s">);</span>
-
-<span class="s">CREATE TABLE IF NOT EXISTS diaobjid_stems (</span>
+<span class="s">CREATE TABLE diaobjid_stems (</span>
 <span class="s">    diaObjectId INTEGER PRIMARY KEY,</span>
 <span class="s">    stem TEXT NOT NULL,</span>
 <span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp</span>
 <span class="s">);</span>
-
-<span class="s">CREATE TABLE IF NOT EXISTS provenance (</span>
+<span class="s">CREATE TABLE provenance (</span>
 <span class="s">    ID INTEGER PRIMARY KEY,</span>
 <span class="s">    diaObjectId INTEGER,</span>
 <span class="s">    diaSourceId INTEGER,</span>
@@ -211,6 +209,33 @@ cat<span class="w"> </span>&gt;<span class="w"> </span>log_schema.sql<span class
 <span class="s">    model_name TEXT,</span>
 <span class="s">    model_version TEXT,</span>
 <span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp</span>
+<span class="s">);</span>
+<span class="s">CREATE TABLE threshold_flags_provenance(</span>
+<span class="s">    ID INTEGER PRIMARY KEY,</span>
+<span class="s">    diaObjectId INTEGER,</span>
+<span class="s">    diaSourceId INTEGER,</span>
+<span class="s">    stem TEXT,</span>
+<span class="s">    n_gt22 INTEGER,</span>
+<span class="s">    n_gt21 INTEGER,</span>
+<span class="s">    n_gt20 INTEGER,</span>
+<span class="s">    n_gt19 INTEGER,</span>
+<span class="s">    n_gt18 INTEGER,</span>
+<span class="s">    brighter22 INTEGER,</span>
+<span class="s">    brighter21 INTEGER,</span>
+<span class="s">    brighter20 INTEGER,</span>
+<span class="s">    brighter19 INTEGER,</span>
+<span class="s">    brighter18 INTEGER,</span>
+<span class="s">    first22 INTEGER,</span>
+<span class="s">    first21 INTEGER,</span>
+<span class="s">    first20 INTEGER,</span>
+<span class="s">    first19 INTEGER,</span>
+<span class="s">    first18 INTEGER,</span>
+<span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp</span>
+<span class="s">);</span>
+<span class="s">CREATE TABLE predict (</span>
+<span class="s">    stem TEXT PRIMARY KEY,</span>
+<span class="s">    timestamp TEXT NOT NULL DEFAULT current_timestamp,</span>
+<span class="s">    r0b INTEGER</span>
 <span class="s">);</span>
 <span class="s">SQL</span>
 
@@ -258,7 +283,7 @@ those entries</p>
                         <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
                             <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
                             <ul>
-<li><a class="reference internal" href="#">Local Testing Procedure</a><ul>
+<li><a class="reference internal" href="#">Testing Procedure</a><ul>
 <li><a class="reference internal" href="#making-a-fresh-dirctory">Making a fresh dirctory</a></li>
 <li><a class="reference internal" href="#add-data-to-sqlite-database">Add data to sqlite database</a></li>
 </ul>
@@ -291,7 +316,7 @@ those entries</p>
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Feb 24, 2026</small>
+                <small>Last updated: Apr 28, 2026</small>
             </div>
         </div>
     </div>
