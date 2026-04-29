@@ -50,8 +50,6 @@ of this process we do not have a JSON file with corrupted data entering the rest
 **Only once the writting is complete and the file renamed** do we initialise the rows to the status tables 
 in the database. 
 
-The python script ``kafka_consumer.py`` is paired with a bash script called ``kafka.sh`` which sets the environment and the python path, checks whether the log file exists 
-(and creates one is necessary), then runs the python script. It is the ``kafka.sh`` script that is called in the ``bigbashboy.sh`` script (see below) that is run by the cron job.
 
 What is a stem?
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,7 +71,7 @@ Exit code Vs Status code: is 0 good or bad then?
 You may have noticed above that I use 0 as a status code in the status tables to show that a process is waiting to be run, but I also use it as an one of the exit code for the pythons scripts.
 
 Generally speaking the exit codes of the files are *mostly* the same as the status codes (see Infrastructure page for a table summarising the status codes), 
-**except** for the success case. For the *status codes* 0 is used as an initialisation status code and 1 is a success (1 == good is very "pyhton").
+**except** for the success case. For the *status codes* 0 is used as an initialisation status code and 1 is a success (1 == good is very "python").
 However when dealing with **exit codes, they end up as outputs in my bash wrapper scripts. In bash 0 == success, anything else is a failure of some kind.**
 
 So the python scripts do perform some gymnastics to turn the status codes into exit codes that makes sense when the python is executed as part of a larger pipeline in a bash 
@@ -83,7 +81,7 @@ orchestrator script.
 Step 2: Feature making
 ------------------------
 
-The ``r0b_feature_maker.py`` script transforms the raw alerts into features that can be used to do inference (predictions). 
+The ``r0b_feature_maker.py`` script transforms the raw alerts (JSON files) into features (csv files) that can be used to do inference (predictions). 
 
 * Inputs:
     - ``public_settings.yaml`` because it contains the base directory
@@ -97,9 +95,6 @@ The ``r0b_feature_maker.py`` script transforms the raw alerts into features that
 The creation of the feature dataframes which are then written out to csv is not entierly trivial. 
 Indeed the kafka stream from lasair contains some Lasair features that are indexed on the ``diaObjectId`` and the full Rubin packet that is indexed on the ``diaSourceId``.
 Exactly how and which features are created will be dependent on the specific LVRA; consult the relevant pages to get these details. 
-
-The python script ``r0b_feature_maker.py`` is paired with a bash script called ``r0b_feature_maker.sh`` which sets the environment and the python path, checks whether the log file exists 
-(and creates one is necessary), then runs the python script. It is the ``r0b_feature_maker.sh`` script that is called in the ``bigbashboy.sh`` script (see below) that is run by the cron job.
 
 
 Step 3: Predict
@@ -117,10 +112,6 @@ The inference step is done by the ``r0b_predict.py`` script.
     -  Exit code (0 if successful, otherwise the status code returned by whatever error occured)
 
 
-The python script ``r0b_predict.py`` is paired with a bash script called ``r0b_predict.sh`` which sets the environment and the python path, checks whether the log file exists 
-(and creates one is necessary), then runs the python script. It is the ``r0b_predict.sh`` script that is called in the ``bigbashboy.sh`` script (see below) that is run by the cron job.
-
-
 Why a provenance table?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The provenance table in the database records the score given to **each alert**. In Lasair the annotations are indexed by ``diaObjectId``, that is the astrophysical event, not the lightcurve
@@ -128,7 +119,6 @@ data point. This means that when a new lightcurve point arrives in the alerts, t
 
 Lasair therefore provides no history on the scores. This is a problem for testing and validation, but also because we may want to use the score history to make decisions in the future, 
 or add them to the additional data that we can report in the annotation through the ``class_dict`` (a free from dictionary) field. 
-
 
 
 Step 4: Annotator
@@ -145,9 +135,6 @@ Finally we can report the scores and other quantities to Lasair via annotations.
     - Sends alerts to the Lasair annotator. 
     - Updates the ``annotating`` table in the database with a status flag (see table in the "Infrastructure" page of the manual for the error codes).
     - Exit code (0 if successful, otherwise the status code returned by whatever error occured)
-
-The python script ``r0b_annotator.py`` is paired with a bash script called ``r0b_annotator.sh`` which sets the environment and the python path, checks whether the log file exists 
-(and creates one is necessary), then runs the python script. It is the ``r0b_annotator.sh`` script that is called in the ``bigbashboy.sh`` script (see below) that is run by the cron job.
 
 
 .. tip::
