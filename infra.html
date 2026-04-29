@@ -144,7 +144,7 @@
 <h2>Architecture Overview<a class="headerlink" href="#architecture-overview" title="Link to this heading">¶</a></h2>
 <section id="data">
 <h3>Data<a class="headerlink" href="#data" title="Link to this heading">¶</a></h3>
-<p>The data are under the <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT</span></code> directory. On the Oxford Lasair prod servers
+<p>The data are under the <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT</span></code> directory. On the Oxford Lasair prod servers
 that is <code class="docutils literal notranslate"><span class="pre">/home/lasair/data/lvra</span></code> (it is already defined in the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>).</p>
 <p>There directory structure logic is as follows: TYPE &gt; YEAR &gt; DATE</p>
 <p>Here the type referes to the file types:</p>
@@ -159,14 +159,14 @@ For example for the <code class="docutils literal notranslate"><span class="pre"
 </section>
 <section id="code">
 <h3>Code<a class="headerlink" href="#code" title="Link to this heading">¶</a></h3>
-<p>The code is under <code class="docutils literal notranslate"><span class="pre">LVRA_CODE_ROOT</span></code>, it is the <code class="docutils literal notranslate"><span class="pre">lvra</span></code> python package.
+<p>The code is under <code class="docutils literal notranslate"><span class="pre">$LVRA_CODE_ROOT</span></code>, it is the <code class="docutils literal notranslate"><span class="pre">lvra</span></code> python package.
 There are two kinds of scripts used in production: the python pipelines and their bash wrappers.
 The bash wrappers are their to set the environment so that when the code is run from cron everything
 works as expected. They also redirect the stderr to stdout and write it to an error log file so that
 cron jobs do not fail silently and we can track what is going on.</p>
-<p>The bash scripts are under <code class="docutils literal notranslate"><span class="pre">LVRA_CODE_ROOT/bash</span></code> and the python scripts are under
-<code class="docutils literal notranslate"><span class="pre">LVRA_CODE_ROOT/lvra/pypeline</span></code> (not a typo, a pun between python and pipeline. ha. ha.).</p>
-<p>A lot of the code needs config files that are stored under <code class="docutils literal notranslate"><span class="pre">LVRA_CODE_ROOT/data</span></code>.
+<p>The bash scripts are under <code class="docutils literal notranslate"><span class="pre">$LVRA_CODE_ROOT/bash</span></code> and the python scripts are under
+<code class="docutils literal notranslate"><span class="pre">$LVRA_CODE_ROOT/lvra/pypeline</span></code> (not a typo, a pun between python and pipeline. ha. ha.).</p>
+<p>A lot of the code needs config files that are stored under <code class="docutils literal notranslate"><span class="pre">$LVRA_CODE_ROOT/data</span></code>.
 Any secret information such as tokens are directly stored in environment variables on the server,
 nothing in the files.</p>
 </section>
@@ -229,9 +229,9 @@ The stem is also used as the primary key for the status tables (see below)</p></
 </section>
 <section id="log-files-and-sqlite-database">
 <h2>Log files and SQLite database<a class="headerlink" href="#log-files-and-sqlite-database" title="Link to this heading">¶</a></h2>
-<p>Log files are written to the <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT/logs/YEAR/DAY/[logname].log</span></code> directory.</p>
+<p>Log files are written to the <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT/logs/YEAR/DAY/[logname].log</span></code> directory.</p>
 <p>There is also a SQLite database to keep track of the status of various processes and the
-history of the predictions of various VRAs.  It is located under <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT/db/log.db</span></code>.</p>
+history of the predictions of various VRAs.  It is located under <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT/db/log.db</span></code>.</p>
 <p>There are three kinds of tables:</p>
 <ul class="simple">
 <li><p>Status tables: <strong>Used to keep a log of the status of each process in the pipeline</strong>. The primary key is the stem and the columns are named after VRAs. Each
@@ -387,9 +387,9 @@ New columns can be added for each LVRA</p></li>
 <h2>Infra Set-up Instructions<a class="headerlink" href="#infra-set-up-instructions" title="Link to this heading">¶</a></h2>
 <section id="directories">
 <h3>Directories<a class="headerlink" href="#directories" title="Link to this heading">¶</a></h3>
-<p>Here is a bash script that can be run in the <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT</span></code> of choice to create the full directory
+<p>Here is a bash script that can be run in the <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT</span></code> of choice to create the full directory
 sub-stucture.</p>
-<p><strong>STEP 1</strong>: Save this as <code class="docutils literal notranslate"><span class="pre">make_dirs.sh</span></code> under the <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT</span></code> directory.</p>
+<p><strong>STEP 1</strong>: Save this as <code class="docutils literal notranslate"><span class="pre">make_dirs.sh</span></code> under the <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT</span></code> directory.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 
 mkdir<span class="w"> </span>-p<span class="w"> </span>JSON
@@ -432,7 +432,7 @@ mkdir<span class="w"> </span>-p<span class="w"> </span>db
 </section>
 <section id="sqlite-database">
 <h3>SQLite database<a class="headerlink" href="#sqlite-database" title="Link to this heading">¶</a></h3>
-<p>Now go to the databse subdirectory. From <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT</span></code></p>
+<p>Now go to the databse subdirectory. From <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT</span></code></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>db
 </pre></div>
 </div>
@@ -592,7 +592,7 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Apr 28, 2026</small>
+                <small>Last updated: Apr 29, 2026</small>
             </div>
         </div>
     </div>

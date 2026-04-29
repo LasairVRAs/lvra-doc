@@ -190,8 +190,6 @@ to be run very soon for the alerts of the given stem. The status will be changed
 of this process we do not have a JSON file with corrupted data entering the rest of the pipeline.
 <strong>Only once the writting is complete and the file renamed</strong> do we initialise the rows to the status tables
 in the database.</p>
-<p>The python script <code class="docutils literal notranslate"><span class="pre">kafka_consumer.py</span></code> is paired with a bash script called <code class="docutils literal notranslate"><span class="pre">kafka.sh</span></code> which sets the environment and the python path, checks whether the log file exists
-(and creates one is necessary), then runs the python script. It is the <code class="docutils literal notranslate"><span class="pre">kafka.sh</span></code> script that is called in the <code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> script (see below) that is run by the cron job.</p>
 </section>
 <section id="what-is-a-stem">
 <h3>What is a stem?<a class="headerlink" href="#what-is-a-stem" title="Link to this heading">¶</a></h3>
@@ -208,7 +206,7 @@ and they can be identified (files and database) by that stem.</p>
 <h3>Exit code Vs Status code: is 0 good or bad then?<a class="headerlink" href="#exit-code-vs-status-code-is-0-good-or-bad-then" title="Link to this heading">¶</a></h3>
 <p>You may have noticed above that I use 0 as a status code in the status tables to show that a process is waiting to be run, but I also use it as an one of the exit code for the pythons scripts.</p>
 <p>Generally speaking the exit codes of the files are <em>mostly</em> the same as the status codes (see Infrastructure page for a table summarising the status codes),
-<strong>except</strong> for the success case. For the <em>status codes</em> 0 is used as an initialisation status code and 1 is a success (1 == good is very “pyhton”).
+<strong>except</strong> for the success case. For the <em>status codes</em> 0 is used as an initialisation status code and 1 is a success (1 == good is very “python”).
 However when dealing with <strong>exit codes, they end up as outputs in my bash wrapper scripts. In bash 0 == success, anything else is a failure of some kind.</strong></p>
 <p>So the python scripts do perform some gymnastics to turn the status codes into exit codes that makes sense when the python is executed as part of a larger pipeline in a bash
 orchestrator script.</p>
@@ -216,7 +214,7 @@ orchestrator script.</p>
 </section>
 <section id="step-2-feature-making">
 <h2>Step 2: Feature making<a class="headerlink" href="#step-2-feature-making" title="Link to this heading">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">r0b_feature_maker.py</span></code> script transforms the raw alerts into features that can be used to do inference (predictions).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">r0b_feature_maker.py</span></code> script transforms the raw alerts (JSON files) into features (csv files) that can be used to do inference (predictions).</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt>Inputs:</dt><dd><ul>
@@ -240,8 +238,6 @@ orchestrator script.</p>
 <p>The creation of the feature dataframes which are then written out to csv is not entierly trivial.
 Indeed the kafka stream from lasair contains some Lasair features that are indexed on the <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code> and the full Rubin packet that is indexed on the <code class="docutils literal notranslate"><span class="pre">diaSourceId</span></code>.
 Exactly how and which features are created will be dependent on the specific LVRA; consult the relevant pages to get these details.</p>
-<p>The python script <code class="docutils literal notranslate"><span class="pre">r0b_feature_maker.py</span></code> is paired with a bash script called <code class="docutils literal notranslate"><span class="pre">r0b_feature_maker.sh</span></code> which sets the environment and the python path, checks whether the log file exists
-(and creates one is necessary), then runs the python script. It is the <code class="docutils literal notranslate"><span class="pre">r0b_feature_maker.sh</span></code> script that is called in the <code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> script (see below) that is run by the cron job.</p>
 </section>
 <section id="step-3-predict">
 <h2>Step 3: Predict<a class="headerlink" href="#step-3-predict" title="Link to this heading">¶</a></h2>
@@ -266,8 +262,6 @@ Exactly how and which features are created will be dependent on the specific LVR
 </dl>
 </li>
 </ul>
-<p>The python script <code class="docutils literal notranslate"><span class="pre">r0b_predict.py</span></code> is paired with a bash script called <code class="docutils literal notranslate"><span class="pre">r0b_predict.sh</span></code> which sets the environment and the python path, checks whether the log file exists
-(and creates one is necessary), then runs the python script. It is the <code class="docutils literal notranslate"><span class="pre">r0b_predict.sh</span></code> script that is called in the <code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> script (see below) that is run by the cron job.</p>
 <section id="why-a-provenance-table">
 <h3>Why a provenance table?<a class="headerlink" href="#why-a-provenance-table" title="Link to this heading">¶</a></h3>
 <p>The provenance table in the database records the score given to <strong>each alert</strong>. In Lasair the annotations are indexed by <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code>, that is the astrophysical event, not the lightcurve
@@ -300,8 +294,6 @@ or add them to the additional data that we can report in the annotation through 
 </dl>
 </li>
 </ul>
-<p>The python script <code class="docutils literal notranslate"><span class="pre">r0b_annotator.py</span></code> is paired with a bash script called <code class="docutils literal notranslate"><span class="pre">r0b_annotator.sh</span></code> which sets the environment and the python path, checks whether the log file exists
-(and creates one is necessary), then runs the python script. It is the <code class="docutils literal notranslate"><span class="pre">r0b_annotator.sh</span></code> script that is called in the <code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> script (see below) that is run by the cron job.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>The annotator can take the Lasair token as a command line argument. This is useful if you want to test pushing annotations to the dev lasair server.
@@ -426,7 +418,7 @@ pypeline expects the full Rubin packet for each alert.</p>
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Apr 28, 2026</small>
+                <small>Last updated: Apr 29, 2026</small>
             </div>
         </div>
     </div>
