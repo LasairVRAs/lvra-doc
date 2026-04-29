@@ -11,11 +11,11 @@
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=26a793ad" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfd0f6f2" />
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
-            <link rel="next" title="TNS Reporting" href="tns.html" />
+            <link rel="next" title="LVRA:r0b" href="r0b4devs.html" />
             <link rel="prev" title="Pipeline Overview" href="pipeline.html" />
     </head>
 <body>
@@ -78,14 +78,15 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Infrastructure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r0b4devs.html">LVRA:r0b</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a></li>
-<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heloise's Notes</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
 </ul>
 
     </nav>
@@ -143,7 +144,7 @@
 <h2>Architecture Overview<a class="headerlink" href="#architecture-overview" title="Link to this heading">¶</a></h2>
 <section id="data">
 <h3>Data<a class="headerlink" href="#data" title="Link to this heading">¶</a></h3>
-<p>The data are under the <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT</span></code> directory. On the Oxford Lasair prod servers
+<p>The data are under the <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT</span></code> directory. On the Oxford Lasair prod servers
 that is <code class="docutils literal notranslate"><span class="pre">/home/lasair/data/lvra</span></code> (it is already defined in the <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code>).</p>
 <p>There directory structure logic is as follows: TYPE &gt; YEAR &gt; DATE</p>
 <p>Here the type referes to the file types:</p>
@@ -155,82 +156,74 @@ For example for the <code class="docutils literal notranslate"><span class="pre"
 <li><p><code class="docutils literal notranslate"><span class="pre">logs</span></code>: contain log text files.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">db</span></code>: contain the SQLite database files. <strong>NOTE</strong>: this is a flat directory, no timestamped sub dirs here.</p></li>
 </ul>
+<p><strong>Here is a tree visualisation of the directory strucuture</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.
+├──<span class="w"> </span>csv
+│<span class="w">   </span>├──<span class="w"> </span><span class="m">2026</span>
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>...
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span><span class="m">20260422</span>
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>20260422_021001.csv
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>...
+│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span><span class="m">20260429</span>
+│<span class="w">   </span>├──<span class="w"> </span><span class="m">2027</span>
+│<span class="w">   </span>└──<span class="w"> </span>...
+├──<span class="w"> </span>db
+│<span class="w">   </span>├──<span class="w"> </span>log.db
+│<span class="w">   </span>└──<span class="w"> </span>log_schema.sql
+├──<span class="w"> </span>JSON
+│<span class="w">   </span>├──<span class="w"> </span><span class="m">2026</span>
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>...
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span><span class="m">20260422</span>
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>20260422_021001.csv
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>...
+│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span><span class="m">20260429</span>
+│<span class="w">   </span>├──<span class="w"> </span><span class="m">2027</span>
+│<span class="w">   </span>└──<span class="w"> </span>...
+├──<span class="w"> </span>locks
+│<span class="w">   </span>├──<span class="w"> </span>annotate.lock
+│<span class="w">   </span>├──<span class="w"> </span>consumer.lock
+│<span class="w">   </span>├──<span class="w"> </span>predict.lock
+│<span class="w">   </span>└──<span class="w"> </span>r0bfeatures.lock
+├──<span class="w"> </span>logs
+│<span class="w">   </span>├──<span class="w"> </span><span class="m">2026</span>
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>...
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span><span class="m">20260428</span>
+│<span class="w">   </span>│<span class="w">       </span>├──<span class="w"> </span>bigbashboy.log
+│<span class="w">   </span>│<span class="w">       </span>├──<span class="w"> </span>kafka.log
+│<span class="w">   </span>│<span class="w">       </span>├──<span class="w"> </span>lvra_kafka_error.log
+│<span class="w">   </span>│<span class="w">       </span>├──<span class="w"> </span>r0b_annotator_error.log
+│<span class="w">   </span>│<span class="w">       </span>├──<span class="w"> </span>r0b_annotator.log
+│<span class="w">   </span>│<span class="w">       </span>├──<span class="w"> </span>r0b_feature_maker_error.log
+│<span class="w">   </span>│<span class="w">       </span>├──<span class="w"> </span>r0b_feature_maker.log
+│<span class="w">   </span>│<span class="w">       </span>├──<span class="w"> </span>r0b_predict_error.log
+│<span class="w">   </span>│<span class="w">       </span>└──<span class="w"> </span>r0b_predict.log
+│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span><span class="m">20260429</span>
+│<span class="w">   </span>├──<span class="w"> </span><span class="m">2027</span>
+│<span class="w">   </span>└──<span class="w"> </span>...
+└──<span class="w"> </span>models
+<span class="w">    </span>└──<span class="w"> </span>r0b_a1_N411_LR01p1_MaxI50_RS42.joblib
+</pre></div>
+</div>
 </section>
 <section id="code">
 <h3>Code<a class="headerlink" href="#code" title="Link to this heading">¶</a></h3>
-<p>The code is under <code class="docutils literal notranslate"><span class="pre">LVRA_CODE_ROOT</span></code>, it is the <code class="docutils literal notranslate"><span class="pre">lvra</span></code> python package.
+<p>The code is under <code class="docutils literal notranslate"><span class="pre">$LVRA_CODE_ROOT</span></code>, it is the <code class="docutils literal notranslate"><span class="pre">lvra</span></code> python package.
 There are two kinds of scripts used in production: the python pipelines and their bash wrappers.
 The bash wrappers are their to set the environment so that when the code is run from cron everything
 works as expected. They also redirect the stderr to stdout and write it to an error log file so that
 cron jobs do not fail silently and we can track what is going on.</p>
-<p>The bash scripts are under <code class="docutils literal notranslate"><span class="pre">LVRA_CODE_ROOT/bash</span></code> and the python scripts are under
-<code class="docutils literal notranslate"><span class="pre">LVRA_CODE_ROOT/lvra/pypeline</span></code> (not a typo, a pun between python and pipeline. ha. ha.).</p>
-<p>A lot of the code needs config files that are stored under <code class="docutils literal notranslate"><span class="pre">LVRA_CODE_ROOT/data</span></code>.
+<p>The bash scripts are under <code class="docutils literal notranslate"><span class="pre">$LVRA_CODE_ROOT/bash</span></code> and the python scripts are under
+<code class="docutils literal notranslate"><span class="pre">$LVRA_CODE_ROOT/lvra/pypeline</span></code> (not a typo, a pun between python and pipeline. ha. ha.).</p>
+<p>A lot of the code needs config files that are stored under <code class="docutils literal notranslate"><span class="pre">$LVRA_CODE_ROOT/data</span></code>.
 Any secret information such as tokens are directly stored in environment variables on the server,
 nothing in the files.</p>
 </section>
 </section>
-<section id="useful-definitions">
-<h2>Useful Definitions<a class="headerlink" href="#useful-definitions" title="Link to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><strong>Status Codes</strong>: These are integers used in the database tables</p></li>
-</ul>
-<table class="docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Status</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>0</p></td>
-<td><p>Initialised</p></td>
-</tr>
-<tr class="row-odd"><td><p>1</p></td>
-<td><p>Successfully Processed</p></td>
-</tr>
-<tr class="row-even"><td><p>21</p></td>
-<td><p>File Not Found (INPUT)</p></td>
-</tr>
-<tr class="row-odd"><td><p>22</p></td>
-<td><p>File Not Found (OUTPUT)</p></td>
-</tr>
-<tr class="row-even"><td><p>23</p></td>
-<td><p>Not Expected Input Data Type</p></td>
-</tr>
-<tr class="row-odd"><td><p>30</p></td>
-<td><p>Key Error (missing in data)</p></td>
-</tr>
-<tr class="row-even"><td><p>31</p></td>
-<td><p>Missing Columns (INPUT)</p></td>
-</tr>
-<tr class="row-odd"><td><p>40</p></td>
-<td><p>Lasair Annotation Issue</p></td>
-</tr>
-<tr class="row-even"><td><p>41</p></td>
-<td><p>Failure to create Lasair client</p></td>
-</tr>
-<tr class="row-odd"><td><p>99</p></td>
-<td><p>Generic Error</p></td>
-</tr>
-</tbody>
-</table>
-<p>The <cite>2X</cite> errors refer a problem with the input or outputs such that they can’t be loaded.</p>
-<p>The <cite>3X</cite> errors correspond to issues with the data structure or content. So it _was_ loaded, but the contents cause problems</p>
-<p>Code <cite>30</cite> likely means the files you are trying to use don’t have the structure you expect.
-This is most likely due to a change in the alert or clean data format. Causes may vary:
-changes in LSST data, changes in Lasair, changes in your code.</p>
-<p>The <cite>4X</cite> errors are specific to Lasair</p>
-<ul class="simple">
-<li><p><strong>Stems</strong>: These are the core names of our files and take the format <code class="docutils literal notranslate"><span class="pre">YYYYMMDD_HHMMSS</span></code>.
-Each path name is constructed with the format <code class="docutils literal notranslate"><span class="pre">TYPE/YEAR/DATE/stem.extension</span></code>.
-The stem is also used as the primary key for the status tables (see below)</p></li>
-</ul>
-</section>
 <section id="log-files-and-sqlite-database">
 <h2>Log files and SQLite database<a class="headerlink" href="#log-files-and-sqlite-database" title="Link to this heading">¶</a></h2>
-<p>Log files are written to the <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT/logs/YEAR/DAY/[logname].log</span></code> directory.</p>
+<p>Log files are written to the <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT/logs/YEAR/DAY/[logname].log</span></code> directory.</p>
 <p>There is also a SQLite database to keep track of the status of various processes and the
-history of the predictions of various VRAs.  It is located under <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT/db/log.db</span></code>.</p>
+history of the predictions of various VRAs.  It is located under <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT/db/log.db</span></code>.</p>
 <p>There are three kinds of tables:</p>
 <ul class="simple">
 <li><p>Status tables: <strong>Used to keep a log of the status of each process in the pipeline</strong>. The primary key is the stem and the columns are named after VRAs. Each
@@ -356,6 +349,55 @@ New columns can be added for each LVRA</p></li>
 </tbody>
 </table>
 </section>
+<section id="status-codes">
+<h3>Status Codes<a class="headerlink" href="#status-codes" title="Link to this heading">¶</a></h3>
+<p>These are integers used in the database tables to keep track of the status of each process in the pipeline.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Status</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Initialised</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>Successfully Processed</p></td>
+</tr>
+<tr class="row-even"><td><p>21</p></td>
+<td><p>File Not Found (INPUT)</p></td>
+</tr>
+<tr class="row-odd"><td><p>22</p></td>
+<td><p>File Not Found (OUTPUT)</p></td>
+</tr>
+<tr class="row-even"><td><p>23</p></td>
+<td><p>Not Expected Input Data Type</p></td>
+</tr>
+<tr class="row-odd"><td><p>30</p></td>
+<td><p>Key Error (missing in data)</p></td>
+</tr>
+<tr class="row-even"><td><p>31</p></td>
+<td><p>Missing Columns (INPUT)</p></td>
+</tr>
+<tr class="row-odd"><td><p>40</p></td>
+<td><p>Lasair Annotation Issue</p></td>
+</tr>
+<tr class="row-even"><td><p>41</p></td>
+<td><p>Failure to create Lasair client</p></td>
+</tr>
+<tr class="row-odd"><td><p>99</p></td>
+<td><p>Generic Error</p></td>
+</tr>
+</tbody>
+</table>
+<p>The <cite>2X</cite> errors refer a problem with the input or outputs such that they can’t be loaded.</p>
+<p>The <cite>3X</cite> errors correspond to issues with the data structure or content. So it _was_ loaded, but the contents cause problems</p>
+<p>Code <cite>30</cite> likely means the files you are trying to use don’t have the structure you expect.
+This is most likely due to a change in the alert or clean data format. Causes may vary:
+changes in LSST data, changes in Lasair, changes in your code.</p>
+<p>The <cite>4X</cite> errors are specific to Lasair</p>
+</section>
 <section id="log-files">
 <h3>Log files<a class="headerlink" href="#log-files" title="Link to this heading">¶</a></h3>
 <p>[list log fiels and explain]</p>
@@ -386,9 +428,9 @@ New columns can be added for each LVRA</p></li>
 <h2>Infra Set-up Instructions<a class="headerlink" href="#infra-set-up-instructions" title="Link to this heading">¶</a></h2>
 <section id="directories">
 <h3>Directories<a class="headerlink" href="#directories" title="Link to this heading">¶</a></h3>
-<p>Here is a bash script that can be run in the <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT</span></code> of choice to create the full directory
+<p>Here is a bash script that can be run in the <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT</span></code> of choice to create the full directory
 sub-stucture.</p>
-<p><strong>STEP 1</strong>: Save this as <code class="docutils literal notranslate"><span class="pre">make_dirs.sh</span></code> under the <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT</span></code> directory.</p>
+<p><strong>STEP 1</strong>: Save this as <code class="docutils literal notranslate"><span class="pre">make_dirs.sh</span></code> under the <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT</span></code> directory.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
 
 mkdir<span class="w"> </span>-p<span class="w"> </span>JSON
@@ -431,7 +473,7 @@ mkdir<span class="w"> </span>-p<span class="w"> </span>db
 </section>
 <section id="sqlite-database">
 <h3>SQLite database<a class="headerlink" href="#sqlite-database" title="Link to this heading">¶</a></h3>
-<p>Now go to the databse subdirectory. From <code class="docutils literal notranslate"><span class="pre">LVRA_DATA_ROOT</span></code></p>
+<p>Now go to the databse subdirectory. From <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT</span></code></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>db
 </pre></div>
 </div>
@@ -529,8 +571,8 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
     <a class="float-left" href="pipeline.html" title="Previous">
         <span aria-hidden="true">←&nbsp;</span>Pipeline Overview
     </a>
-    <a class="float-right" href="tns.html" title="Next">
-        TNS Reporting <span aria-hidden="true">&nbsp;→</span>
+    <a class="float-right" href="r0b4devs.html" title="Next">
+        LVRA:r0b <span aria-hidden="true">&nbsp;→</span>
     </a>
 </nav>
                     </div>
@@ -545,9 +587,9 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
 <li><a class="reference internal" href="#code">Code</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#useful-definitions">Useful Definitions</a></li>
 <li><a class="reference internal" href="#log-files-and-sqlite-database">Log files and SQLite database</a><ul>
 <li><a class="reference internal" href="#table-list">Table List</a></li>
+<li><a class="reference internal" href="#status-codes">Status Codes</a></li>
 <li><a class="reference internal" href="#log-files">Log files</a></li>
 </ul>
 </li>
@@ -591,7 +633,7 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Apr 28, 2026</small>
+                <small>Last updated: Apr 29, 2026</small>
             </div>
         </div>
     </div>
