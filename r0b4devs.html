@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" data-content_root="./">
+<head>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>LVRA:r0b &mdash; LVRA dev documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
+      <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfd0f6f2" />
+            <link rel="index" title="Index" href="genindex.html" />
+            <link rel="search" title="Search" href="search.html" />
+            <link rel="top" title="LVRA dev documentation" href="#" />
+            <link rel="next" title="Dev environement" href="lasair_dev.html" />
+            <link rel="prev" title="Infrastructure" href="infra.html" />
+    </head>
+<body>
+    <script type="text/javascript" src="_static/dist/blocking.js"></script>
+    <header class="container-fluid bg-primary">
+        <a class="btn btn-sm btn-light skip-to-content-link" href="#main">Skip to content</a>
+        <div class="container-fluid">
+            <div class="navbar navbar-expand-lg navbar-dark font-weight-bold">
+                    <a href="https://lasairvras.github.io/lvra-doc/index.html"
+                        title="LVRA"
+                        class="logo navbar-brand"
+                    >
+                        <img src="_static/img/lvra.png" width="75" height="79" alt="LVRA"
+                            class="logo-img"
+                        />
+                        Lasair Virtual Research Assistants
+                    </a>
+                
+                
+                    <div class="collapse navbar-collapse justify-content-end">
+                        <ul class="navbar-nav">
+                            
+                                
+                                
+                                <li class="nav-item"><a class="nav-link"  href=" https://www.hfstevance.com/">hfstevance.com </a></li>
+                            
+                        </ul>
+                    </div>
+                
+                <button class="navbar-toggler btn btn-primary d-lg-none" type="button" data-toggle="collapse" data-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="sr-only">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-12 col-lg-3 sidebar-container">
+                <div id="collapseSidebar" class="collapse sticky-top d-lg-block pt-5 pr-lg-4">
+<div id="searchbox" class="searchbox mb-6 px-1" role="search">
+    <form id="search-form" action="search.html" autocomplete="off" method="get" role="search">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text border-right-0 bg-white py-3 pl-3 pr-2"><span class="fas fa-search"></span></div>
+            </div>
+            <input class="form-control py-3 pr-3 pl-1 h-100 border-left-0" type="search" name="q" placeholder="Search documentation" aria-label="Search documentation" id="searchinput" />
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div><div class="site-toc">
+    <nav class="toc mt-3" aria-label="Main menu">
+        <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LVRA:r0b</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heloise's Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
+</ul>
+
+    </nav>
+    <template data-toggle-item-template>
+        <button class="btn btn-sm btn-link toctree-expand" type="button">
+            <span class="sr-only">Toggle menu contents</span>
+        </button>
+    </template>
+</div>
+                    <div class="d-lg-none border-bottom">
+                        
+                    </div>
+                </div>
+            </aside>
+            <div class="col-12 col-lg-9 pt-5">
+                <header class="row align-items-baseline">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-0 p-0 bg-transparent">
+        <li class="breadcrumb-item"><a href="index.html">Docs</a></li>
+        <li class="breadcrumb-item active" aria-current="page">LVRA:r0b</li>
+    </ol>
+</nav>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto mt-3 mt-lg-3">
+                        <noscript>
+                            <p>JavaScript is required to toggle light/dark mode..</p>
+                        </noscript>
+                        <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
+                            <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
+                            <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
+                        </button>
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/LasairVRAs/lvra-doc/docs/r0b4devs.rst" rel="nofollow">
+        <span class="btn-icon"><span class="fab fa-github"></span></span>
+        <span class="btn-text">Edit on GitHub</span>
+    </a>
+    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/r0b4devs.rst.txt" rel="nofollow">
+        <span class="btn-icon"><span class="fas fa-code"></span></span>
+        <span class="btn-text">View source</span>
+    </a>
+                        
+                    </div>
+                </header>
+                <div class="row" >
+                    <div class="col-12">
+                        <hr class="w-100 my-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
+                        <main role="main" id="main">
+    <section id="lvra-r0b">
+<h1>LVRA:r0b<a class="headerlink" href="#lvra-r0b" title="Link to this heading">¶</a></h1>
+<p><em>Note that this documentation is mostly aimed at developers that will have to maintain or further develop the code base</em></p>
+<section id="feature-making-logic">
+<h2>Feature making logic<a class="headerlink" href="#feature-making-logic" title="Link to this heading">¶</a></h2>
+<p>The code invovled in making the features for r0b is split between the main <code class="docutils literal notranslate"><span class="pre">pypeline/r0b_feature_maker.py</span></code> module, and the <code class="docutils literal notranslate"><span class="pre">utils/features.py</span></code> utility module.
+<code class="docutils literal notranslate"><span class="pre">pypeline/r0b_feature_maker.py</span></code> contains <strong>operational logic and some feature engineering/cleaning</strong>:
+* [Operational]: loading settings, connecting to the databse, querying the database to know which files (stems) have yet to be processed, logging, etc.
+* [Feature engineering/cleaning]: calculating new quantities (delta MJD between first detection and current observation), dropping unwanted columns</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">misc/features.py</span></code> does all the dirty work of <strong>data cleaning/formating</strong> as well as doing <strong>feature engineering on the full lightcurve of each alert</strong>.</p>
+<p>To help visualise the journey of the data, I present below the tables of data at different stages of the feature making process,
+refering to them by the <strong>variable name used in the code</strong>. This page is mostly a helper for developers learning the code base,
+so they can visualise what the pandas dataframes look like at each stage.</p>
+<section id="the-data-from-the-json-file">
+<h3>The data from the JSON file<a class="headerlink" href="#the-data-from-the-json-file" title="Link to this heading">¶</a></h3>
+<p>As mentioned in the Pipeline Overview, the data we get from the kafka stream has a partially nested structure.
+There are a number of features we get directly from our Lasair filter (see query in Appendix A of the Pipeline Overview), such as the <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code>, <code class="docutils literal notranslate"><span class="pre">latestR</span></code>, <code class="docutils literal notranslate"><span class="pre">ebv</span></code>, etc…
+There is also a field called <code class="docutils literal notranslate"><span class="pre">alerts</span></code> which contains the <em>full alert packet from Rubin*</em> (except image cut-outs).</p>
+<p>If you are not familiar with the structure of these data I recommend checking my <a class="reference external" href="https://github.com/LasairVRAs/lasair_user_tutorials/blob/main/KAFKA_Listen_to_Alerts.ipynb">Lasair Kafka tutorial notebook</a>
+(Section 6: Full Packet Data).</p>
+<p>In the utility function <code class="docutils literal notranslate"><span class="pre">lvra.utils.features.json2cleandf()</span></code>, the <code class="docutils literal notranslate"><span class="pre">json_df</span></code> variable contains the FULL JSON file loaded into a dataframe,
+and it looks something like this [NOTE - <strong>you can scroll sideways</strong>]:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>diaObjectId</p></th>
+<th class="head"><p>lastDiaSourceMjdTai</p></th>
+<th class="head"><p>latestR</p></th>
+<th class="head"><p>nDiaSources</p></th>
+<th class="head"><p>ebv</p></th>
+<th class="head"><p>ra</p></th>
+<th class="head"><p>decl</p></th>
+<th class="head"><p>tns_name</p></th>
+<th class="head"><p>absMag</p></th>
+<th class="head"><p>absMagMJD</p></th>
+<th class="head"><p>firstDiaSourceMjdTai</p></th>
+<th class="head"><p>separationArcsec</p></th>
+<th class="head"><p>direct_distance</p></th>
+<th class="head"><p>distance</p></th>
+<th class="head"><p>z</p></th>
+<th class="head"><p>photoZ</p></th>
+<th class="head"><p>photoZErr</p></th>
+<th class="head"><p>physical_separation_kpc</p></th>
+<th class="head"><p>sherlock_classifications</p></th>
+<th class="head"><p>raErr</p></th>
+<th class="head"><p>decErr</p></th>
+<th class="head"><p>ra_dec_Cov</p></th>
+<th class="head"><p>UTC</p></th>
+<th class="head"><p>alerts</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>169760231711572988</p></td>
+<td><p>61029.4</p></td>
+<td><p>0.838478</p></td>
+<td><p>2</p></td>
+<td><p>0.103305</p></td>
+<td><p>223.024</p></td>
+<td><p>-41.4592</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>61029.3</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>ORPHAN</p></td>
+<td><p>2.14003e-06</p></td>
+<td><p>2.82303e-06</p></td>
+<td><p>4.63027e-13</p></td>
+<td><p>2026-02-04 11:51:46</p></td>
+<td><p>NaN</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>169355603258900842</p></td>
+<td><p>61069.1</p></td>
+<td><p>0.996714</p></td>
+<td><p>33</p></td>
+<td><p>0.00812477</p></td>
+<td><p>9.22276</p></td>
+<td><p>-45.5966</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>60937.3</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>nan</p></td>
+<td><p>ORPHAN</p></td>
+<td><p>1.37756e-05</p></td>
+<td><p>2.42808e-05</p></td>
+<td><p>-8.48339e-11</p></td>
+<td><p>2026-02-04 11:53:03</p></td>
+<td><p>{‘diaObject’: {‘diaObjectId’: 1697602317115729…</p></td>
+</tr>
+</tbody>
+</table>
+<p>Here I’ve given two examples of alerts, one where the <code class="docutils literal notranslate"><span class="pre">alerts</span></code> field (Rubin alert packet) is empty, one where it is populated with a nested dictionary (you can’t see the whole thing
+it’s massive).</p>
+<p><strong>The alert packets should not be missing, but it has happened in the past</strong> during comissioning, so the code is built to be robust to this
+and allow the processing to continue and just ignore this specific event (a.k.a <code class="docutils literal notranslate"><span class="pre">diaObject</span></code>), logging the <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code> with missing packets in the logs.</p>
+</section>
+<section id="the-lasair-filter-features">
+<h3>The Lasair filter features<a class="headerlink" href="#the-lasair-filter-features" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>We can easily recover the columns that we selected in our Lasair filter query by saveing all the columns except the last ones to a dataframe</dt><dd><p><code class="docutils literal notranslate"><span class="pre">filterOutput_df</span> <span class="pre">=</span> <span class="pre">json_df.iloc[:,:-1]</span></code>, which we will later join with the other features from the lightcurve.</p>
+<p>I am not providing a table because it is the same as above, save for the last column being dropped.</p>
+</dd>
+</dl>
+</section>
+<section id="the-features-associated-with-the-latest-lightcurve-point">
+<h3>The features associated with the latest lightcurve point<a class="headerlink" href="#the-features-associated-with-the-latest-lightcurve-point" title="Link to this heading">¶</a></h3>
+<p>To access all of the lightcurve features provided by Rubin (e.g. SNR, psf fitting related fields, etc… )
+we need to access the nested dictionaries in the <code class="docutils literal notranslate"><span class="pre">alerts</span></code> columns, specifically the <code class="docutils literal notranslate"><span class="pre">diaSourcesList</span></code> table which contains
+the packet data for lightcurve points.</p>
+<p>The first kind of feature we want to recover, is all of the data about the <strong>most recent source</strong>.
+Below I show a <em>truncated</em> example of the dataframe containing the lightcurve features.
+If you want to see the full list of columns, go to the Rubin schema explorer; here is <a class="reference external" href="https://sdm-schemas.lsst.io/apdb.html#DiaSource">a link to the diaSource table schema</a>
+In the <code class="docutils literal notranslate"><span class="pre">json2cleandf()</span></code> function, the dataframe with this format is called <code class="docutils literal notranslate"><span class="pre">latestSourceIds_df</span></code> because it is constructed such that each row
+gives use the values for the last lightcurve point (<code class="docutils literal notranslate"><span class="pre">diaSourceId</span></code>) for a given astrophysical event (<code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code>).</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>diaSourceId</p></th>
+<th class="head"><p>visit</p></th>
+<th class="head"><p>detector</p></th>
+<th class="head"><p>diaObjectId</p></th>
+<th class="head"><p>ssObjectId</p></th>
+<th class="head"><p>parentDiaSourceId</p></th>
+<th class="head"><p>midpointMjdTai</p></th>
+<th class="head"><p>ra</p></th>
+<th class="head"><p>raErr</p></th>
+<th class="head"><p>decErr</p></th>
+<th class="head"><p>ra_dec_Cov</p></th>
+<th class="head"><p>x</p></th>
+<th class="head"><p>xErr</p></th>
+<th class="head"><p>y</p></th>
+<th class="head"><p>yErr</p></th>
+<th class="head"><p>centroid_flag</p></th>
+<th class="head"><p>apFlux</p></th>
+<th class="head"><p>apFluxErr</p></th>
+<th class="head"><p>apFlux_flag</p></th>
+<th class="head"><p>apFlux_flag_apertureTruncated</p></th>
+<th class="head"><p>isNegative</p></th>
+<th class="head"><p>snr</p></th>
+<th class="head"><p>psfFlux</p></th>
+<th class="head"><p>psfFluxErr</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>decl</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>169562325818802242</p></td>
+<td><p>2025110400302</p></td>
+<td><p>183</p></td>
+<td><p>169562325818802242</p></td>
+<td><p>nan</p></td>
+<td><p>0</p></td>
+<td><p>60984.2</p></td>
+<td><p>10.1346</p></td>
+<td><p>3.25122e-05</p></td>
+<td><p>3.94188e-05</p></td>
+<td><p>-6.12409e-10</p></td>
+<td><p>2451.23</p></td>
+<td><p>0.917773</p></td>
+<td><p>2333.35</p></td>
+<td><p>0.539348</p></td>
+<td><p>False</p></td>
+<td><p>1246.3</p></td>
+<td><p>1128.77</p></td>
+<td><p>False</p></td>
+<td><p>False</p></td>
+<td><p>False</p></td>
+<td><p>6.38317</p></td>
+<td><p>3336.28</p></td>
+<td><p>526.842</p></td>
+<td><p>…</p></td>
+<td><p>-42.4024</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>169584317122478660</p></td>
+<td><p>2025110900310</p></td>
+<td><p>178</p></td>
+<td><p>169562325818802242</p></td>
+<td><p>nan</p></td>
+<td><p>0</p></td>
+<td><p>60989.2</p></td>
+<td><p>10.1347</p></td>
+<td><p>1.41809e-05</p></td>
+<td><p>1.91613e-05</p></td>
+<td><p>-3.45086e-13</p></td>
+<td><p>3742.17</p></td>
+<td><p>0.345846</p></td>
+<td><p>2336.37</p></td>
+<td><p>0.345686</p></td>
+<td><p>False</p></td>
+<td><p>2743.54</p></td>
+<td><p>485.996</p></td>
+<td><p>False</p></td>
+<td><p>False</p></td>
+<td><p>False</p></td>
+<td><p>10.5507</p></td>
+<td><p>2424.67</p></td>
+<td><p>228.346</p></td>
+<td><p>…</p></td>
+<td><p>-42.4024</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-note-on-dataframe-concatenation admonition">
+<p class="admonition-title">Note on dataframe concatenation</p>
+<p>In the code <code class="docutils literal notranslate"><span class="pre">latestSourceIds_df</span></code>  is constructed by concatenating a list of single-row dataframes created in a loop and stored in a list
+(<code class="docutils literal notranslate"><span class="pre">latestSourceId_dfList</span></code>) before final concatenation. This is because concatenating increasingly large dataframes in a loop is
+computationally inefficient and the loops gets increasingly slow (or at least it’s been my experience, maybe by the time you read this
+they’ll have fixed it). AFAIK it is because the concatenation operation makes a copy of the dataframe, so if you are dealing
+with an increasingly large table to copying gets more and more expensive.</p>
+<p>By contrast python list elements just “point” (there’s no actual pointers in python) to where that element is stored in memory.
+Adding to that list is super cheap. Then the final concatenation is just one operation after completion of the for-loop.</p>
+</div>
+</section>
+<section id="the-features-associated-with-the-lightcurve-history">
+<h3>The features associated with the lightcurve history<a class="headerlink" href="#the-features-associated-with-the-lightcurve-history" title="Link to this heading">¶</a></h3>
+<p>Although the current version of r0b only uses the Lasair filter columns and the lightcurve features associated with the latest point to calculate a score,
+the annotator is build to provide additional flags and information that is not otherwise available in the Lasair filters.</p>
+<p>Namely:</p>
+<ul class="simple">
+<li><p><strong>n_gtXX</strong> (e.g. n_gt22): The number of lightcurve points with magnitude BIRGHTER than 22nd, 21st, 20th, 19th or 18th magnitude.</p></li>
+<li><p><strong>brighterXX</strong> (e.g. brighter22): A boolean flag indicating whether there is at least one point brighter than 22nd, 21st, 20th, 19th or 18th magnitude.</p></li>
+<li><p><strong>firstXX</strong> (e.g. first22): A boolean flag indicating whether this is the first time the transient has crossed a given magnitude threshold_flags_provenance</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Note that the “brighter22” (or other threshold) flag tells you if an object has EVER been brighter than that threshold. It may be fainter now.
+The reason is that in your filter you can easily check with the flux for a current alert is brighter than a chosen threshold but you <strong>do not</strong>
+have an easy way to set a condition on the lightcurve history. You would have to download the lightcurve data through your kafka stream
+and process the data. <em>Since I’m processing all that data anyway, I might as well provide that information as part of the annotator</em>.</p>
+</div>
+<p>These are constructed by the utility function <code class="docutils literal notranslate"><span class="pre">utils.features.flux_threshold_features()</span></code> which is called <em>within</em> <code class="docutils literal notranslate"><span class="pre">utils.features.json2cleandf()</span></code> where
+these flags are joined to the final clean dataframe along <code class="docutils literal notranslate"><span class="pre">filterOutput_df</span></code> and <code class="docutils literal notranslate"><span class="pre">latestSourceIds_df</span></code>.</p>
+<p>The clean data frame that comes out of the <code class="docutils literal notranslate"><span class="pre">json2cleandf()</span></code> function looks something like this. Note I have truncated it, showing
+that the leftmost columns come from the <code class="docutils literal notranslate"><span class="pre">latestSourceIds_df</span></code> dataframe, the middle columns come from the <code class="docutils literal notranslate"><span class="pre">filterOutput_df</span></code> dataframe,
+and the rightmost columns are the flags associated with the lightcurve history.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>diaSourceId</p></th>
+<th class="head"><p>visit</p></th>
+<th class="head"><p>detector</p></th>
+<th class="head"><p>ssObjectId</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>diaObjectId</p></th>
+<th class="head"><p>lastDiaSourceMjdTai</p></th>
+<th class="head"><p>latestR</p></th>
+<th class="head"><p>nDiaSources</p></th>
+<th class="head"><p>ebv</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>is_above_20</p></th>
+<th class="head"><p>first_time_20</p></th>
+<th class="head"><p>N_above_20</p></th>
+<th class="head"><p>…</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>169562325818802242</p></td>
+<td><p>2025110400302</p></td>
+<td><p>183</p></td>
+<td><p>nan</p></td>
+<td><p>…</p></td>
+<td><p>169562325818802242</p></td>
+<td><p>2025110400302</p></td>
+<td><p>183</p></td>
+<td><p>169562325818802242</p></td>
+<td><p>nan</p></td>
+<td><p>…</p></td>
+<td><p>True</p></td>
+<td><p>True</p></td>
+<td><p>1</p></td>
+<td><p>…</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="delta-mjd-feature-and-dropped-columns">
+<h3>Delta MJD feature and dropped columns<a class="headerlink" href="#delta-mjd-feature-and-dropped-columns" title="Link to this heading">¶</a></h3>
+<p>Before creating the csv that will be used to calculated the r0b score, we also calculate the delta MJD <code class="docutils literal notranslate"><span class="pre">['deltaDiaSourceMjdTai']</span></code>, and
+then we drop the following columns:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">COLUMNS_TO_REMOVE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;visit&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;tns_name&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;ssObjectId&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;parentDiaSourceId&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;midpointMjdTai&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;timeProcessedMjdTai&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;timeWithdrawnMjdTai&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;firstDiaSourceMjdTai&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;ra_sourceId&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;raErr_sourceId&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;decErr_sourceId&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;ra_dec_Cov_sourceId&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;UTC&#39;</span><span class="p">,</span>
+                <span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+                        <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
+    <a class="float-left" href="infra.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>Infrastructure
+    </a>
+    <a class="float-right" href="lasair_dev.html" title="Next">
+        Dev environement <span aria-hidden="true">&nbsp;→</span>
+    </a>
+</nav>
+                    </div>
+                    
+                    <nav class="col-12 col-lg-3 pb-4">
+                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
+                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
+                            <ul>
+<li><a class="reference internal" href="#">LVRA:r0b</a><ul>
+<li><a class="reference internal" href="#feature-making-logic">Feature making logic</a><ul>
+<li><a class="reference internal" href="#the-data-from-the-json-file">The data from the JSON file</a></li>
+<li><a class="reference internal" href="#the-lasair-filter-features">The Lasair filter features</a></li>
+<li><a class="reference internal" href="#the-features-associated-with-the-latest-lightcurve-point">The features associated with the latest lightcurve point</a></li>
+<li><a class="reference internal" href="#the-features-associated-with-the-lightcurve-history">The features associated with the lightcurve history</a></li>
+<li><a class="reference internal" href="#delta-mjd-feature-and-dropped-columns">Delta MJD feature and dropped columns</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid bg-primary text-light">
+        <div class="container">
+            <div class="row">
+        <div class="col p-4">
+            
+                <nav aria-label="Footer">
+                    <ul class="nav justify-content-center mb-2">
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="mailto:hfstevance@gmail.com">hfstevance@gmail.com </a></li>
+                        
+                    </ul>
+                </nav>
+            
+            <div class="text-center">
+                    &copy; Copyright 2026, Heloise F. Stevance
+            </div>
+            <div class="text-center text-white-50 font-italic mt-3">
+                <small>Last updated: Apr 30, 2026</small>
+            </div>
+        </div>
+    </div>
+        </div>
+    </footer>
+        <script src="_static/documentation_options.js?v=3ce10a4d"></script>
+        <script src="_static/doctools.js?v=fd6eb6e6"></script>
+        <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script type="text/javascript" src="_static/dist/theme.js"></script>
+        <script type="text/javascript" src="_static/dist/vendor.js"></script>
+        <script type="text/javascript" src="_static/searchtools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() { Search.loadIndex("searchindex.js"); });
+        </script>
+        <script type="text/javascript" id="searchindexloader"></script>
+    </body>
+</html>
