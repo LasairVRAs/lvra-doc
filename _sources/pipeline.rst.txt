@@ -126,7 +126,7 @@ The provenance table in the database records the score given to **each alert**. 
 data point. This means that when a new lightcurve point arrives in the alerts, the pipeline makes a new prediction and the new annotation in Lasair **overwrites** the previous one.
 
 Lasair therefore provides no history on the scores. This is a problem for testing and validation, but also because we may want to use the score history to make decisions in the future, 
-or add them to the additional data that we can report in the annotation through the ``class_dict`` (a free from dictionary) field. 
+or add them to the additional data that we can report in the annotation through the ``class_dict`` (a free form dictionary) field. 
 
 
 Step 4: Annotator
@@ -137,7 +137,7 @@ Finally we can report the scores and other quantities to Lasair via annotations.
 * Inputs:
     - ``public_settings.yaml`` because it contains the base directory
     - ``r0b_config.yaml``: Contains the model name, model version, the topic of the annotator, the explanation and URL settings we'll pass on to the lasair annotator. 
-    - The ``annotatin`` table which tells us which stems have already had their alerts annotated. 
+    - The ``annotating`` table which tells us which stems have already had their alerts annotated. 
     - The ``provenance`` table which contains the scores for each alert (and a stem column so we only grab the relevant alerts).
 * Outputs:
     - Sends alerts to the Lasair annotator. 

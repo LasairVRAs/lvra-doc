@@ -275,7 +275,7 @@ Exactly how and which features are created will be dependent on the specific LVR
 <p>The provenance table in the database records the score given to <strong>each alert</strong>. In Lasair the annotations are indexed by <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code>, that is the astrophysical event, not the lightcurve
 data point. This means that when a new lightcurve point arrives in the alerts, the pipeline makes a new prediction and the new annotation in Lasair <strong>overwrites</strong> the previous one.</p>
 <p>Lasair therefore provides no history on the scores. This is a problem for testing and validation, but also because we may want to use the score history to make decisions in the future,
-or add them to the additional data that we can report in the annotation through the <code class="docutils literal notranslate"><span class="pre">class_dict</span></code> (a free from dictionary) field.</p>
+or add them to the additional data that we can report in the annotation through the <code class="docutils literal notranslate"><span class="pre">class_dict</span></code> (a free form dictionary) field.</p>
 </section>
 </section>
 <section id="step-4-annotator">
@@ -286,7 +286,7 @@ or add them to the additional data that we can report in the annotation through 
 <dt>Inputs:</dt><dd><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">public_settings.yaml</span></code> because it contains the base directory</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">r0b_config.yaml</span></code>: Contains the model name, model version, the topic of the annotator, the explanation and URL settings we’ll pass on to the lasair annotator.</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">annotatin</span></code> table which tells us which stems have already had their alerts annotated.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">annotating</span></code> table which tells us which stems have already had their alerts annotated.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">provenance</span></code> table which contains the scores for each alert (and a stem column so we only grab the relevant alerts).</p></li>
 </ul>
 </dd>
