@@ -12,7 +12,7 @@
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
       <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=496b1c32" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfd0f6f2" />
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
@@ -78,14 +78,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a></li>
-<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heloise's Notes</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
 </ul>
 
     </nav>
@@ -194,7 +194,7 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 <li class="toctree-l2"><a class="reference internal" href="pipeline.html#step-4-annotator">Step 4: Annotator</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pipeline.html#bigbashboy-sh-the-orchestrator-script"><code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> - the orchestrator script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pipeline.html#appendices">Appendices</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="pipeline.html#sql-for-the-filter">SQL for the filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#a-sql-for-the-filter">A: SQL for the filter</a></li>
 </ul>
 </li>
 </ul>
@@ -205,9 +205,9 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 <li class="toctree-l3"><a class="reference internal" href="infra.html#code">Code</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="infra.html#useful-definitions">Useful Definitions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="infra.html#log-files-and-sqlite-database">Log files and SQLite database</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="infra.html#table-list">Table List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infra.html#status-codes">Status Codes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infra.html#log-files">Log files</a></li>
 </ul>
 </li>
@@ -223,10 +223,18 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lasair_dev.html#making-a-fresh-dirctory">Making a fresh dirctory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lasair_dev.html#check-list">Check-list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tns.html#tns-reporting-script-on-the-oxford-server">TNS reporting script on the Oxford server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tns.html#dev-notes">Dev Notes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tns.html#setting-up-tns-reporting-of-lsst-alerts-through-the-tns-api">Setting up TNS reporting of LSST alerts through the TNS API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tns.html#mandatory-fields"><strong>Mandatory fields</strong></a></li>
-<li class="toctree-l3"><a class="reference internal" href="tns.html#important-codes-to-know-for-lsst"><strong>Important codes to know for LSST</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tns.html#mandatory-fields">Mandatory fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tns.html#important-codes-to-know-for-lsst">Important codes to know for LSST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tns.html#at-type"><code class="docutils literal notranslate"><span class="pre">at_type</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tns.html#archiveid"><code class="docutils literal notranslate"><span class="pre">archiveid</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tns.html#other-notes">Other Notes</a></li>
@@ -234,17 +242,6 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lasair_dev.html#making-a-fresh-dirctory">Making a fresh dirctory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lasair_dev.html#check-list">Check-list</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="local_testing.html#making-a-fresh-dirctory">Making a fresh dirctory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="local_testing.html#add-data-to-sqlite-database">Add data to sqlite database</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -253,6 +250,11 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 <li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="speeddial.html#training-check-list">Training Check-list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="speeddial.html#testing-my-template">testing my  template</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="local_testing.html#making-a-fresh-dirctory">Making a fresh dirctory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="local_testing.html#add-data-to-sqlite-database">Add data to sqlite database</a></li>
 </ul>
 </li>
 </ul>
@@ -307,7 +309,7 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Apr 29, 2026</small>
+                <small>Last updated: Apr 30, 2026</small>
             </div>
         </div>
     </div>

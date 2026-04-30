@@ -57,12 +57,20 @@ What is a stem?
 A word of jargon that will come up over and over again is **"stem"**, which is the name of the JSON and CSV files created as the pipeline runs. 
 The stem is constructed as ``YYYYMMDD_HHMMSS`` (UTC) and **is the same for the JSON and CSV files that are realted** to each other, so that they are easy to associate. 
 
+
 The pipeline is triggered by a cron job every 5 minutes, and for each run there is a unique stem. Each file contains data for many alerts, all processed in the same run, 
 and they can be identified (files and database) by that stem.
 
 .. tip:: 
 
-    **The main take away is the naming convention of the JSON and csv files matters enormously to the pipeline**. 
+    **The main take away is that the path name of the data files are constructed with the format ``TYPE/YEAR/DATE/stem.extension``.**
+    This allows the pipeline the dynamically construct the paths of files based on the stem recorded in the database. 
+    The naming convention is therefore critical to the functioning of the pipeline - **DO NOT RENAME FILES UNLESS YOU KNOW WHAT YOU ARE DOING**.
+
+
+* **Stems**: These are the core names of our files and take the format ``YYYYMMDD_HHMMSS``.
+  
+  The stem is also used as the primary key for the status tables (see below)
 
 
 Exit code Vs Status code: is 0 good or bad then?
@@ -158,8 +166,8 @@ It also creates a high level log file so you can check the pipeline is running w
 Appendices
 --------------
 
-SQL for the filter
-~~~~~~~~~~~~~~~~~~~~~
+A: SQL for the filter
+~~~~~~~~~~~~~~~~~~~~~~
 
 When I do "Show Filter" in Lasair, this is what I see. If you want to recreate the filter, copy past the columns into the SELECT box of the filter making page, 
 then copy paste the WHERE conditions into the WHERE box. The table names are automatically populated. I also ask for the full stream as the 

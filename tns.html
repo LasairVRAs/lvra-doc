@@ -12,12 +12,12 @@
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
       <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=496b1c32" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfd0f6f2" />
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
-            <link rel="next" title="Dev environement" href="lasair_dev.html" />
-            <link rel="prev" title="Infrastructure" href="infra.html" />
+            <link rel="next" title="Speed Dial" href="speeddial.html" />
+            <link rel="prev" title="Backup of the LVRA data on the Oxford database" href="backup.html" />
     </head>
 <body>
     <script type="text/javascript" src="_static/dist/blocking.js"></script>
@@ -79,14 +79,14 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">TNS Reporting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a></li>
-<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">TNS Reporting</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heloise's Notes</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
 </ul>
 
     </nav>
@@ -140,10 +140,17 @@
                         <main role="main" id="main">
     <section id="tns-reporting">
 <h1>TNS Reporting<a class="headerlink" href="#tns-reporting" title="Link to this heading">¶</a></h1>
-<p>The Lasari Virtual Research Assistants can report to TNS using the Lasair (group) LVRA (bot).
+<section id="tns-reporting-script-on-the-oxford-server">
+<h2>TNS reporting script on the Oxford server<a class="headerlink" href="#tns-reporting-script-on-the-oxford-server" title="Link to this heading">¶</a></h2>
+</section>
+<section id="dev-notes">
+<h2>Dev Notes<a class="headerlink" href="#dev-notes" title="Link to this heading">¶</a></h2>
+<p><em>these are potentially incomplete*</em></p>
+<p>The Lasair Virtual Research Assistants can report to TNS using the Lasair (group) LVRA (bot).
 It has a specific API key that is stored in my envrionment variables and I need to add
 to my TNS report:</p>
 <p><code class="docutils literal notranslate"><span class="pre">tns_marker{&quot;tns_id&quot;:197854,&quot;type&quot;:</span> <span class="pre">&quot;bot&quot;,</span> <span class="pre">&quot;name&quot;:&quot;LVRA&quot;}</span></code></p>
+</section>
 <section id="setting-up-tns-reporting-of-lsst-alerts-through-the-tns-api">
 <h2>Setting up TNS reporting of LSST alerts through the TNS API<a class="headerlink" href="#setting-up-tns-reporting-of-lsst-alerts-through-the-tns-api" title="Link to this heading">¶</a></h2>
 <p>There is a <a class="reference external" href="https://www.wis-tns.org/sites/default/files/api/tns2_manuals/TNS2.0_bulk_reports_manual.pdf">TNS manual from January 2025</a>.
@@ -154,7 +161,7 @@ The schema is basically on page 7 to 9 (for reporting).</p>
 <p>I have marked the mandatory fields with a <code class="docutils literal notranslate"><span class="pre">*</span></code> below but they need removing for the actual JSON. Same for the comments as JSON is data only.</p>
 </div>
 <section id="mandatory-fields">
-<h3><strong>Mandatory fields</strong><a class="headerlink" href="#mandatory-fields" title="Link to this heading">¶</a></h3>
+<h3>Mandatory fields<a class="headerlink" href="#mandatory-fields" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">[ra][value]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[dec][value]</span></code></p></li>
@@ -166,7 +173,7 @@ The schema is basically on page 7 to 9 (for reporting).</p>
 </ul>
 </section>
 <section id="important-codes-to-know-for-lsst">
-<h3><strong>Important codes to know for LSST</strong><a class="headerlink" href="#important-codes-to-know-for-lsst" title="Link to this heading">¶</a></h3>
+<h3>Important codes to know for LSST<a class="headerlink" href="#important-codes-to-know-for-lsst" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">instrumentid</span></code>: 287</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">reporting_group_id</span></code>: 111</p></li>
@@ -342,11 +349,11 @@ forced phot may not be enough to determine with confidence the last non-detectio
 
 </main>
                         <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
-    <a class="float-left" href="infra.html" title="Previous">
-        <span aria-hidden="true">←&nbsp;</span>Infrastructure
+    <a class="float-left" href="backup.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>Backup of the LVRA data on the Oxford database
     </a>
-    <a class="float-right" href="lasair_dev.html" title="Next">
-        Dev environement <span aria-hidden="true">&nbsp;→</span>
+    <a class="float-right" href="speeddial.html" title="Next">
+        Speed Dial <span aria-hidden="true">&nbsp;→</span>
     </a>
 </nav>
                     </div>
@@ -356,9 +363,11 @@ forced phot may not be enough to determine with confidence the last non-detectio
                             <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
                             <ul>
 <li><a class="reference internal" href="#">TNS Reporting</a><ul>
+<li><a class="reference internal" href="#tns-reporting-script-on-the-oxford-server">TNS reporting script on the Oxford server</a></li>
+<li><a class="reference internal" href="#dev-notes">Dev Notes</a></li>
 <li><a class="reference internal" href="#setting-up-tns-reporting-of-lsst-alerts-through-the-tns-api">Setting up TNS reporting of LSST alerts through the TNS API</a><ul>
-<li><a class="reference internal" href="#mandatory-fields"><strong>Mandatory fields</strong></a></li>
-<li><a class="reference internal" href="#important-codes-to-know-for-lsst"><strong>Important codes to know for LSST</strong></a></li>
+<li><a class="reference internal" href="#mandatory-fields">Mandatory fields</a></li>
+<li><a class="reference internal" href="#important-codes-to-know-for-lsst">Important codes to know for LSST</a></li>
 <li><a class="reference internal" href="#at-type"><code class="docutils literal notranslate"><span class="pre">at_type</span></code></a></li>
 <li><a class="reference internal" href="#archiveid"><code class="docutils literal notranslate"><span class="pre">archiveid</span></code></a></li>
 <li><a class="reference internal" href="#other-notes">Other Notes</a></li>
@@ -394,7 +403,7 @@ forced phot may not be enough to determine with confidence the last non-detectio
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Apr 29, 2026</small>
+                <small>Last updated: Apr 30, 2026</small>
             </div>
         </div>
     </div>

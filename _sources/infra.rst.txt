@@ -22,6 +22,59 @@ Here the type referes to the file types:
 * ``db``: contain the SQLite database files. **NOTE**: this is a flat directory, no timestamped sub dirs here. 
 
 
+**Here is a tree visualisation of the directory strucuture**:
+
+.. code-block:: bash 
+
+    .
+    ├── csv
+    │   ├── 2026
+    │   │   ├── ...
+    │   │   ├── 20260422
+    │   │   │   ├── 20260422_021001.csv
+    │   │   │   ├── ...
+    │   │   └── 20260429
+    │   ├── 2027 
+    │   └── ...
+    ├── db
+    │   ├── log.db
+    │   └── log_schema.sql
+    ├── JSON
+    │   ├── 2026
+    │   │   ├── ...
+    │   │   ├── 20260422
+    │   │   │   ├── 20260422_021001.csv
+    │   │   │   ├── ...
+    │   │   └── 20260429
+    │   ├── 2027
+    │   └── ...
+    ├── locks
+    │   ├── annotate.lock
+    │   ├── consumer.lock
+    │   ├── predict.lock
+    │   └── r0bfeatures.lock
+    ├── logs
+    │   ├── 2026
+    │   │   ├── ...
+    │   │   ├── 20260428
+    │   │       ├── bigbashboy.log
+    │   │       ├── kafka.log
+    │   │       ├── lvra_kafka_error.log
+    │   │       ├── r0b_annotator_error.log
+    │   │       ├── r0b_annotator.log
+    │   │       ├── r0b_feature_maker_error.log
+    │   │       ├── r0b_feature_maker.log
+    │   │       ├── r0b_predict_error.log
+    │   │       └── r0b_predict.log
+    │   │   └── 20260429
+    │   ├── 2027
+    │   └── ...
+    └── models
+        └── r0b_a1_N411_LR01p1_MaxI50_RS42.joblib
+
+
+
+
 Code
 ~~~~~~
 The code is under ``$LVRA_CODE_ROOT``, it is the ``lvra`` python package. 
@@ -39,48 +92,7 @@ Any secret information such as tokens are directly stored in environment variabl
 nothing in the files. 
 
 
-Useful Definitions
-------------------------
 
-* **Status Codes**: These are integers used in the database tables
-
-+--------+---------------------------------+
-| Status | Description                     |
-+========+=================================+
-| 0      | Initialised                     |
-+--------+---------------------------------+
-| 1      | Successfully Processed          |
-+--------+---------------------------------+
-| 21     | File Not Found (INPUT)          |
-+--------+---------------------------------+
-| 22     | File Not Found (OUTPUT)         |
-+--------+---------------------------------+
-| 23     | Not Expected Input Data Type    |
-+--------+---------------------------------+
-| 30     | Key Error (missing in data)     |
-+--------+---------------------------------+
-| 31     | Missing Columns (INPUT)         |
-+--------+---------------------------------+
-| 40     | Lasair Annotation Issue         |
-+--------+---------------------------------+
-| 41     | Failure to create Lasair client |
-+--------+---------------------------------+
-| 99     | Generic Error                   |
-+--------+---------------------------------+
-
-The `2X` errors refer a problem with the input or outputs such that they can't be loaded.
-
-The `3X` errors correspond to issues with the data structure or content. So it _was_ loaded, but the contents cause problems
-
-Code `30` likely means the files you are trying to use don't have the structure you expect. 
-This is most likely due to a change in the alert or clean data format. Causes may vary:
-changes in LSST data, changes in Lasair, changes in your code. 
-
-The `4X` errors are specific to Lasair 
-
-* **Stems**: These are the core names of our files and take the format ``YYYYMMDD_HHMMSS``.
-  Each path name is constructed with the format ``TYPE/YEAR/DATE/stem.extension``.
-  The stem is also used as the primary key for the status tables (see below)
 
 
 Log files and SQLite database
@@ -165,6 +177,48 @@ Table List
 +====+====================+====================+===============+=====================+============+===============+=====================+
 | 1  | 170019716327800983 | 170046091000545381 | 20260223_193401 | 0.963998322011434 | r0b        | a1            | 2026-02-24 05:18:57 |
 +----+--------------------+--------------------+---------------+---------------------+------------+---------------+---------------------+
+
+
+Status Codes
+~~~~~~~~~~~~~~~~~~~~
+
+These are integers used in the database tables to keep track of the status of each process in the pipeline.
+
++--------+---------------------------------+
+| Status | Description                     |
++========+=================================+
+| 0      | Initialised                     |
++--------+---------------------------------+
+| 1      | Successfully Processed          |
++--------+---------------------------------+
+| 21     | File Not Found (INPUT)          |
++--------+---------------------------------+
+| 22     | File Not Found (OUTPUT)         |
++--------+---------------------------------+
+| 23     | Not Expected Input Data Type    |
++--------+---------------------------------+
+| 30     | Key Error (missing in data)     |
++--------+---------------------------------+
+| 31     | Missing Columns (INPUT)         |
++--------+---------------------------------+
+| 40     | Lasair Annotation Issue         |
++--------+---------------------------------+
+| 41     | Failure to create Lasair client |
++--------+---------------------------------+
+| 99     | Generic Error                   |
++--------+---------------------------------+
+
+The `2X` errors refer a problem with the input or outputs such that they can't be loaded.
+
+The `3X` errors correspond to issues with the data structure or content. So it _was_ loaded, but the contents cause problems
+
+Code `30` likely means the files you are trying to use don't have the structure you expect. 
+This is most likely due to a change in the alert or clean data format. Causes may vary:
+changes in LSST data, changes in Lasair, changes in your code. 
+
+The `4X` errors are specific to Lasair 
+
+
 
 
 Log files

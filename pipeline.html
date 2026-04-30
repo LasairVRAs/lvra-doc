@@ -12,7 +12,7 @@
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
       <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=496b1c32" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfd0f6f2" />
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
@@ -79,14 +79,14 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Pipeline Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a></li>
-<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Heloise's Notes</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
 </ul>
 
     </nav>
@@ -199,8 +199,15 @@ The stem is constructed as <code class="docutils literal notranslate"><span clas
 and they can be identified (files and database) by that stem.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><strong>The main take away is the naming convention of the JSON and csv files matters enormously to the pipeline</strong>.</p>
+<p><strong>The main take away is that the path name of the data files are constructed with the format ``TYPE/YEAR/DATE/stem.extension``.</strong>
+This allows the pipeline the dynamically construct the paths of files based on the stem recorded in the database.
+The naming convention is therefore critical to the functioning of the pipeline - <strong>DO NOT RENAME FILES UNLESS YOU KNOW WHAT YOU ARE DOING</strong>.</p>
 </div>
+<ul>
+<li><p><strong>Stems</strong>: These are the core names of our files and take the format <code class="docutils literal notranslate"><span class="pre">YYYYMMDD_HHMMSS</span></code>.</p>
+<p>The stem is also used as the primary key for the status tables (see below)</p>
+</li>
+</ul>
 </section>
 <section id="exit-code-vs-status-code-is-0-good-or-bad-then">
 <h3>Exit code Vs Status code: is 0 good or bad then?<a class="headerlink" href="#exit-code-vs-status-code-is-0-good-or-bad-then" title="Link to this heading">¶</a></h3>
@@ -312,8 +319,8 @@ It checks that each file exists, <strong>creates lock files</strong> so that we 
 </section>
 <section id="appendices">
 <h2>Appendices<a class="headerlink" href="#appendices" title="Link to this heading">¶</a></h2>
-<section id="sql-for-the-filter">
-<h3>SQL for the filter<a class="headerlink" href="#sql-for-the-filter" title="Link to this heading">¶</a></h3>
+<section id="a-sql-for-the-filter">
+<h3>A: SQL for the filter<a class="headerlink" href="#a-sql-for-the-filter" title="Link to this heading">¶</a></h3>
 <p>When I do “Show Filter” in Lasair, this is what I see. If you want to recreate the filter, copy past the columns into the SELECT box of the filter making page,
 then copy paste the WHERE conditions into the WHERE box. The table names are automatically populated. I also ask for the full stream as the
 pypeline expects the full Rubin packet for each alert.</p>
@@ -385,7 +392,7 @@ pypeline expects the full Rubin packet for each alert.</p>
 <li><a class="reference internal" href="#step-4-annotator">Step 4: Annotator</a></li>
 <li><a class="reference internal" href="#bigbashboy-sh-the-orchestrator-script"><code class="docutils literal notranslate"><span class="pre">bigbashboy.sh</span></code> - the orchestrator script</a></li>
 <li><a class="reference internal" href="#appendices">Appendices</a><ul>
-<li><a class="reference internal" href="#sql-for-the-filter">SQL for the filter</a></li>
+<li><a class="reference internal" href="#a-sql-for-the-filter">A: SQL for the filter</a></li>
 </ul>
 </li>
 </ul>
@@ -418,7 +425,7 @@ pypeline expects the full Rubin packet for each alert.</p>
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Apr 29, 2026</small>
+                <small>Last updated: Apr 30, 2026</small>
             </div>
         </div>
     </div>

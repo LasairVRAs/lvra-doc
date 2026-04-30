@@ -373,6 +373,17 @@ body.theme-dark .mt-3, .my-3 {
   font-size: 20px;
 }
 
+/* ------------------------------
+  division bars
+-----------------------------*/
+
+body.theme-dark hr {
+  border-color: #003939 !important;
+}
+
+body.theme-dark .sidebar-container {
+    border-color: #003939 !important;
+}
 /* -----------------------------
    Debug notes (keep for troubleshooting)
    -----------------------------

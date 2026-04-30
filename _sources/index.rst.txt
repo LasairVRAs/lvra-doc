@@ -42,17 +42,18 @@ Table of Contents
 
    pipeline
    infra
-   tns
+   r0b4devs
    lasair_dev
-   local_testing
    backup
-
+   tns
+   
 
 .. toctree::
    :maxdepth: 3
    :caption: Heloise's Notes
 
    speeddial
+   local_testing
 
 
 
