@@ -1,7 +1,17 @@
 TNS Reporting
 ===========================
 
-The Lasari Virtual Research Assistants can report to TNS using the Lasair (group) LVRA (bot). 
+TNS reporting script on the Oxford server
+-------------------------------------------
+
+
+
+Dev Notes
+------------
+
+*these are potentially incomplete**
+
+The Lasair Virtual Research Assistants can report to TNS using the Lasair (group) LVRA (bot). 
 It has a specific API key that is stored in my envrionment variables and I need to add 
 to my TNS report:
 
@@ -18,7 +28,7 @@ Here is an example of the data we send in the packet to TNS for an ATLAS report.
     I have marked the mandatory fields with a ``*`` below but they need removing for the actual JSON. Same for the comments as JSON is data only. 
 
 
-**Mandatory fields**
+Mandatory fields
 ~~~~~~~~~~~~~~~~~~~~~
 
 * ``[ra][value]``
@@ -29,7 +39,7 @@ Here is an example of the data we send in the packet to TNS for an ATLAS report.
 * ``[non_detection][archiveid]`` 
 * ``[photometry]``: ``obsdate``, ``flux``, ``flux_unitid``, ``filterid``, ``instrumentid``
 
-**Important codes to know for LSST**
+Important codes to know for LSST
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * ``instrumentid``: 287
 * ``reporting_group_id``: 111
@@ -91,8 +101,6 @@ Other Notes
     because if we find and report the transient on the first alert there will be no forced phot. Even if we ware on the second go around,
     forced phot may not be enough to determine with confidence the last non-detection. So we may just use the place-holder. 
 * 
-
-
 
 
 .. code-block:: json
