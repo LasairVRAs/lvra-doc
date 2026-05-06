@@ -143,7 +143,7 @@
 <h1>r0b: Real Or Bogus<a class="headerlink" href="#r0b-real-or-bogus" title="Link to this heading">¶</a></h1>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p>I am actively working on this algorithm - and significant updates will be put in production <strong>throughout March 2026 at least</strong>.</p>
+<p>I am actively working on this algorithm - and significant updates will be put in production throughout begining of LSST operations (which have not started yet).</p>
 </div>
 <p>The <a class="reference external" href="https://prompt-products.lsst.io/processing/filtering/index.html">reliability score provided by Rubin</a> is very useful for first cuts but as a transient astronomer it is not sufficient
 to create a clean enough stream.
@@ -153,18 +153,53 @@ methods of Active Learning so I can train directly on the stream.</p>
 <p>Because I am training <strong>directly on the live Rubin stream</strong> it will take a few weeks to train and verify an algorithm. The details of this will be
 added to this documentation and make the object of a proper paper later in the year. If you have questions in the mean-time email me or start a topic
 on the <a class="reference external" href="https://community.lsst.org/c/support/support-lasair/55">Lasair Community Forum</a>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">r0b</span></code> LVRA is a binary classifier <strong>downstream</strong> of a filter that makes preliminary cuts:
-*  <code class="docutils literal notranslate"><span class="pre">reliability</span></code> &gt;0.5
-*  <code class="docutils literal notranslate"><span class="pre">SHERLOCK</span></code> label either <code class="docutils literal notranslate"><span class="pre">SN</span></code>, <code class="docutils literal notranslate"><span class="pre">NT</span></code>, <code class="docutils literal notranslate"><span class="pre">ORPHAN</span></code> or <code class="docutils literal notranslate"><span class="pre">UNCLEAR</span></code>.
-*  <code class="docutils literal notranslate"><span class="pre">nDiaSources`</span></code> &gt;= 2
-*</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">r0b</span></code> LVRA is a binary classifier <strong>downstream</strong> of a filter that makes preliminary cuts:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">reliability</span></code> &gt;0.5</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SHERLOCK</span></code> label either <code class="docutils literal notranslate"><span class="pre">SN</span></code>, <code class="docutils literal notranslate"><span class="pre">NT</span></code>, <code class="docutils literal notranslate"><span class="pre">ORPHAN</span></code> or <code class="docutils literal notranslate"><span class="pre">UNCLEAR</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nDiaSources</span></code> &gt;= 2</p></li>
+</ul>
+</div></blockquote>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The r0b scores are <strong>absolutely not suitable for Solar System Objects of AGNs</strong>. If they work well, it is on accident. Use at your own peril.</p>
 </div>
-<section id="how-does-it-work-what-data-was-it-trained-on-performance">
-<h2>How does it work? What data was it trained on? Performance?<a class="headerlink" href="#how-does-it-work-what-data-was-it-trained-on-performance" title="Link to this heading">¶</a></h2>
-<p><em>Come back in March/April 2026</em></p>
+<section id="what-is-in-the-r0b-annotator-and-how-to-use-it">
+<h2>What is in the r0b annotator and how to use it?<a class="headerlink" href="#what-is-in-the-r0b-annotator-and-how-to-use-it" title="Link to this heading">¶</a></h2>
+<section id="the-r0b-score">
+<h3>The r0b score<a class="headerlink" href="#the-r0b-score" title="Link to this heading">¶</a></h3>
+<p>The score given by the annotator ranges between 0 (bogus) and 1 (real).
+The score is given <strong>to a given SOURCE (lightcurve point) not to a given OBJECT (transient)</strong>.
+So if a supernova is fading and the alerts have get lower SNR they may no longer get a good
+r0b score. Giving scores to objects as a whole or providing additional information in the
+dictionary so you can make more nuanced queries is on the to-do list.</p>
+<p>Preliminary analysis of r0b in the stream shows that for scores <code class="docutils literal notranslate"><span class="pre">&gt;0.75</span></code>, the
+<strong>purity of real extragalactic transients</strong> is around 80% (60% if you ordered by reliability score).
+The main contaminants are AGNs.
+For lower thresholds, r0b scores and reliability scores have similar purity but the mixture
+of contaminants is different.</p>
+<p>To use the r0b score you need to select the <code class="docutils literal notranslate"><span class="pre">r0b_lvra</span></code> annotator in your filter (there is a drop down menu).
+And then you can add a line in your filter criteria like:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">r0b_lvra</span><span class="p">.</span><span class="n">classification</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">9</span>
+</pre></div>
+</div>
+</section>
+<section id="additional-features-you-can-query-on">
+<h3>Additional features you can query on<a class="headerlink" href="#additional-features-you-can-query-on" title="Link to this heading">¶</a></h3>
+<p>Although the current version of r0b only uses the Lasair filter columns and the lightcurve features associated with the latest point to calculate a score,
+the annotator is build to provide additional flags and information that is not otherwise available in the Lasair filters.</p>
+<p>Namely:</p>
+<ul class="simple">
+<li><p><strong>n_gtXX</strong> (e.g. n_gt22): The number of lightcurve points with magnitude BIRGHTER than 22nd, 21st, 20th, 19th or 18th magnitude.</p></li>
+<li><p><strong>brighterXX</strong> (e.g. brighter22): A boolean flag indicating whether there is at least one point brighter than 22nd, 21st, 20th, 19th or 18th magnitude.</p></li>
+<li><p><strong>firstXX</strong> (e.g. first22): A boolean flag indicating whether this is the first time the transient has crossed a given magnitude threshold_flags_provenance</p></li>
+</ul>
+<p>If you want to use these in your query you can add a line like:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">AND</span><span class="w"> </span><span class="n">JSON_EXTRACT</span><span class="p">(</span><span class="n">r0b_lvra</span><span class="p">.</span><span class="n">classdict</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$.n_gt22&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">4</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -184,7 +219,11 @@ on the <a class="reference external" href="https://community.lsst.org/c/support/
                             <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
                             <ul>
 <li><a class="reference internal" href="#">r0b: Real Or Bogus</a><ul>
-<li><a class="reference internal" href="#how-does-it-work-what-data-was-it-trained-on-performance">How does it work? What data was it trained on? Performance?</a></li>
+<li><a class="reference internal" href="#what-is-in-the-r0b-annotator-and-how-to-use-it">What is in the r0b annotator and how to use it?</a><ul>
+<li><a class="reference internal" href="#the-r0b-score">The r0b score</a></li>
+<li><a class="reference internal" href="#additional-features-you-can-query-on">Additional features you can query on</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -215,7 +254,7 @@ on the <a class="reference external" href="https://community.lsst.org/c/support/
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: Apr 30, 2026</small>
+                <small>Last updated: May 06, 2026</small>
             </div>
         </div>
     </div>
