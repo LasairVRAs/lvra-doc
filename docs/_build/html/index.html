@@ -11,11 +11,11 @@
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfd0f6f2" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfcae8d8" />
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
-            <link rel="next" title="Introduction" href="intro.html" />
+            <link rel="next" title="Quick Start" href="quickstart.html" />
     </head>
 <body>
     <script type="text/javascript" src="_static/dist/blocking.js"></script>
@@ -70,8 +70,7 @@
     <nav class="toc mt-3" aria-label="Main menu">
         <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
 <ul>
@@ -139,21 +138,17 @@
                         <main role="main" id="main">
     <section id="lasair-vras-docs">
 <h1>Lasair VRAs Docs<a class="headerlink" href="#lasair-vras-docs" title="Link to this heading">¶</a></h1>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>It’s early days for LSST and this work so these pages are only in their infancy.</p>
-</div>
 <section id="what-is-this">
 <h2>What is this?<a class="headerlink" href="#what-is-this" title="Link to this heading">¶</a></h2>
 <p>Welcome to the Lasair Virtual Research Assistant website.
 If you are using (or interested in using) the Lasair Virtual Research Assistants LSST filters
-and want more information, you’re in the right place!</p>
+and want more information, you’re in the right place.</p>
 </section>
 <section id="redirects">
 <h2>Redirects<a class="headerlink" href="#redirects" title="Link to this heading">¶</a></h2>
 <p>1. If you are interested in the Lasair documentation go to the <a href="#id1"><span class="problematic" id="id2">`Lasair Docs &lt;https://lasair.readthedocs.io/en/main/
 &gt;`_</span></a></p>
-<ol class="arabic simple" start="2">
+<ol class="arabic simple">
 <li><p>These are <strong>static</strong> pages so if you want to raise an issue or ask a question please go
 to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`discussion board &lt;https://github.com/orgs/LasairVRAs/discussions
 &gt;`_</span></a></p></li>
@@ -165,16 +160,18 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="intro.html#what-is-a-virtual-research-assistant">What is a “Virtual Research Assistant”?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#what-is-the-lvra">What is the LVRA?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#use-it-in-your-filters">Use it in your filters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#step-1-make-sure-you-have-selected-the-annotator">Step 1: Make sure you have selected the annotator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#step-2-writing-a-simple-filter-query">Step 2: Writing a simple filter query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#step-2-but-better-advanced-filter-query">Step 2 but better: Advanced filter query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#step-3-saving-the-filter-correctly">Step 3: Saving the filter CORRECTLY</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="r0b.html#what-is-in-the-r0b-annotator-and-how-to-use-it">What is in the r0b annotator and how to use it?</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="r0b.html#the-r0b-score">The r0b score</a></li>
-<li class="toctree-l3"><a class="reference internal" href="r0b.html#additional-features-you-can-query-on">Additional features you can query on</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#labels-and-what-they-mean">Labels and what they mean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#annotator-dictionary">Annotator Dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#faq">FAQ</a></li>
 </ul>
 </li>
 </ul>
@@ -209,8 +206,8 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 <li class="toctree-l3"><a class="reference internal" href="infra.html#code">Code</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="infra.html#log-files-and-sqlite-database">Log files and SQLite database</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="infra.html#table-list">Table List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infra.html#log-files-and-sqlite-databases">Log files and SQLite databases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="infra.html#log-db-tables"><code class="docutils literal notranslate"><span class="pre">log.db</span></code> Tables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infra.html#status-codes">Status Codes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infra.html#log-files">Log files</a></li>
 </ul>
@@ -278,8 +275,8 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
 
 </main>
                         <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
-    <a class="float-right" href="intro.html" title="Next">
-        Introduction <span aria-hidden="true">&nbsp;→</span>
+    <a class="float-right" href="quickstart.html" title="Next">
+        Quick Start <span aria-hidden="true">&nbsp;→</span>
     </a>
 </nav>
                     </div>
@@ -324,7 +321,7 @@ to the Lasair VRA github <a href="#id3"><span class="problematic" id="id4">`disc
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: May 06, 2026</small>
+                <small>Last updated: Oct 28, 2026</small>
             </div>
         </div>
     </div>

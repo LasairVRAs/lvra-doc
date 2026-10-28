@@ -18,7 +18,6 @@ release = 'dev'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
@@ -32,6 +31,7 @@ extensions = ['sphinx_wagtail_theme',
     'sphinx.ext.autodoc',      # <-- pulls in docstrings
     'sphinx.ext.napoleon',     # <-- supports Google/NumPy docstring styles
     'sphinx.ext.viewcode',     # <-- adds links to source code
+    'sphinxcontrib.mermaid',   # <-- adds mermaid plots so I can show my db relations
 ]
 
 

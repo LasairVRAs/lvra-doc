@@ -22,6 +22,9 @@ jobs:
       - name: Install my theme
         run: pip install sphinx_wagtail_theme
 
+      - name: Install mermaid plots
+        run: pip install sphinxcontrib-mermaid
+
       - name: Install emojis
         run: pip install sphinxemoji
         
@@ -41,7 +44,7 @@ jobs:
         # gh-pages then takes over serving the html
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
-        #if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main'
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             publish_dir: docs/_build/html

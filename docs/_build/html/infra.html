@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
       <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfd0f6f2" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfcae8d8" />
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
@@ -71,8 +71,7 @@
     <nav class="toc mt-3" aria-label="Main menu">
         <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
 <ul class="current">
@@ -140,6 +139,11 @@
                         <main role="main" id="main">
     <section id="infrastructure">
 <h1>Infrastructure<a class="headerlink" href="#infrastructure" title="Link to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will be completely overhauled by the <a class="reference external" href="https://github.com/LasairVRAs/lvra/issues/101">Big Refactor</a> if I stick around long enough,
+otherwise this can stay as documentation if anyone needs to keep the LVRA limping along after I’m gone.</p>
+</div>
 <section id="architecture-overview">
 <h2>Architecture Overview<a class="headerlink" href="#architecture-overview" title="Link to this heading">¶</a></h2>
 <section id="data">
@@ -219,11 +223,14 @@ Any secret information such as tokens are directly stored in environment variabl
 nothing in the files.</p>
 </section>
 </section>
-<section id="log-files-and-sqlite-database">
-<h2>Log files and SQLite database<a class="headerlink" href="#log-files-and-sqlite-database" title="Link to this heading">¶</a></h2>
+<section id="log-files-and-sqlite-databases">
+<h2>Log files and SQLite databases<a class="headerlink" href="#log-files-and-sqlite-databases" title="Link to this heading">¶</a></h2>
 <p>Log files are written to the <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT/logs/YEAR/DAY/[logname].log</span></code> directory.</p>
-<p>There is also a SQLite database to keep track of the status of various processes and the
-history of the predictions of various VRAs.  It is located under <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT/db/log.db</span></code>.</p>
+<p>There are also two SQLite databases:
+* <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT/db/log.db</span></code> Keeps track of the status of various processes and the history of the predictions of the r0b VRA.
+* <code class="docutils literal notranslate"><span class="pre">$LVRA_DATA_ROOT/db/features.db</span></code> Keeps track of the features claculated for each source and the scores given to each source by the Champion/Challenger/Retired models.</p>
+<section id="log-db-tables">
+<h3><code class="docutils literal notranslate"><span class="pre">log.db</span></code> Tables<a class="headerlink" href="#log-db-tables" title="Link to this heading">¶</a></h3>
 <p>There are three kinds of tables:</p>
 <ul class="simple">
 <li><p>Status tables: <strong>Used to keep a log of the status of each process in the pipeline</strong>. The primary key is the stem and the columns are named after VRAs. Each
@@ -237,8 +244,7 @@ the status tables.</p></li>
 Each alert will have its own row and there may be odd cases where the same alert (<cite>diaSourceId</cite>) is pushed twice onto the
 kafka stream so the table is indexed with an auto increment integer even though the diaSourceId should be unique.</p></li>
 </ul>
-<section id="table-list">
-<h3>Table List<a class="headerlink" href="#table-list" title="Link to this heading">¶</a></h3>
+<p>The Full list of tables and their definition is:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">feature_making</span></code> [Status table]: Records which alerts files have been successfully processed.
 New columns can be added for each LVRA</p></li>
@@ -587,8 +593,8 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
 <li><a class="reference internal" href="#code">Code</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#log-files-and-sqlite-database">Log files and SQLite database</a><ul>
-<li><a class="reference internal" href="#table-list">Table List</a></li>
+<li><a class="reference internal" href="#log-files-and-sqlite-databases">Log files and SQLite databases</a><ul>
+<li><a class="reference internal" href="#log-db-tables"><code class="docutils literal notranslate"><span class="pre">log.db</span></code> Tables</a></li>
 <li><a class="reference internal" href="#status-codes">Status Codes</a></li>
 <li><a class="reference internal" href="#log-files">Log files</a></li>
 </ul>
@@ -633,7 +639,7 @@ add a <code class="docutils literal notranslate"><span class="pre">.sqliterc</sp
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: May 06, 2026</small>
+                <small>Last updated: Oct 27, 2026</small>
             </div>
         </div>
     </div>
