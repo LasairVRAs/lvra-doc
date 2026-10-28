@@ -9,15 +9,14 @@
         <title>Pipeline Overview &mdash; LVRA dev documentation</title>
     
     <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
-      <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=310cf088" />
+      <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=9cdaa676" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfd0f6f2" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfcae8d8" />
             <link rel="index" title="Index" href="genindex.html" />
             <link rel="search" title="Search" href="search.html" />
             <link rel="top" title="LVRA dev documentation" href="#" />
             <link rel="next" title="Infrastructure" href="infra.html" />
-            <link rel="prev" title="r0b: Real Or Bogus" href="r0b.html" />
+            <link rel="prev" title="Lasair VRAs Docs" href="index.html" />
     </head>
 <body>
     <script type="text/javascript" src="_static/dist/blocking.js"></script>
@@ -70,12 +69,7 @@
     </form>
 </div><div class="site-toc">
     <nav class="toc mt-3" aria-label="Main menu">
-        <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="r0b.html">r0b: Real Or Bogus</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
+        <p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Pipeline Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
@@ -113,13 +107,14 @@
 </nav>
                     </div>
                     <div class="col-sm-12 col-lg-auto mt-3 mt-lg-3">
-                        <noscript>
-                            <p>JavaScript is required to toggle light/dark mode..</p>
-                        </noscript>
-                        <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
-                            <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
-                            <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
-                        </button>
+                        <div class="d-flex flex-wrap gap-2">
+                            <noscript>
+                                <p>JavaScript is required to toggle light/dark mode..</p>
+                            </noscript>
+                            <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
+                                <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
+                                <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
+                            </button>
     <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/LasairVRAs/lvra-doc/docs/pipeline.rst" rel="nofollow">
         <span class="btn-icon"><span class="fab fa-github"></span></span>
         <span class="btn-text">Edit on GitHub</span>
@@ -128,7 +123,8 @@
         <span class="btn-icon"><span class="fas fa-code"></span></span>
         <span class="btn-text">View source</span>
     </a>
-                        
+                            
+                        </div>
                     </div>
                 </header>
                 <div class="row" >
@@ -339,6 +335,8 @@ pypeline expects the full Rubin packet for each alert.</p>
 <span class="n">objects</span><span class="p">.</span><span class="n">firstDiaSourceMjdTai</span><span class="p">,</span>
 <span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">separationArcsec</span><span class="p">,</span>
 <span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">direct_distance</span><span class="p">,</span>
+<span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">best_distance</span><span class="p">,</span>
+<span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">best_distance_flag</span><span class="p">,</span>
 <span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">distance</span><span class="p">,</span>
 <span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">z</span><span class="p">,</span>
 <span class="n">sherlock_classifications</span><span class="p">.</span><span class="n">photoZ</span><span class="p">,</span>
@@ -364,8 +362,8 @@ pypeline expects the full Rubin packet for each alert.</p>
 
 </main>
                         <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
-    <a class="float-left" href="r0b.html" title="Previous">
-        <span aria-hidden="true">←&nbsp;</span>r0b: Real Or Bogus
+    <a class="float-left" href="index.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>Lasair VRAs Docs
     </a>
     <a class="float-right" href="infra.html" title="Next">
         Infrastructure <span aria-hidden="true">&nbsp;→</span>
@@ -426,7 +424,7 @@ pypeline expects the full Rubin packet for each alert.</p>
                     &copy; Copyright 2026, Heloise F. Stevance
             </div>
             <div class="text-center text-white-50 font-italic mt-3">
-                <small>Last updated: May 06, 2026</small>
+                <small>Last updated: Oct 28, 2026</small>
             </div>
         </div>
     </div>

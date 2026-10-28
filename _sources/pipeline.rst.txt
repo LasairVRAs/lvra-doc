@@ -189,6 +189,8 @@ pypeline expects the full Rubin packet for each alert.
     objects.firstDiaSourceMjdTai,
     sherlock_classifications.separationArcsec,
     sherlock_classifications.direct_distance,
+    sherlock_classifications.best_distance,
+    sherlock_classifications.best_distance_flag,
     sherlock_classifications.distance,
     sherlock_classifications.z,
     sherlock_classifications.photoZ,

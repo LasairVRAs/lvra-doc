@@ -1,6 +1,10 @@
 Infrastructure 
 ==================================
 
+.. note::
+    This will be completely overhauled by the `Big Refactor <https://github.com/LasairVRAs/lvra/issues/101>`_ if I stick around long enough,
+    otherwise this can stay as documentation if anyone needs to keep the LVRA limping along after I'm gone. 
+
 Architecture Overview
 ------------------------
 
@@ -95,12 +99,18 @@ nothing in the files.
 
 
 
-Log files and SQLite database
-------------------------------
+Log files and SQLite databases
+-------------------------------
 Log files are written to the ``$LVRA_DATA_ROOT/logs/YEAR/DAY/[logname].log`` directory.
 
-There is also a SQLite database to keep track of the status of various processes and the 
-history of the predictions of various VRAs.  It is located under ``$LVRA_DATA_ROOT/db/log.db``. 
+There are also two SQLite databases:
+* ``$LVRA_DATA_ROOT/db/log.db`` Keeps track of the status of various processes and the history of the predictions of the r0b VRA.
+* ``$LVRA_DATA_ROOT/db/features.db`` Keeps track of the features claculated for each source and the scores given to each source by the Champion/Challenger/Retired models. 
+
+
+
+``log.db`` Tables
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 There are three kinds of tables:
 
@@ -118,8 +128,9 @@ There are three kinds of tables:
   kafka stream so the table is indexed with an auto increment integer even though the diaSourceId should be unique.
 
 
-Table List
-~~~~~~~~~~~~~~
+
+The Full list of tables and their definition is:
+
 
 * ``feature_making`` [Status table]: Records which alerts files have been successfully processed.
   New columns can be added for each LVRA
