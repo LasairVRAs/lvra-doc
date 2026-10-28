@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" data-content_root="./">
+<head>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>Quick Start &mdash; LVRA dev documentation</title>
+    
+    <link rel="stylesheet" type="text/css" href="_static/dist/fontawesome.css" />
+      <link rel="stylesheet" type="text/css" href="_static/dist/theme.css?v=9cdaa676" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=bfcae8d8" />
+            <link rel="index" title="Index" href="genindex.html" />
+            <link rel="search" title="Search" href="search.html" />
+            <link rel="top" title="LVRA dev documentation" href="#" />
+            <link rel="next" title="Pipeline Overview" href="pipeline.html" />
+            <link rel="prev" title="Lasair VRAs Docs" href="index.html" />
+    </head>
+<body>
+    <script type="text/javascript" src="_static/dist/blocking.js"></script>
+    <header class="container-fluid bg-primary">
+        <a class="btn btn-sm btn-light skip-to-content-link" href="#main">Skip to content</a>
+        <div class="container-fluid">
+            <div class="navbar navbar-expand-lg navbar-dark font-weight-bold">
+                    <a href="https://lasairvras.github.io/lvra-doc/index.html"
+                        title="LVRA"
+                        class="logo navbar-brand"
+                    >
+                        <img src="_static/img/lvra.png" width="75" height="79" alt="LVRA"
+                            class="logo-img"
+                        />
+                        Lasair Virtual Research Assistants
+                    </a>
+                
+                
+                    <div class="collapse navbar-collapse justify-content-end">
+                        <ul class="navbar-nav">
+                            
+                                
+                                
+                                <li class="nav-item"><a class="nav-link"  href=" https://www.hfstevance.com/">hfstevance.com </a></li>
+                            
+                        </ul>
+                    </div>
+                
+                <button class="navbar-toggler btn btn-primary d-lg-none" type="button" data-toggle="collapse" data-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="sr-only">menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-12 col-lg-3 sidebar-container">
+                <div id="collapseSidebar" class="collapse sticky-top d-lg-block pt-5 pr-lg-4">
+<div id="searchbox" class="searchbox mb-6 px-1" role="search">
+    <form id="search-form" action="search.html" autocomplete="off" method="get" role="search">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text border-right-0 bg-white py-3 pl-3 pr-2"><span class="fas fa-search"></span></div>
+            </div>
+            <input class="form-control py-3 pr-3 pl-1 h-100 border-left-0" type="search" name="q" placeholder="Search documentation" aria-label="Search documentation" id="searchinput" />
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+    </form>
+</div><div class="site-toc">
+    <nav class="toc mt-3" aria-label="Main menu">
+        <p class="caption" role="heading"><span class="caption-text">For Users</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">For Devs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infra.html">Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="r0b4devs.html">LVRA:r0b</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lasair_dev.html">Dev environement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backup.html">Backup of the LVRA data on the Oxford database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tns.html">TNS Reporting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Heloise's Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="speeddial.html">Speed Dial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="local_testing.html">Local Testing Procedure</a></li>
+</ul>
+
+    </nav>
+    <template data-toggle-item-template>
+        <button class="btn btn-sm btn-link toctree-expand" type="button">
+            <span class="sr-only">Toggle menu contents</span>
+        </button>
+    </template>
+</div>
+                    <div class="d-lg-none border-bottom">
+                        
+                    </div>
+                </div>
+            </aside>
+            <div class="col-12 col-lg-9 pt-5">
+                <header class="row align-items-baseline">
+                    <div class="col">
+                        <nav aria-label="breadcrumb">
+    <ol class="breadcrumb m-0 p-0 bg-transparent">
+        <li class="breadcrumb-item"><a href="index.html">Docs</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Quick Start</li>
+    </ol>
+</nav>
+                    </div>
+                    <div class="col-sm-12 col-lg-auto mt-3 mt-lg-3">
+                        <div class="d-flex flex-wrap gap-2">
+                            <noscript>
+                                <p>JavaScript is required to toggle light/dark mode..</p>
+                            </noscript>
+                            <button id="wagtail-theme" class="btn btn-sm btn-light text-decoration-none" type="button">
+                                <span class="dark-only"><i class="fas fa-sun"></i> Light mode</span>
+                                <span class="light-only"><i class="fas fa-moon"></i> Dark mode</span>
+                            </button>
+    <a class="btn btn-sm btn-light text-decoration-none" href="https://github.com/LasairVRAs/lvra-doc/docs/quickstart.rst" rel="nofollow">
+        <span class="btn-icon"><span class="fab fa-github"></span></span>
+        <span class="btn-text">Edit on GitHub</span>
+    </a>
+    <a class="btn btn-sm btn-light text-decoration-none" href="_sources/quickstart.rst.txt" rel="nofollow">
+        <span class="btn-icon"><span class="fas fa-code"></span></span>
+        <span class="btn-text">View source</span>
+    </a>
+                            
+                        </div>
+                    </div>
+                </header>
+                <div class="row" >
+                    <div class="col-12">
+                        <hr class="w-100 my-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-9 order-last order-lg-first rst-content">
+                        <main role="main" id="main">
+    <section id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h1>
+<section id="what-is-the-lvra">
+<h2>What is the LVRA?<a class="headerlink" href="#what-is-the-lvra" title="Link to this heading">¶</a></h2>
+<p><strong>The Lasair VRAs help rank your alert stream</strong>.
+In the context of Lasair it is an annotator which adds a <strong>classification</strong> and <strong>supplementary features</strong> that can be used for <strong>filtering and prioritising Rubin alerts</strong>. I show you how below.</p>
+<p><em>Why is it called a “Virtual Research Assistant”?</em> Because my pipelines, bots and models are heavily inspired by the way researchers think through a decision. The actual model and what it ranks will vary depending on the stream and the
+needs, but the ethos is the same: What would a human do? What does a human need?</p>
+<p><strong>These are not Agentic AI</strong>.
+I train “old fashioned” agorithms on real data from a telescope stream.
+If you want to see the work I did for the  <a class="reference external" href="https://arxiv.org/abs/2506.09778">ATLAS Virtual Research Assistant, see Stevance et al. 2025</a>.
+A paper is in the works for the LVRA.</p>
+<p>Worht noting is that I am an extra-galactic transient astronomer looking for supernovae and other distant explosions.
+If you are an AGN, CV or Solar System Person, take what I do with a pinch of salt (e.g. when
+my algorithms classify something as <code class="docutils literal notranslate"><span class="pre">AGN</span></code> or <code class="docutils literal notranslate"><span class="pre">mover</span></code>).</p>
+</section>
+<section id="use-it-in-your-filters">
+<h2>Use it in your filters<a class="headerlink" href="#use-it-in-your-filters" title="Link to this heading">¶</a></h2>
+<p>If you don’t already know what a Lasair filter is, check the <a class="reference external" href="https://lasair-lsst.readthedocs.io/en/develop/core_functions/make_filter.html#make-a-lasair-filter">Lasair documentation</a>.</p>
+<section id="step-1-make-sure-you-have-selected-the-annotator">
+<h3>Step 1: Make sure you have selected the annotator<a class="headerlink" href="#step-1-make-sure-you-have-selected-the-annotator" title="Link to this heading">¶</a></h3>
+<p>On the filter page go to the <code class="docutils literal notranslate"><span class="pre">Object</span> <span class="pre">Annotators</span></code> drop down menu and select the <code class="docutils literal notranslate"><span class="pre">LVRA</span></code>, as shown in the images.</p>
+<a class="reference internal image-reference" href="_static/img/lvra-quickstart/deselected_annotator.png"><img alt="_static/img/lvra-quickstart/deselected_annotator.png" class="align-left" src="_static/img/lvra-quickstart/deselected_annotator.png" width="390" />
+</a>
+<a class="reference internal image-reference" href="_static/img/lvra-quickstart/selected_annotator.png"><img alt="_static/img/lvra-quickstart/selected_annotator.png" class="align-right" src="_static/img/lvra-quickstart/selected_annotator.png" width="400" />
+</a>
+<p>If you don’t do this, your filter will not work, and when you write your filter the syntax helper of the Lasair front pages
+will also not autocomplete properly.</p>
+</section>
+<section id="step-2-writing-a-simple-filter-query">
+<h3>Step 2: Writing a simple filter query<a class="headerlink" href="#step-2-writing-a-simple-filter-query" title="Link to this heading">¶</a></h3>
+<p>There are two places that you might use the LVRA: The <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">COLUMNS</span></code> (what data you want to get) and the <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> statment (what constraints you want to impose).</p>
+<p>This would return only the <code class="docutils literal notranslate"><span class="pre">diaObjectId</span></code> and the LVRA score given to that object.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- SELECT block</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">diaObjectId</span><span class="p">,</span>
+<span class="n">LVRA</span><span class="p">.</span><span class="n">classification</span>
+</pre></div>
+</div>
+<p>This would select only the alerts with LVRA score greater than 0.9.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- WHERE block</span>
+<span class="n">LVRA</span><span class="p">.</span><span class="n">classification</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">9</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The LVRA score stored in the annotation <code class="docutils literal notranslate"><span class="pre">classification</span></code> is the extragalactic score given by our Champion model.</p>
+</div>
+</section>
+<section id="step-2-but-better-advanced-filter-query">
+<h3>Step 2 but better: Advanced filter query<a class="headerlink" href="#step-2-but-better-advanced-filter-query" title="Link to this heading">¶</a></h3>
+<p>The LVRA annotator also provides a whole host of additional features and scores via the annotator’s dictionary
+(scroll down for a table of the full list of fields in the dictionary).
+To invoke them in your filters you need to use the <code class="docutils literal notranslate"><span class="pre">JSON_EXTRACT</span></code> function.</p>
+<p>For example in this <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> block I added the following columns:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">current_snr</span></code> : The signal to noise ratio of the <code class="docutils literal notranslate"><span class="pre">diaSourceId</span></code> that caused this particular alert</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_loR_sources</span></code>: The number of <code class="docutils literal notranslate"><span class="pre">diaSourceId</span></code> with Rubin reliability &lt; 0.5 in this lightcurve</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_hiR_sources</span></code>: The number of <code class="docutils literal notranslate"><span class="pre">diaSourceId</span></code> with Rubin reliability &gt; 0.5 in this lightcurve</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">first_gt21</span></code>: A flag which is set to <code class="docutils literal notranslate"><span class="pre">1</span></code> if it is the first time an object has reached 21st magnitude</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">delta_days_total</span></code>: The number of days since the first point in the lightcurve.</p></li>
+</ul>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- SELECT block</span>
+<span class="n">objects</span><span class="p">.</span><span class="n">diaObjectId</span><span class="p">,</span>
+<span class="n">LVRA</span><span class="p">.</span><span class="n">classification</span><span class="p">,</span>
+<span class="n">JSON_EXTRACT</span><span class="p">(</span><span class="n">LVRA</span><span class="p">.</span><span class="n">classdict</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$.current_snr&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">snr</span><span class="p">,</span>
+<span class="n">JSON_EXTRACT</span><span class="p">(</span><span class="n">LVRA</span><span class="p">.</span><span class="n">classdict</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$.n_loR_sources&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">N_lo</span><span class="p">,</span>
+<span class="n">JSON_EXTRACT</span><span class="p">(</span><span class="n">LVRA</span><span class="p">.</span><span class="n">classdict</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$.n_hiR_sources&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">N_hi</span><span class="p">,</span>
+<span class="n">JSON_EXTRACT</span><span class="p">(</span><span class="n">LVRA</span><span class="p">.</span><span class="n">classdict</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$.first_gt21&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">lvra_first_time_brighter_21mag</span><span class="p">,</span>
+<span class="n">JSON_EXTRACT</span><span class="p">(</span><span class="n">LVRA</span><span class="p">.</span><span class="n">classdict</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$.delta_days_total&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">lvra_delta_days</span>
+</pre></div>
+</div>
+<p>In the following <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> statement, instead of selecting the alerts by their raw extragalactic score, we
+instead exclude alerts that are likely to be <code class="docutils literal notranslate"><span class="pre">movers</span></code> or <code class="docutils literal notranslate"><span class="pre">bogus</span></code>. We also select alerts that
+have at least 4 <code class="docutils literal notranslate"><span class="pre">diaSourceId</span></code> with reliability score greater than 0.5, and we
+only include lightcurves that have been going for 30 days.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- WHERE block</span>
+<span class="n">JSON_EXTRACT</span><span class="p">(</span><span class="n">LVRA</span><span class="p">.</span><span class="n">classdict</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$.champion.bogus&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">JSON_EXTRACT</span><span class="p">(</span><span class="n">LVRA</span><span class="p">.</span><span class="n">classdict</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$.champion.mover&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">JSON_EXTRACT</span><span class="p">(</span><span class="n">LVRA</span><span class="p">.</span><span class="n">classdict</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$.n_hiR_sources&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">4</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">JSON_EXTRACT</span><span class="p">(</span><span class="n">LVRA</span><span class="p">.</span><span class="n">classdict</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;$.delta_days_total&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">30</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the there is a typo in the “$.myfeature.example” part of the query, the filter <strong>fails silently</strong>.
+It just assumes the field doesn’t exist or is empty. <code class="docutils literal notranslate"><span class="pre">JSON_EXTRACT(LVRA.classdict,</span> <span class="pre">&quot;$.champino.bogus&quot;)</span> <span class="pre">&lt;</span> <span class="pre">0.1</span></code>
+will ALWAYS be false so your filter will return nothing.
+<strong>Check and double check the filter is doing what you want before saving.</strong></p>
+</div>
+</section>
+<section id="step-3-saving-the-filter-correctly">
+<h3>Step 3: Saving the filter CORRECTLY<a class="headerlink" href="#step-3-saving-the-filter-correctly" title="Link to this heading">¶</a></h3>
+<p>Once you’re happy with your filter you need to save it correctly - wheter you want an email digest or a kafka stream you need to trigger
+on new annotation. Let me say it again:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>You need to filter <strong>On new annotation</strong></p>
+</div>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_static/img/lvra-quickstart/filter_settings_on_annotation.png"><img alt="_static/img/lvra-quickstart/filter_settings_on_annotation.png" src="_static/img/lvra-quickstart/filter_settings_on_annotation.png" width="400" />
+</a>
+</figure>
+<p>The Triggers are the events that add an object to your queue.</p>
+<p>When you select <code class="docutils literal notranslate"><span class="pre">On</span> <span class="pre">new</span> <span class="pre">annotation</span></code> an alert will be added to your filter queue <strong>as soon as my LVRA annotation has been received by Lasair</strong>.</p>
+<p>If you select <code class="docutils literal notranslate"><span class="pre">On</span> <span class="pre">new</span> <span class="pre">alert</span></code>, my annotation and scores will go in, and <strong>next time this object gets an alert</strong> Lasair will
+check the LVRA score and other features against your filter. You will get the object in your queur one alert later.</p>
+<p><em>What if I select both?</em> - I don’t know, I’ve not tested that yet. I guess you’ll get both the correct and the incorrect version.</p>
+</section>
+</section>
+<section id="labels-and-what-they-mean">
+<h2>Labels and what they mean<a class="headerlink" href="#labels-and-what-they-mean" title="Link to this heading">¶</a></h2>
+<p>The LVRA scores the alerts in the following categories (all run from 0 to 1, and they overall sum to 1 for a given object):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">extragalactic</span></code>: An extragalactic transient (but not an AGN)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mover</span></code>: Suspected mover</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bogus</span></code>: Not a real astrophysical event</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">agn</span></code>: Suspect AGN activity</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">real</span></code>: Probably real but not an obvious extragalactic transient (or other)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gal</span></code>: [NOT USED YET]. Suspected galactic event, e.g. variable star, CV.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">classficiation</span></code> value in the LVRA annotator is the <code class="docutils literal notranslate"><span class="pre">extragalactic</span></code> score, and the simplest thing
+is to filter and rank your stream based on that.</p>
+<p>You might find that you can combine the scores of different categories to get to a better bespoke filter that
+suits your needs, so all the scores are given in the annotator’s dictionary.</p>
+</section>
+<section id="annotator-dictionary">
+<h2>Annotator Dictionary<a class="headerlink" href="#annotator-dictionary" title="Link to this heading">¶</a></h2>
+<p>Here is the list of features and additional scores you can access through the <code class="docutils literal notranslate"><span class="pre">JSON_EXTRACT</span></code> function.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 30.0%" />
+<col style="width: 70.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Public name</p></th>
+<th class="head"><p>What it is</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">blame_diaSourceId</span></code></p></td>
+<td><p>The source (latest alert) the scores and features were computed for</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">champion</span></code> / <code class="docutils literal notranslate"><span class="pre">challenger</span></code> / <code class="docutils literal notranslate"><span class="pre">retired</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{&quot;version&quot;:</span> <span class="pre">...,</span> <span class="pre">&quot;extragal&quot;:</span> <span class="pre">...,</span> <span class="pre">&quot;mover&quot;:</span> <span class="pre">...,</span> <span class="pre">&quot;real&quot;:</span> <span class="pre">...,</span> <span class="pre">&quot;bogus&quot;:</span> <span class="pre">...,</span> <span class="pre">&quot;agn&quot;:</span> <span class="pre">...}</span></code>, or <code class="docutils literal notranslate"><span class="pre">null</span></code> if the role is empty</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">n_loR_sources</span></code></p></td>
+<td><p>Number of sources with R &lt; 0.5</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">n_hiR_sources</span></code></p></td>
+<td><p>Number of sources with R &gt; 0.5</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">n_gtXX</span></code></p></td>
+<td><p>Number of detections brighter than XX mag</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ever_gtXX</span></code></p></td>
+<td><p>Has the transient ever been brighter than XX mag</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">first_gtXX</span></code></p></td>
+<td><p>Is this the first time it is brighter than XX mag</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_flux</span></code></p></td>
+<td><p>Maximum flux (nJy)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">delta_days_since_max</span></code></p></td>
+<td><p>Days since the maximum (0 if the latest detection is the max)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">delta_days_to_max</span></code></p></td>
+<td><p>Days from <code class="docutils literal notranslate"><span class="pre">firstDiaSourceMjdTai</span></code> to the maximum</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">delta_days_total</span></code></p></td>
+<td><p>Days from <code class="docutils literal notranslate"><span class="pre">firstDiaSourceMjdTai</span></code> to the latest detection</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">current_snr</span></code></p></td>
+<td><p>SNR of the latest detection</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">n_det_{b}</span></code></p></td>
+<td><p>Number of detections in band b (u, g, r, i, z, y). e.g. <code class="docutils literal notranslate"><span class="pre">net_det_y</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">n_det_snr10_{b}</span></code></p></td>
+<td><p>Number of detections with SNR &gt; 10 in band b. e.g. <code class="docutils literal notranslate"><span class="pre">net_det_snr10_y</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="faq">
+<h2>FAQ<a class="headerlink" href="#faq" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><cite>When I go to the LVRA annotator page there is a whole bunch of **** - what’s going on?</cite></p></li>
+</ul>
+<p>I you go straight to the <a class="reference external" href="https://lasair.lsst.ac.uk/annotators/LVRA/">LVRA annotator page</a> you will see
+all the annotations give recently <strong>unordered</strong>. You can click on the <code class="docutils literal notranslate"><span class="pre">classification</span></code> column to order the table.</p>
+<ul class="simple">
+<li><p><em>What is a Champion/Challenger/Retired model?</em></p></li>
+</ul>
+<p>The Champion model is the currently preffered (best) model, as decreed by <cite>me</cite>.
+The Challenger model is a model I am trying against the current benchmark (Champion), if I find it performs
+better than the Champion I will update the annotator.
+The old Champion model will then become “Retired” and for a time I will keep scoring with the old model
+so that people that rely on its values can keep using it.</p>
+<ul class="simple">
+<li><p><em>When/How will you announce a change in model version?</em></p></li>
+</ul>
+<p>The current plan is to do this via the Lasair blog topic on the Rubin Community Forum</p>
+<ul class="simple">
+<li><p><em>What about r0b?</em></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">r0b</span></code>, my “real or bogus” prototype is currently still active at the <code class="docutils literal notranslate"><span class="pre">r0b-lvra</span></code> annotator.
+<strong>It will be retired in January 2027</strong>. It was always a prototype LVRA, and with all the lessons learned
+in Spring/Summer 2026 we can move to a long term version of the annotator.</p>
+</section>
+</section>
+
+</main>
+                        <nav aria-label="Page navigation" class="py-4 my-5 clearfix font-weight-bold border-top">
+    <a class="float-left" href="index.html" title="Previous">
+        <span aria-hidden="true">←&nbsp;</span>Lasair VRAs Docs
+    </a>
+    <a class="float-right" href="pipeline.html" title="Next">
+        Pipeline Overview <span aria-hidden="true">&nbsp;→</span>
+    </a>
+</nav>
+                    </div>
+                    
+                    <nav class="col-12 col-lg-3 pb-4">
+                        <div class="sticky-top toc page-toc" aria-labelledby="page-toc-heading">
+                            <p class="font-weight-bold" id="page-toc-heading">Page contents</p>
+                            <ul>
+<li><a class="reference internal" href="#">Quick Start</a><ul>
+<li><a class="reference internal" href="#what-is-the-lvra">What is the LVRA?</a></li>
+<li><a class="reference internal" href="#use-it-in-your-filters">Use it in your filters</a><ul>
+<li><a class="reference internal" href="#step-1-make-sure-you-have-selected-the-annotator">Step 1: Make sure you have selected the annotator</a></li>
+<li><a class="reference internal" href="#step-2-writing-a-simple-filter-query">Step 2: Writing a simple filter query</a></li>
+<li><a class="reference internal" href="#step-2-but-better-advanced-filter-query">Step 2 but better: Advanced filter query</a></li>
+<li><a class="reference internal" href="#step-3-saving-the-filter-correctly">Step 3: Saving the filter CORRECTLY</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#labels-and-what-they-mean">Labels and what they mean</a></li>
+<li><a class="reference internal" href="#annotator-dictionary">Annotator Dictionary</a></li>
+<li><a class="reference internal" href="#faq">FAQ</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                    </nav>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid bg-primary text-light">
+        <div class="container">
+            <div class="row">
+        <div class="col p-4">
+            
+                <nav aria-label="Footer">
+                    <ul class="nav justify-content-center mb-2">
+                        
+                            
+                            
+                            <li class="nav-item"><a class="nav-link text-light"  href="mailto:hfstevance@gmail.com">hfstevance@gmail.com </a></li>
+                        
+                    </ul>
+                </nav>
+            
+            <div class="text-center">
+                    &copy; Copyright 2026, Heloise F. Stevance
+            </div>
+            <div class="text-center text-white-50 font-italic mt-3">
+                <small>Last updated: Oct 28, 2026</small>
+            </div>
+        </div>
+    </div>
+        </div>
+    </footer>
+        <script src="_static/documentation_options.js?v=3ce10a4d"></script>
+        <script src="_static/doctools.js?v=fd6eb6e6"></script>
+        <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+        <script type="text/javascript" src="_static/dist/theme.js"></script>
+        <script type="text/javascript" src="_static/dist/vendor.js"></script>
+        <script type="text/javascript" src="_static/searchtools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() { Search.loadIndex("searchindex.js"); });
+        </script>
+        <script type="text/javascript" id="searchindexloader"></script>
+    </body>
+</html>
